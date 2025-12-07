@@ -38,7 +38,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect }: MapboxCanvasProps)
     const map = useRef<mapboxgl.Map | null>(null);
     const markers = useRef<mapboxgl.Marker[]>([]);
     const [isMapLoaded, setIsMapLoaded] = useState(false);
-    const [error, setError] = useState<string>('');
 
     // Initialize map
     useEffect(() => {

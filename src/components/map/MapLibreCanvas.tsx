@@ -69,8 +69,7 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
                 center: [84.1240, 28.3949],
                 zoom: 7,
                 pitch: 60,
-                bearing: 0,
-                antialias: true
+                bearing: 0
             });
 
             mapRef.current = map;
