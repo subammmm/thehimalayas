@@ -2,10 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import * as Cesium from 'cesium';
 import type { Location, LocationType } from '../../types';
 
-// Cesium ion token - free tier (you can use default or get your own at https://ion.cesium.com/)
-Cesium.Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_TOKEN || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlYWE1OWUxNy1mMWZiLTQzYjYtYTQ0OS1kMWFjYmFkNjc5YzciLCJpZCI6NTc3MzMsImlhdCI6MTYyNzg0NTE4Mn0.XcKpgANiY19MC4bdFUXMVEBToBmqS8kuYpUlxJHYZxk';
+// Cesium ion token from environment variable
+const CESIUM_TOKEN = import.meta.env.VITE_CESIUM_TOKEN;
 
-console.log(' Cesium initialized');
+if (CESIUM_TOKEN) {
+    Cesium.Ion.defaultAccessToken = CESIUM_TOKEN;
+    console.log('✅ Cesium token loaded from env');
+} else {
+    console.error('❌ VITE_CESIUM_TOKEN not found in environment variables!');
+    // Fallback token for development (free tier - get your own at https://ion.cesium.com/)
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlYWE1OWUxNy1mMWZiLTQzYjYtYTQ0OS1kMWFjYmFkNjc5YzciLCJpZCI6NTc3MzMsImlhdCI6MTYyNzg0NTE4Mn0.XcKpgANiY19MC4bdFUXMVEBToBmqS8kuYpUlxJHYZxk';
+    console.warn('⚠️ Using fallback Cesium token');
+}
 
 interface CesiumCanvasProps {
     locations: Location[];
