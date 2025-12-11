@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import cesium from 'vite-plugin-cesium';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), cesium()],
   build: {
     rollupOptions: {
       output: {
@@ -14,9 +14,9 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 2000
   },
   optimizeDeps: {
     include: ['mapbox-gl', 'react', 'react-dom', 'framer-motion', 'leaflet']
   }
-})
+});
