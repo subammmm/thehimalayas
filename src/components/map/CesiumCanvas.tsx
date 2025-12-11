@@ -64,17 +64,17 @@ export const CesiumCanvas = ({ locations, onLocationSelect }: CesiumCanvasProps)
             viewer.scene.globe.enableLighting = true;
             viewer.scene.globe.depthTestAgainstTerrain = true;
 
-            // Position camera close to Himalayas (150km altitude to see mountains clearly)
+            // Position camera CLOSE to Himalayas (10km altitude to see terrain properly)
             viewer.camera.setView({
-                destination: Cesium.Cartesian3.fromDegrees(84.1240, 28.3949, 150000), // 150km altitude
+                destination: Cesium.Cartesian3.fromDegrees(84.1240, 28.3949, 10000), // 10km altitude
                 orientation: {
                     heading: Cesium.Math.toRadians(0),
-                    pitch: Cesium.Math.toRadians(-30), // Gentler pitch to see terrain better
+                    pitch: Cesium.Math.toRadians(-20), // Look down at terrain
                     roll: 0.0
                 }
             });
 
-            console.log('✓ Cesium positioned over Himalayas at 150km altitude');
+            console.log('✓ Cesium positioned at 10km altitude over Himalayas');
             setIsLoaded(true);
 
         } catch (err) {
