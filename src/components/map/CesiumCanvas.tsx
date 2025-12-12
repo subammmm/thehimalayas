@@ -2,17 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import * as Cesium from 'cesium';
 import type { Location, LocationType } from '../../types';
 
-// Cesium ion token from environment variable
+// Use Cesium Ion's default public access token (works for everyone)
+// For production, get your own free token at: https://ion.cesium.com/
 const CESIUM_TOKEN = import.meta.env.VITE_CESIUM_TOKEN;
 
 if (CESIUM_TOKEN) {
     Cesium.Ion.defaultAccessToken = CESIUM_TOKEN;
-    console.log('✅ Cesium token loaded from env');
+    console.log('✅ Using custom Cesium token from env');
 } else {
-    console.error('❌ VITE_CESIUM_TOKEN not found in environment variables!');
-    // Fallback token for development (free tier - get your own at https://ion.cesium.com/)
-    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlYWE1OWUxNy1mMWZiLTQzYjYtYTQ0OS1kMWFjYmFkNjc5YzciLCJpZCI6NTc3MzMsImlhdCI6MTYyNzg0NTE4Mn0.XcKpgANiY19MC4bdFUXMVEBToBmqS8kuYpUlxJHYZxk';
-    console.warn('⚠️ Using fallback Cesium token');
+    // Use Cesium's example token (public, works for testing)
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5N2UyMjcwOS00MDY1LTQxYjEtYjZjMy00YTU0ZTg1YWUzMjYiLCJpZCI6ODAzMDYsImlhdCI6MTY0Mjc0ODI2MX0.dkwAL1CcljUV7NA7fDbhXXnmyZQU_c-G5zRx8PtEcxE';
+    console.log('⚠️ Using Cesium public demo token');
 }
 
 interface CesiumCanvasProps {
