@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { mockLocations } from '../data/mockData';
-import { MapboxCanvas } from '../components/map/MapboxCanvas';
+import { CesiumCanvas } from '../components/map/CesiumCanvas';
 import { TopSearchBar } from '../components/map/TopSearchBar';
 import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
@@ -58,7 +58,7 @@ const HimalayanMapPage = () => {
     const activeFilterCount = selectedTypes.length + selectedRegions.length;
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-white">
+        <div className="relative w-full h-screen overflow-hidden bg-black">
             {/* Back Button */}
             <button
                 onClick={() => navigate('/')}
@@ -97,7 +97,7 @@ const HimalayanMapPage = () => {
             </AnimatePresence>
 
             <div className="absolute inset-0 z-0">
-                <MapboxCanvas
+                <CesiumCanvas
                     locations={filteredLocations}
                     onLocationSelect={setSelectedLocation}
                 />

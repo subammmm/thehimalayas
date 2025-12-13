@@ -47,6 +47,11 @@ export const CesiumCanvas = ({ locations, onLocationSelect }: CesiumCanvasProps)
         console.log('🌍 Initializing Cesium 3D Globe...');
 
         try {
+            // Revert to strict Cesium Ion usage
+            if (!Cesium.Ion.defaultAccessToken && !import.meta.env.VITE_CESIUM_TOKEN) {
+                console.warn('⚠️ No Cesium Token found. Map may not load correctly.');
+            }
+
             const viewer = new Cesium.Viewer(containerRef.current, {
                 terrain: Cesium.Terrain.fromWorldTerrain({
                     requestWaterMask: true,
@@ -68,16 +73,16 @@ export const CesiumCanvas = ({ locations, onLocationSelect }: CesiumCanvasProps)
 
             viewerRef.current = viewer;
 
-            // Enable lighting and terrain features
+            // Enable lighting
             viewer.scene.globe.enableLighting = true;
             viewer.scene.globe.depthTestAgainstTerrain = true;
 
-            // Position camera CLOSE to Himalayas (10km altitude to see terrain properly)
+            // Position camera CLOSE to Himalayas
             viewer.camera.setView({
                 destination: Cesium.Cartesian3.fromDegrees(84.1240, 28.3949, 10000), // 10km altitude
                 orientation: {
                     heading: Cesium.Math.toRadians(0),
-                    pitch: Cesium.Math.toRadians(-20), // Look down at terrain
+                    pitch: Cesium.Math.toRadians(-20),
                     roll: 0.0
                 }
             });
