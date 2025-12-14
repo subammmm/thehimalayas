@@ -11,7 +11,6 @@ interface TopSearchBarProps {
 }
 
 export const TopSearchBar = ({ value, onChange, locations, onLocationSelect }: TopSearchBarProps) => {
-    const [isFocused, setIsFocused] = useState(false);
     const [showResults, setShowResults] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +56,6 @@ export const TopSearchBar = ({ value, onChange, locations, onLocationSelect }: T
                             setShowResults(true);
                         }}
                         onFocus={() => {
-                            setIsFocused(true);
                             setShowResults(true);
                         }}
                         placeholder="Search locations..."
