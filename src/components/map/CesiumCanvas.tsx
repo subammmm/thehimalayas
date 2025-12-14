@@ -74,9 +74,13 @@ export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: C
 
             viewerRef.current = viewer;
 
-            // Enable lighting
+            // Enable lighting and HDR
             viewer.scene.globe.enableLighting = true;
+            viewer.scene.highDynamicRange = true; // Fix "washed out" look
             viewer.scene.globe.depthTestAgainstTerrain = true;
+            viewer.scene.sun.show = true;
+            // Set time to noon for best lighting
+            viewer.clock.currentTime = Cesium.JulianDate.fromDate(new Date('2024-05-15T12:00:00Z'));
 
             // Position camera CLOSE to Himalayas
             viewer.camera.setView({
@@ -110,15 +114,17 @@ export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: C
 
         console.log('🌍 3D FlyTo:', focusedLocation.name);
 
+        const cameraLat = focusedLocation.coordinates.lat - 0.08; // Stand off South
+
         viewerRef.current.camera.flyTo({
             destination: Cesium.Cartesian3.fromDegrees(
                 focusedLocation.coordinates.lng,
-                focusedLocation.coordinates.lat,
-                15000 // 15km altitude for view
+                cameraLat,
+                8000 + (focusedLocation.elevation || 5000)
             ),
             orientation: {
-                heading: Cesium.Math.toRadians(0),
-                pitch: Cesium.Math.toRadians(-45),
+                heading: Cesium.Math.toRadians(0), // Look North
+                pitch: Cesium.Math.toRadians(-20), // Slight look down
                 roll: 0.0
             },
             duration: 3
@@ -189,16 +195,18 @@ export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: C
                 if (location && viewerRef.current) {
                     onLocationSelect(location);
 
+                    const cameraLat = location.coordinates.lat - 0.08;
+
                     // Fly to location
                     viewerRef.current.camera.flyTo({
                         destination: Cesium.Cartesian3.fromDegrees(
                             location.coordinates.lng,
-                            location.coordinates.lat,
-                            50000
+                            cameraLat,
+                            8000 + (location.elevation || 5000)
                         ),
                         orientation: {
                             heading: Cesium.Math.toRadians(0),
-                            pitch: Cesium.Math.toRadians(-60),
+                            pitch: Cesium.Math.toRadians(-20),
                             roll: 0.0
                         },
                         duration: 2
