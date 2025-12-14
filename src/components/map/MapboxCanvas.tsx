@@ -17,6 +17,7 @@ if (MAPBOX_TOKEN) {
 interface MapboxCanvasProps {
     locations: Location[];
     onLocationSelect: (location: Location) => void;
+    focusedLocation: Location | null;
 }
 
 const getColorByType = (type: LocationType): string => {
@@ -33,7 +34,7 @@ const getColorByType = (type: LocationType): string => {
     }
 };
 
-export const MapboxCanvas = ({ locations, onLocationSelect }: MapboxCanvasProps) => {
+export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation }: MapboxCanvasProps) => {
     const mapContainer = useRef<HTMLDivElement>(null);
     const map = useRef<mapboxgl.Map | null>(null);
     const markers = useRef<mapboxgl.Marker[]>([]);
@@ -137,6 +138,26 @@ export const MapboxCanvas = ({ locations, onLocationSelect }: MapboxCanvasProps)
         };
     }, []);
 
+    // Handle external focus changes (SEARCH or CLICK)
+    useEffect(() => {
+        if (!map.current || !isMapLoaded || !focusedLocation) return;
+
+        console.log('🦅 Flying to:', focusedLocation.name);
+
+        map.current.flyTo({
+            center: [focusedLocation.coordinates.lng, focusedLocation.coordinates.lat],
+            zoom: 14,
+            pitch: 60,
+            bearing: 0,
+            duration: 3000,
+            essential: true
+        });
+
+        // Add a pulsing marker effect or popup?
+        // For now just moving the camera is sufficient.
+
+    }, [focusedLocation, isMapLoaded]);
+
     // Update markers when locations change
     useEffect(() => {
         if (!map.current || !isMapLoaded) return;
@@ -208,7 +229,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect }: MapboxCanvasProps)
             <div
                 ref={mapContainer}
                 className="absolute inset-0 w-full h-full"
-                style={{ minHeight: '100vh' }}
+                style={{ minHeight: '100dvh' }}
             />
         </div>
     );

@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 interface LocationPopoverProps {
     location: Location | null;
     onClose: () => void;
+    on3DView: () => void;
 }
 
-export const LocationPopover = ({ location, onClose }: LocationPopoverProps) => {
+export const LocationPopover = ({ location, onClose, on3DView }: LocationPopoverProps) => {
     const navigate = useNavigate();
     if (!location) return null;
 
@@ -85,7 +86,10 @@ export const LocationPopover = ({ location, onClose }: LocationPopoverProps) => 
                         Details
                         <ExternalLink className="w-3 h-3" />
                     </button>
-                    <button className="flex-1 bg-white border border-gray-200 text-gray-800 py-2.5 rounded-xl font-medium text-sm hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                    <button
+                        onClick={on3DView}
+                        className="flex-1 bg-white border border-gray-200 text-gray-800 py-2.5 rounded-xl font-medium text-sm hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                    >
                         3D View
                         <Box className="w-3 h-3" />
                     </button>

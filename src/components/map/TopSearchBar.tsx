@@ -15,7 +15,7 @@ export const TopSearchBar = ({ value, onChange }: TopSearchBarProps) => {
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
                     placeholder="Search locations..."
-                    className="bg-transparent border-none outline-none flex-grow text-gray-800 placeholder-gray-400 font-medium"
+                    className="bg-transparent border-none outline-none flex-grow text-gray-800 placeholder-gray-400 font-medium text-base"
                 />
             </div>
         </div>

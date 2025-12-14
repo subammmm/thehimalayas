@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 interface MobileBottomSheetProps {
     location: Location | null;
     onClose: () => void;
+    on3DView: () => void;
 }
 
-export const MobileBottomSheet = ({ location, onClose }: MobileBottomSheetProps) => {
+export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomSheetProps) => {
     const navigate = useNavigate();
     // Simple drag logic could be improved but sufficient for "works"
     const onDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
@@ -93,7 +94,10 @@ export const MobileBottomSheet = ({ location, onClose }: MobileBottomSheetProps)
                         >
                             Details
                         </button>
-                        <button className="flex-1 bg-gray-100 text-gray-900 py-4 rounded-xl font-bold text-lg hover:bg-gray-200 transition-colors">
+                        <button
+                            onClick={on3DView}
+                            className="flex-1 bg-gray-100 text-gray-900 py-4 rounded-xl font-bold text-lg hover:bg-gray-200 transition-colors"
+                        >
                             3D View
                         </button>
                     </div>

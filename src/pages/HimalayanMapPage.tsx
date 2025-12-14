@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { mockLocations } from '../data/mockData';
+import { ArrowLeft, Loader2 } from 'lucide-react';
+import { useLocations } from '../hooks/useLocations';
 import { MapboxCanvas } from '../components/map/MapboxCanvas';
+import { CesiumCanvas } from '../components/map/CesiumCanvas';
 import { TopSearchBar } from '../components/map/TopSearchBar';
 import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
@@ -14,6 +15,7 @@ import type { LocationType, Region, Location } from '../types';
 const HimalayanMapPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { locations, loading, error } = useLocations();
 
     // Get search query from navigation state (from home page)
     const initialSearch = location.state?.searchQuery || '';
@@ -24,6 +26,7 @@ const HimalayanMapPage = () => {
     const [selectedTypes, setSelectedTypes] = useState<LocationType[]>([]);
     const [selectedRegions, setSelectedRegions] = useState<Region[]>([]);
     const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+    const [is3DMode, setIs3DMode] = useState(false);
 
     // Auto-select location if navigated from search
     useEffect(() => {
@@ -33,7 +36,7 @@ const HimalayanMapPage = () => {
     }, [selectedFromSearch]);
 
     const filteredLocations = useMemo(() => {
-        return mockLocations.filter(loc => {
+        return locations.filter(loc => {
             const matchesSearch = loc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 loc.region.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesType = selectedTypes.length === 0 || selectedTypes.includes(loc.type);
@@ -58,7 +61,7 @@ const HimalayanMapPage = () => {
     const activeFilterCount = selectedTypes.length + selectedRegions.length;
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-white">
+        <div className="relative w-full h-[100dvh] overflow-hidden bg-white">
             {/* Back Button */}
             <button
                 onClick={() => navigate('/')}
@@ -71,6 +74,23 @@ const HimalayanMapPage = () => {
             <TopSearchBar value={searchQuery} onChange={setSearchQuery} />
 
             <FilterButton onClick={() => setIsFilterOpen(!isFilterOpen)} activeCount={activeFilterCount} />
+
+            {/* Status Indicators */}
+            {(loading || error) && (
+                <div className="absolute top-24 left-6 z-[900] pointer-events-none">
+                    {loading && (
+                        <div className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur rounded-full shadow-lg text-sm font-medium text-gray-700">
+                            <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                            Loading locations...
+                        </div>
+                    )}
+                    {error && (
+                        <div className="mt-2 flex items-center gap-2 px-4 py-2 bg-red-50/90 backdrop-blur rounded-full shadow-lg text-sm font-medium text-red-700 border border-red-200">
+                            Using offline data ({error})
+                        </div>
+                    )}
+                </div>
+            )}
 
             <FilterPanel
                 isOpen={isFilterOpen}
@@ -87,19 +107,40 @@ const HimalayanMapPage = () => {
                         <LocationPopover
                             location={selectedLocation}
                             onClose={() => setSelectedLocation(null)}
+                            on3DView={() => setIs3DMode(true)}
                         />
                         <MobileBottomSheet
                             location={selectedLocation}
                             onClose={() => setSelectedLocation(null)}
+                            on3DView={() => setIs3DMode(true)}
                         />
                     </>
                 )}
             </AnimatePresence>
 
+            {/* 3D Mode Overlay */}
+            {is3DMode && (
+                <div className="absolute inset-0 z-[1100]">
+                    <CesiumCanvas
+                        locations={locations}
+                        onLocationSelect={setSelectedLocation}
+                        focusedLocation={selectedLocation}
+                    />
+                    <button
+                        onClick={() => setIs3DMode(false)}
+                        className="absolute top-6 left-20 z-[1200] px-6 py-2 bg-white/90 backdrop-blur rounded-full shadow-lg font-medium text-black hover:bg-white transition-colors flex items-center gap-2 pointer-events-auto"
+                    >
+                        <ArrowLeft className="w-4 h-4" />
+                        Back to Map
+                    </button>
+                </div>
+            )}
+
             <div className="absolute inset-0 z-0">
                 <MapboxCanvas
                     locations={filteredLocations}
                     onLocationSelect={setSelectedLocation}
+                    focusedLocation={selectedLocation}
                 />
             </div>
 

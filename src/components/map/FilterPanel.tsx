@@ -43,7 +43,7 @@ export const FilterPanel = ({
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
-                    className="absolute top-20 right-6 z-[1000] w-80 glass-panel rounded-2xl overflow-hidden flex flex-col max-h-[calc(100vh-140px)]"
+                    className="absolute top-20 right-6 z-[1000] w-80 max-w-[calc(100vw-3rem)] glass-panel rounded-2xl overflow-hidden flex flex-col max-h-[calc(100vh-140px)]"
                 >
                     <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-white/50">
                         <h3 className="font-semibold text-gray-800">Filters</h3>

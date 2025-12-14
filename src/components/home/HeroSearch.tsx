@@ -90,6 +90,7 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                         flex-1 bg-transparent text-white text-lg
                         placeholder:text-white/40
                         focus:outline-none
+                        text-base md:text-lg
                     "
                 />
 

@@ -18,6 +18,7 @@ if (CESIUM_TOKEN) {
 interface CesiumCanvasProps {
     locations: Location[];
     onLocationSelect: (location: Location) => void;
+    focusedLocation: Location | null;
 }
 
 const getColorByType = (type: LocationType): Cesium.Color => {
@@ -34,7 +35,7 @@ const getColorByType = (type: LocationType): Cesium.Color => {
     }
 };
 
-export const CesiumCanvas = ({ locations, onLocationSelect }: CesiumCanvasProps) => {
+export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: CesiumCanvasProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const viewerRef = useRef<Cesium.Viewer | null>(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -102,6 +103,28 @@ export const CesiumCanvas = ({ locations, onLocationSelect }: CesiumCanvasProps)
             }
         };
     }, []);
+
+    // Handle external focus (Search/Selection)
+    useEffect(() => {
+        if (!viewerRef.current || !isLoaded || !focusedLocation) return;
+
+        console.log('🌍 3D FlyTo:', focusedLocation.name);
+
+        viewerRef.current.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(
+                focusedLocation.coordinates.lng,
+                focusedLocation.coordinates.lat,
+                15000 // 15km altitude for view
+            ),
+            orientation: {
+                heading: Cesium.Math.toRadians(0),
+                pitch: Cesium.Math.toRadians(-45),
+                roll: 0.0
+            },
+            duration: 3
+        });
+
+    }, [focusedLocation, isLoaded]);
 
     // Add location markers
     useEffect(() => {
