@@ -61,7 +61,7 @@ const AboutPage = () => {
                         </p>
                         <div className="flex flex-wrap gap-4">
                             <a
-                                href="https://github.com"
+                                href="https://github.com/subammmm/thehimalayas"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors backdrop-blur-sm"

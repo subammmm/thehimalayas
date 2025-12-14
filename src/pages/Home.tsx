@@ -23,9 +23,9 @@ const Home = () => {
                         y: [0, -10, 0],
                     }}
                     transition={{
-                        duration: 40,
+                        duration: 25,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "linear"
                     }}
                 >
                     <img
