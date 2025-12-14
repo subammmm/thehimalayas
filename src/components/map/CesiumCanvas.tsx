@@ -78,7 +78,9 @@ export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: C
             viewer.scene.globe.enableLighting = true;
             viewer.scene.highDynamicRange = true; // Fix "washed out" look
             viewer.scene.globe.depthTestAgainstTerrain = true;
-            viewer.scene.sun.show = true;
+            if (viewer.scene.sun) {
+                viewer.scene.sun.show = true;
+            }
             // Set time to noon for best lighting
             viewer.clock.currentTime = Cesium.JulianDate.fromDate(new Date('2024-05-15T12:00:00Z'));
 
