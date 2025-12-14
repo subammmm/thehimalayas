@@ -13,7 +13,7 @@ const Home = () => {
     return (
         <div className="min-h-screen bg-black">
             {/* Full-Screen Hero Section */}
-            <section className="relative h-screen w-full overflow-hidden">
+            <section className="relative h-[100dvh] w-full overflow-hidden">
                 {/* Animated 4K Background Image with 3D panning effect */}
                 <motion.div
                     className="absolute inset-0"
@@ -64,7 +64,7 @@ const Home = () => {
                         transition={{ duration: 1, ease: "easeOut" }}
                         className="text-center mb-16"
                     >
-                        <h1 className="text-6xl md:text-8xl lg:text-9xl font-display font-bold text-white mb-6 leading-none tracking-tight">
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-display font-bold text-white mb-6 leading-none tracking-tight">
                             The Himalayas
                         </h1>
                         <p className="text-lg md:text-2xl text-white/80 font-light tracking-wide">
@@ -82,12 +82,12 @@ const Home = () => {
                         <HeroSearch locations={mockLocations} />
                     </motion.div>
 
-                    {/* Minimal Stats - Lower z-index so search results appear above */}
+                    {/* Minimal Stats - Responsive positioning */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.8, duration: 1 }}
-                        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-6 text-white/60 text-sm z-10"
+                        className="absolute bottom-24 md:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-6 text-white/60 text-sm z-10 w-full justify-center"
                     >
                         <div className="text-center">
                             <div className="text-xl font-semibold text-white/90 mb-1">

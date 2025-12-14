@@ -62,7 +62,8 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                 transition={{ delay: 0.3, duration: 0.8 }}
                 onSubmit={handleSubmit}
                 className={`
-                    relative flex items-center gap-4 px-8 py-5
+                    relative flex items-center gap-2 md:gap-4 
+                    pl-4 pr-1.5 py-1.5 md:px-8 md:py-5
                     glass-overlay-dark
                     rounded-full
                     shadow-2xl shadow-black/50
@@ -70,7 +71,7 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                     ${isFocused ? 'ring-2 ring-white/40' : ''}
                 `}
             >
-                <Search className="w-6 h-6 text-white/70 flex-shrink-0" />
+                <Search className="w-5 h-5 md:w-6 md:h-6 text-white/70 flex-shrink-0" />
 
                 <input
                     ref={inputRef}
@@ -85,21 +86,24 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                         setShowResults(true);
                     }}
                     onBlur={() => setIsFocused(false)}
-                    placeholder="Search peaks, valleys, routes, monasteries..."
+                    placeholder="Search peaks..." // Shortened placeholder for mobile
                     className="
-                        flex-1 bg-transparent text-white text-lg
+                        flex-1 bg-transparent text-white
                         placeholder:text-white/40
                         focus:outline-none
                         text-base md:text-lg
+                        min-w-0 /* Crucial for flex child truncation */
                     "
                 />
 
                 <button
                     type="submit"
                     className="
-                        flex items-center gap-2 px-6 py-3
+                        flex-shrink-0
+                        flex items-center gap-2 
+                        px-4 py-3 md:px-6 md:py-3
                         bg-white hover:bg-white/95
-                        text-black text-base font-semibold
+                        text-black text-sm md:text-base font-semibold
                         rounded-full
                         transition-all duration-200
                         group
@@ -107,7 +111,7 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                     "
                 >
                     <span>Explore</span>
-                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1" />
                 </button>
             </motion.form>
 
