@@ -1,186 +1,241 @@
-import { ArrowLeft, BarChart2, MapPin, Mountain, Globe, Info } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, BarChart2, MapPin, Mountain, Globe, TrendingUp, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLocations } from '../hooks/useLocations';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 
-const StatsDashboard = () => {
+export default function StatsDashboard() {
     const navigate = useNavigate();
-    const { locations, loading } = useLocations();
+    const { locations } = useLocations();
 
-    if (loading) {
-        return <div className="min-h-screen bg-white flex items-center justify-center">Loading Data...</div>;
-    }
+    // Data Processing
+    const totalLocations = locations.length;
+    const avgElevation = Math.round(locations.reduce((acc, curr) => acc + (curr.elevation || 0), 0) / locations.length);
+    const regions = new Set(locations.map(l => l.region)).size;
 
-    // 1. Elevation Stats
     const sortedByElevation = [...locations]
         .filter(l => l.elevation)
         .sort((a, b) => (b.elevation || 0) - (a.elevation || 0))
-        .slice(0, 10);
+        .slice(0, 8);
 
-    const elevationData = sortedByElevation.map(l => ({
-        name: l.name,
-        elevation: l.elevation,
-    }));
-
-    // 2. Region Distribution
-    const regions = locations.reduce((acc, curr) => {
-        const region = curr.region || 'Unknown';
-        acc[region] = (acc[region] || 0) + 1;
+    const regionCounts = locations.reduce((acc, curr) => {
+        if (curr.region) acc[curr.region] = (acc[curr.region] || 0) + 1;
         return acc;
     }, {} as Record<string, number>);
 
-    const regionData = Object.entries(regions).map(([name, count]) => ({
-        name,
-        value: count
-    }));
+    const regionData = Object.entries(regionCounts)
+        .map(([name, value]) => ({ name, value }))
+        .sort((a, b) => b.value - a.value);
 
-    // 3. Type Distribution
-    const types = locations.reduce((acc, curr) => {
-        const type = curr.type || 'Other';
-        acc[type] = (acc[type] || 0) + 1;
+    const typeCounts = locations.reduce((acc, curr) => {
+        if (curr.type) acc[curr.type] = (acc[curr.type] || 0) + 1;
         return acc;
     }, {} as Record<string, number>);
 
-    const typeData = Object.entries(types).map(([name, count]) => ({
-        name,
-        value: count
-    }));
+    const typeData = Object.entries(typeCounts)
+        .map(([name, value]) => ({ name, value }))
+        .sort((a, b) => b.value - a.value);
 
-    const COLORS = ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899'];
+    // Aesthetics
+    const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#ec4899', '#06b6d4', '#6366f1'];
+    const CARD_STYLE = "bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 hover:bg-white/10 transition-colors duration-300";
 
-    return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Nav */}
-            <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center bg-white/50 backdrop-blur-md border-b border-gray-200">
-                <button
-                    onClick={() => navigate('/')}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full hover:bg-gray-100 transition-colors text-sm font-medium text-gray-700"
-                >
-                    <ArrowLeft className="w-4 h-4" />
-                    Back to Home
-                </button>
-                <div className="flex items-center gap-2">
-                    <BarChart2 className="w-5 h-5 text-amber-500" />
-                    <span className="font-bold text-gray-900">Research & Analytics</span>
-                </div>
-            </nav>
-
-            <div className="max-w-7xl mx-auto px-6 pt-32 pb-20">
-                <div className="mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Himalayan Dataset Analysis</h1>
-                    <p className="text-xl text-gray-600 max-w-3xl">
-                        Statistical breakdown of {locations.length} documented locations across the Himalayan range,
-                        analyzing elevation profiles, regional distribution, and geographical classification.
+    const CustomTooltip = ({ active, payload, label }: any) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className="bg-black/90 border border-white/20 p-3 rounded-xl shadow-2xl backdrop-blur-md">
+                    <p className="text-white font-medium text-sm">{label}</p>
+                    <p className="text-emerald-400 text-xs font-bold mt-1">
+                        {payload[0].value.toLocaleString()} {payload[0].dataKey === 'elevation' ? 'meters' : 'locations'}
                     </p>
                 </div>
+            );
+        }
+        return null;
+    };
 
-                {/* Key Metrics Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <div className="flex items-center gap-3 mb-2 text-gray-500 text-sm font-medium">
-                            <MapPin className="w-4 h-4" /> Total Locations
-                        </div>
-                        <p className="text-4xl font-bold text-gray-900">{locations.length}</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <div className="flex items-center gap-3 mb-2 text-gray-500 text-sm font-medium">
-                            <Mountain className="w-4 h-4" /> Average Elevation
-                        </div>
-                        <p className="text-4xl font-bold text-gray-900">
-                            {Math.round(locations.reduce((acc, curr) => acc + (curr.elevation || 0), 0) / locations.length).toLocaleString()}m
+    return (
+        <div className="min-h-screen bg-[#050505] text-white selection:bg-amber-500/30">
+            {/* Background Gradients */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-900/20 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-900/10 rounded-full blur-[120px]" />
+            </div>
+
+            <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12"
+                >
+                    <div className="space-y-2">
+                        <button
+                            onClick={() => navigate('/')}
+                            className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm font-medium mb-2 group"
+                        >
+                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                            Return Home
+                        </button>
+                        <h1 className="text-4xl md:text-6xl font-display font-bold tracking-tight bg-gradient-to-r from-white via-white to-white/50 bg-clip-text text-transparent">
+                            Himalayan Atlas
+                        </h1>
+                        <p className="text-white/60 max-w-lg text-lg font-light">
+                            Deep insights into the world's highest peaks, valleys, and sacred regions.
                         </p>
                     </div>
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <div className="flex items-center gap-3 mb-2 text-gray-500 text-sm font-medium">
-                            <Globe className="w-4 h-4" /> Regions Covered
+
+                    <div className="flex gap-4">
+                        <div className="text-right hidden md:block">
+                            <div className="text-xs text-white/40 uppercase tracking-widest font-bold">Dataset Version</div>
+                            <div className="text-emerald-400 font-mono">v2.4.0 (Live)</div>
                         </div>
-                        <p className="text-4xl font-bold text-gray-900">{Object.keys(regions).length}</p>
                     </div>
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <div className="flex items-center gap-3 mb-2 text-gray-500 text-sm font-medium">
-                            <Info className="w-4 h-4" /> Dataset Version
-                        </div>
-                        <p className="text-4xl font-bold text-gray-900">v1.2.0</p>
-                    </div>
+                </motion.div>
+
+                {/* Key Metrics Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    {[
+                        { label: 'Total Locations', value: totalLocations, icon: MapPin, color: 'text-blue-400' },
+                        { label: 'Avg Elevation', value: `${avgElevation.toLocaleString()}m`, icon: TrendingUp, color: 'text-emerald-400' },
+                        { label: 'Regions Covered', value: regions, icon: Globe, color: 'text-purple-400' },
+                        { label: 'Terrain Types', value: typeData.length, icon: Layers, color: 'text-amber-400' },
+                    ].map((stat, i) => (
+                        <motion.div
+                            key={stat.label}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            className={CARD_STYLE}
+                        >
+                            <div className="flex items-center justify-between mb-4">
+                                <stat.icon className={`w-5 h-5 ${stat.color} opacity-80`} />
+                            </div>
+                            <div className="text-2xl md:text-4xl font-bold font-display">{stat.value}</div>
+                            <div className="text-xs text-white/40 font-medium uppercase tracking-wider mt-1">{stat.label}</div>
+                        </motion.div>
+                    ))}
                 </div>
 
                 {/* Charts Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-                    {/* Elevation Chart */}
-                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 lg:col-span-2">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Top 10 Highest Peaks</h3>
-                        <div className="h-[400px] w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Top Peaks */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.4 }}
+                        className={`${CARD_STYLE} lg:col-span-2 min-h-[400px]`}
+                    >
+                        <div className="flex items-center justify-between mb-8">
+                            <div>
+                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                    <Mountain className="w-5 h-5 text-emerald-400" />
+                                    Highest Peaks
+                                </h3>
+                                <p className="text-sm text-white/40">Top 8 elevations in the dataset</p>
+                            </div>
+                        </div>
+                        <div className="h-[300px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={elevationData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-                                    <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} tick={{ fontSize: 12 }} />
-                                    <YAxis />
-                                    <Tooltip
-                                        cursor={{ fill: '#f9fafb' }}
-                                        contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+                                <BarChart data={sortedByElevation} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                                    <XAxis
+                                        dataKey="name"
+                                        axisLine={false}
+                                        tickLine={false}
+                                        tick={{ fill: '#71717a', fontSize: 12 }}
+                                        dy={10}
                                     />
-                                    <Bar dataKey="elevation" radius={[4, 4, 0, 0]}>
-                                        {elevationData.map((_entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={index === 0 ? '#10b981' : '#3b82f6'} />
+                                    <YAxis
+                                        axisLine={false}
+                                        tickLine={false}
+                                        tick={{ fill: '#71717a', fontSize: 12 }}
+                                    />
+                                    <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
+                                    <Bar dataKey="elevation" radius={[6, 6, 0, 0]} maxBarSize={60}>
+                                        {sortedByElevation.map((_entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={index === 0 ? '#10b981' : '#3b82f6'} fillOpacity={0.9} />
                                         ))}
                                     </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    {/* Region Distribution */}
-                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Regional Distribution</h3>
-                        <div className="h-[300px] w-full flex items-center justify-center">
+                    {/* Regional Distribution */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className={CARD_STYLE}
+                    >
+                        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            <Globe className="w-5 h-5 text-blue-400" />
+                            Regional Coverage
+                        </h3>
+                        <div className="h-[300px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
                                         data={regionData}
                                         cx="50%"
                                         cy="50%"
-                                        labelLine={false}
+                                        innerRadius={60}
                                         outerRadius={100}
-                                        fill="#8884d8"
+                                        paddingAngle={5}
                                         dataKey="value"
-                                        label={(props: any) => `${props.name} ${(props.percent * 100).toFixed(0)}%`}
+                                        stroke="none"
                                     >
                                         {regionData.map((_entry, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <Tooltip />
+                                    <Tooltip content={<CustomTooltip />} />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-                    </div>
-
-                    {/* Type Distribution */}
-                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Location Types</h3>
-                        <div className="space-y-4">
-                            {typeData.map((type, index) => (
-                                <div key={type.name} className="flex items-center">
-                                    <div className="w-32 text-sm font-medium text-gray-600">{type.name}</div>
-                                    <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
-                                        <div
-                                            className="h-full rounded-full transition-all duration-1000 ease-out"
-                                            style={{
-                                                width: `${(type.value / locations.length) * 100}%`,
-                                                backgroundColor: COLORS[index % COLORS.length]
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="w-12 text-right text-sm font-bold text-gray-900">{type.value}</div>
+                        <div className="flex flex-wrap gap-3 justify-center mt-4">
+                            {regionData.slice(0, 5).map((entry, index) => (
+                                <div key={entry.name} className="flex items-center gap-2 text-xs text-white/60">
+                                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
+                                    {entry.name}
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
+                    {/* Terrain Types */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6 }}
+                        className={CARD_STYLE}
+                    >
+                        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                            <BarChart2 className="w-5 h-5 text-purple-400" />
+                            Terrain Composition
+                        </h3>
+                        <div className="space-y-4">
+                            {typeData.map((item, index) => (
+                                <div key={item.name} className="group">
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="text-white/70 group-hover:text-white transition-colors">{item.name}</span>
+                                        <span className="font-mono text-emerald-400">{item.value}</span>
+                                    </div>
+                                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                                        <motion.div
+                                            initial={{ width: 0 }}
+                                            animate={{ width: `${(item.value / totalLocations) * 100}%` }}
+                                            transition={{ duration: 1, delay: 0.8 + index * 0.1 }}
+                                            className="h-full rounded-full"
+                                            style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </div>
     );
-};
-
-export default StatsDashboard;
+}

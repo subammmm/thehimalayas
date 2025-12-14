@@ -28,7 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/map" element={<HimalayanMapPage />} />
             <Route path="/locations/:id" element={<LocationDetailsPage />} />
-            <Route path="/research" element={<StatsDashboard />} />
+            <Route path="/atlas" element={<StatsDashboard />} />
             <Route path="/about" element={<AboutPage />} />
           </Routes>
         </Suspense>
