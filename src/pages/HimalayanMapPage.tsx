@@ -71,7 +71,17 @@ const HimalayanMapPage = () => {
                 <ArrowLeft className="w-5 h-5 text-gray-800" />
             </button>
 
-            <TopSearchBar value={searchQuery} onChange={setSearchQuery} />
+            <TopSearchBar
+                value={searchQuery}
+                onChange={setSearchQuery}
+                locations={locations}
+                onLocationSelect={(loc) => {
+                    setSelectedLocation(loc);
+                    // Also fly to it immediately
+                    // The useEffect logic for 'selectedLocation' changes might handle this, 
+                    // but we ensure it's set as the focused/selected one.
+                }}
+            />
 
             <FilterButton onClick={() => setIsFilterOpen(!isFilterOpen)} activeCount={activeFilterCount} />
 
