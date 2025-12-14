@@ -6,6 +6,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 const Home = lazy(() => import('./pages/Home'));
 const HimalayanMapPage = lazy(() => import('./pages/HimalayanMapPage'));
 const LocationDetailsPage = lazy(() => import('./pages/LocationDetailsPage'));
+const StatsDashboard = lazy(() => import('./pages/StatsDashboard'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 
 // Loading fallback component
@@ -27,6 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/map" element={<HimalayanMapPage />} />
             <Route path="/locations/:id" element={<LocationDetailsPage />} />
+            <Route path="/research" element={<StatsDashboard />} />
             <Route path="/about" element={<AboutPage />} />
           </Routes>
         </Suspense>

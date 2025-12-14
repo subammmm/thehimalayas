@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check } from 'lucide-react';
+import { X, Check, Mountain, Ruler, Map as MapIcon, RotateCcw } from 'lucide-react';
 import type { LocationType, Region } from '../../types';
 
 interface FilterPanelProps {
@@ -9,24 +9,10 @@ interface FilterPanelProps {
     toggleType: (type: LocationType) => void;
     selectedRegions: Region[];
     toggleRegion: (region: Region) => void;
-    className?: string;
+    minElevation: number;
+    setMinElevation: (elevation: number) => void;
+    onReset: () => void;
 }
-
-const TYPES: { type: LocationType; color: string }[] = [
-    { type: 'Peak', color: 'bg-orange-500' },
-    { type: 'Valley', color: 'bg-green-500' },
-    { type: 'Lake', color: 'bg-sky-500' },
-    { type: 'Monastery', color: 'bg-purple-500' },
-    { type: 'Village', color: 'bg-yellow-500' },
-    { type: 'Route/Trek', color: 'bg-blue-500' },
-    { type: 'Glacier', color: 'bg-cyan-500' },
-    { type: 'Basecamp', color: 'bg-red-500' },
-];
-
-const REGIONS: Region[] = [
-    'Everest', 'Annapurna', 'Langtang', 'Manaslu',
-    'Kanchenjunga', 'Makalu', 'Dolpo', 'Mustang'
-];
 
 export const FilterPanel = ({
     isOpen,
@@ -34,78 +20,112 @@ export const FilterPanel = ({
     selectedTypes,
     toggleType,
     selectedRegions,
-    toggleRegion
+    toggleRegion,
+    minElevation,
+    setMinElevation,
+    onReset
 }: FilterPanelProps) => {
+
+    const regions: Region[] = ['Everest', 'Annapurna', 'Langtang', 'Manaslu', 'Kanchenjunga', 'Makalu', 'Dolpo', 'Mustang'];
+    const types: LocationType[] = ['Peak', 'Valley', 'Lake', 'Monastery', 'Village', 'Route/Trek', 'Glacier', 'Basecamp'];
+    const maxElevation = 8849; // Everest height
+
     return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    className="absolute top-20 right-6 z-[1000] w-80 max-w-[calc(100vw-3rem)] glass-panel rounded-2xl overflow-hidden flex flex-col max-h-[calc(100vh-140px)]"
+                    initial={{ opacity: 0, x: -20, scale: 0.95 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: -20, scale: 0.95 }}
+                    className="absolute top-24 left-6 z-[1000] bg-white/95 backdrop-blur-xl p-6 rounded-3xl shadow-2xl w-80 border border-white/20"
                 >
-                    <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-white/50">
-                        <h3 className="font-semibold text-gray-800">Filters</h3>
-                        <button onClick={onClose} className="p-1 hover:bg-gray-200 rounded-full transition-colors">
-                            <X className="w-5 h-5 text-gray-500" />
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="font-bold text-gray-900 text-lg">Filter Locations</h3>
+                        <button onClick={onReset} className="text-xs font-medium text-gray-500 hover:text-black flex items-center gap-1">
+                            <RotateCcw className="w-3 h-3" /> Reset
                         </button>
                     </div>
 
-                    <div className="overflow-y-auto p-4 space-y-6">
-                        {/* Type Filter */}
-                        <div>
-                            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Location Type</h4>
-                            <div className="grid grid-cols-2 gap-2">
-                                {TYPES.map(({ type, color }) => (
-                                    <button
-                                        key={type}
-                                        onClick={() => toggleType(type)}
-                                        className={`flex items-center p-2 rounded-lg text-sm transition-all ${selectedTypes.includes(type)
-                                            ? 'bg-gray-800 text-white shadow-md'
-                                            : 'bg-white/50 text-gray-600 hover:bg-white'
-                                            }`}
-                                    >
-                                        <span className={`w-2 h-2 rounded-full mr-2 ${color}`} />
-                                        {type}
-                                        {selectedTypes.includes(type) && <Check className="w-3 h-3 ml-auto" />}
-                                    </button>
-                                ))}
-                            </div>
+                    {/* Elevation Slider */}
+                    {/* ... (rest of logic same as before but using safe types) */}
+                    <div className="mb-6">
+                        <div className="flex justify-between items-center mb-3">
+                            <label className="flex items-center gap-2 text-sm font-bold text-gray-700">
+                                <Ruler className="w-4 h-4 text-gray-400" /> Min Elevation
+                            </label>
+                            <span className="text-amber-600 font-mono text-sm">{minElevation.toLocaleString()}m</span>
                         </div>
-
-                        {/* Region Filter */}
-                        <div>
-                            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Region</h4>
-                            <div className="flex flex-wrap gap-2">
-                                {REGIONS.map((region) => (
-                                    <button
-                                        key={region}
-                                        onClick={() => toggleRegion(region)}
-                                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedRegions.includes(region)
-                                            ? 'bg-gray-800 text-white shadow-md'
-                                            : 'bg-white/50 text-gray-600 hover:bg-white border border-transparent'
-                                            }`}
-                                    >
-                                        {region}
-                                    </button>
-                                ))}
-                            </div>
+                        <input
+                            type="range"
+                            min="0"
+                            max={maxElevation}
+                            step="500"
+                            value={minElevation}
+                            onChange={(e) => setMinElevation(Number(e.target.value))}
+                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black"
+                        />
+                        <div className="flex justify-between text-xs text-gray-400 mt-2">
+                            <span>0m</span>
+                            <span>{maxElevation.toLocaleString()}m</span>
                         </div>
                     </div>
 
-                    <div className="p-4 bg-white/50 border-t border-gray-200">
-                        <button
-                            onClick={() => {
-                                // Logic to clear filters could be passed here, or just let user toggle manually
-                                // For now just close or apply
-                                onClose();
-                            }}
-                            className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors shadow-lg"
-                        >
-                            View Results
-                        </button>
+                    {/* Regions */}
+                    <div className="mb-6">
+                        <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-3">
+                            <MapIcon className="w-4 h-4 text-gray-400" /> Regions
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                            {regions.map(region => (
+                                <button
+                                    key={region}
+                                    onClick={() => toggleRegion(region)}
+                                    className={`
+                                        px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border
+                                        ${selectedRegions.includes(region)
+                                            ? 'bg-black text-white border-black'
+                                            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'}
+                                    `}
+                                >
+                                    {region}
+                                </button>
+                            ))}
+                        </div>
                     </div>
+
+                    {/* Types */}
+                    <div className="mb-8">
+                        <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-3">
+                            <Mountain className="w-4 h-4 text-gray-400" /> Terrain Type
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                            {types.map(type => (
+                                <button
+                                    key={type}
+                                    onClick={() => toggleType(type)}
+                                    className={`
+                                        px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border
+                                        ${selectedTypes.includes(type)
+                                            ? 'bg-black text-white border-black'
+                                            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'}
+                                    `}
+                                >
+                                    {type}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={onClose}
+                        className="w-full py-3 bg-black text-white rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                    >
+                        <Check className="w-4 h-4" /> Done
+                    </button>
+
+                    <button onClick={onClose} className="absolute top-6 right-6 p-1 hover:bg-gray-100 rounded-full transition-colors">
+                        <X className="w-5 h-5 text-gray-500" />
+                    </button>
                 </motion.div>
             )}
         </AnimatePresence>

@@ -49,7 +49,10 @@ const Home = () => {
                 </div>
 
                 {/* About Link - Top Right */}
-                <div className="absolute top-6 right-6 md:top-8 md:right-8 z-20">
+                <div className="absolute top-6 right-6 md:top-8 md:right-8 z-20 flex gap-6">
+                    <Link to="/research" className="text-amber-400/90 hover:text-amber-300 transition-colors text-sm font-medium">
+                        Research
+                    </Link>
                     <Link to="/about" className="text-white/80 hover:text-white transition-colors text-sm font-medium">
                         About
                     </Link>

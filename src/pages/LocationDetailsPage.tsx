@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Share2, Check } from 'lucide-react';
+import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Share2, Check, Quote } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
+import { CitationModal } from '../components/location/CitationModal';
 
 const LocationDetailsPage = () => {
     const { id } = useParams();
@@ -81,6 +82,7 @@ const LocationDetailsPage = () => {
         (l.region === location.region && l.id !== location.id)
     ).slice(0, 3);
 
+    const [showCitation, setShowCitation] = useState(false);
     const [copied, setCopied] = useState(false);
 
     const handleShare = async () => {
@@ -110,8 +112,12 @@ const LocationDetailsPage = () => {
         });
     };
 
+    // ... (rest of component)
+
     return (
         <div className="min-h-screen bg-white">
+            <CitationModal location={location} isOpen={showCitation} onClose={() => setShowCitation(false)} />
+
             {/* Navigation Bar */}
             <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center pointer-events-none">
                 <button
@@ -120,13 +126,25 @@ const LocationDetailsPage = () => {
                 >
                     <ArrowLeft className="w-6 h-6" />
                 </button>
-                <button
-                    onClick={handleShare}
-                    className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-colors pointer-events-auto flex items-center justify-center gap-2"
-                >
-                    {copied ? <Check className="w-5 h-5 text-green-400" /> : <Share2 className="w-5 h-5" />}
-                    {copied && <span className="text-sm font-medium pr-1">Copied</span>}
-                </button>
+                <div className="flex gap-2 pointer-events-auto">
+                    <button
+                        onClick={() => setShowCitation(true)}
+                        className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-colors flex items-center justify-center gap-2 group"
+                        title="Cite this location"
+                    >
+                        <Quote className="w-5 h-5" />
+                        <span className="hidden md:block max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-medium pr-1">
+                            Cite
+                        </span>
+                    </button>
+                    <button
+                        onClick={handleShare}
+                        className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-colors flex items-center justify-center gap-2"
+                        title="Share location"
+                    >
+                        {copied ? <Check className="w-5 h-5 text-green-400" /> : <Share2 className="w-5 h-5" />}
+                    </button>
+                </div>
             </nav>
 
             {/* Hero Section */}

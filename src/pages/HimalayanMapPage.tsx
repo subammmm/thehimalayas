@@ -25,6 +25,7 @@ const HimalayanMapPage = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [selectedTypes, setSelectedTypes] = useState<LocationType[]>([]);
     const [selectedRegions, setSelectedRegions] = useState<Region[]>([]);
+    const [minElevation, setMinElevation] = useState(0);
     const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
     const [is3DMode, setIs3DMode] = useState(false);
 
@@ -41,10 +42,11 @@ const HimalayanMapPage = () => {
                 loc.region.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesType = selectedTypes.length === 0 || selectedTypes.includes(loc.type);
             const matchesRegion = selectedRegions.length === 0 || selectedRegions.includes(loc.region);
+            const matchesElevation = (loc.elevation || 0) >= minElevation;
 
-            return matchesSearch && matchesType && matchesRegion;
+            return matchesSearch && matchesType && matchesRegion && matchesElevation;
         });
-    }, [searchQuery, selectedTypes, selectedRegions]);
+    }, [searchQuery, selectedTypes, selectedRegions, minElevation]);
 
     const toggleType = (type: LocationType) => {
         setSelectedTypes(prev =>
@@ -58,7 +60,13 @@ const HimalayanMapPage = () => {
         );
     };
 
-    const activeFilterCount = selectedTypes.length + selectedRegions.length;
+    const activeFilterCount = selectedTypes.length + selectedRegions.length + (minElevation > 0 ? 1 : 0);
+
+    const resetFilters = () => {
+        setSelectedTypes([]);
+        setSelectedRegions([]);
+        setMinElevation(0);
+    };
 
     return (
         <div className="relative w-full h-[100dvh] overflow-hidden bg-white">
@@ -109,6 +117,9 @@ const HimalayanMapPage = () => {
                 toggleType={toggleType}
                 selectedRegions={selectedRegions}
                 toggleRegion={toggleRegion}
+                minElevation={minElevation}
+                setMinElevation={setMinElevation}
+                onReset={resetFilters}
             />
 
             <AnimatePresence>
