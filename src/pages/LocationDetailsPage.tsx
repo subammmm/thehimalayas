@@ -1,19 +1,28 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map } from 'lucide-react';
-import { mockLocations } from '../data/mockData';
+import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Loader2 } from 'lucide-react';
+import { useLocations } from '../hooks/useLocations';
 
 const LocationDetailsPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { scrollY } = useScroll();
+    const { locations, loading } = useLocations();
 
     // Determine location
-    const location = mockLocations.find(l => l.id === id);
+    const location = locations.find(l => l.id === id);
 
     // Parallax for hero image
     const y = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-black">
+                <Loader2 className="w-8 h-8 text-white animate-spin" />
+            </div>
+        );
+    }
 
     if (!location) {
         return (
@@ -31,8 +40,20 @@ const LocationDetailsPage = () => {
         );
     }
 
-    // Find related locations
-    const relatedLocations = mockLocations.filter(l => location.relatedLocations.includes(l.id));
+    // Find related locations (mock logic for now if related_ids empty)
+    const relatedLocations = locations.filter(l =>
+        location.relatedLocations?.includes(l.id) ||
+        (l.region === location.region && l.id !== location.id)
+    ).slice(0, 3);
+
+    const handleViewOnMap = () => {
+        navigate('/map', {
+            state: {
+                selectedLocation: location,
+                searchQuery: location.name // Also set search query so it feels persistent
+            }
+        });
+    };
 
     return (
         <div className="min-h-screen bg-white">
@@ -49,11 +70,13 @@ const LocationDetailsPage = () => {
             {/* Hero Section */}
             <div className="relative h-[70vh] w-full overflow-hidden bg-black">
                 <motion.div style={{ y, opacity }} className="absolute inset-0 h-full w-full">
-                    <img
-                        src={location.images[0]}
-                        alt={location.name}
-                        className="w-full h-full object-cover opacity-80"
-                    />
+                    {location.images && location.images[0] && (
+                        <img
+                            src={location.images[0]}
+                            alt={location.name}
+                            className="w-full h-full object-cover opacity-80"
+                        />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
                 </motion.div>
 
@@ -79,7 +102,7 @@ const LocationDetailsPage = () => {
                         <div className="flex gap-6 text-white/70">
                             <span className="flex items-center gap-2">
                                 <Mountain className="w-5 h-5" />
-                                {location.elevation.toLocaleString()}m Elevation
+                                {location.elevation?.toLocaleString()}m Elevation
                             </span>
                             <span className="flex items-center gap-2">
                                 <TrendingUp className="w-5 h-5" />
@@ -115,23 +138,29 @@ const LocationDetailsPage = () => {
                         <section>
                             <h3 className="text-2xl font-bold text-gray-900 mb-6">Gallery</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <img
-                                    src={location.images[0]}
-                                    alt="Detail 1"
-                                    className="w-full h-64 object-cover rounded-2xl hover:scale-[1.02] transition-transform duration-500"
-                                />
-                                <div className="grid grid-rows-2 gap-4">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=800"
-                                        alt="Detail 2"
-                                        className="w-full h-full object-cover rounded-2xl"
-                                    />
-                                    <img
-                                        src="https://images.unsplash.com/photo-1628045620864-d2e8b2b73ec4?q=80&w=800"
-                                        alt="Detail 3"
-                                        className="w-full h-full object-cover rounded-2xl"
-                                    />
-                                </div>
+                                {location.images && location.images.length > 0 ? (
+                                    <>
+                                        <img
+                                            src={location.images[0]}
+                                            alt="Detail 1"
+                                            className="w-full h-64 object-cover rounded-2xl hover:scale-[1.02] transition-transform duration-500"
+                                        />
+                                        <div className="grid grid-rows-2 gap-4">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=800"
+                                                alt="Detail 2"
+                                                className="w-full h-full object-cover rounded-2xl"
+                                            />
+                                            <img
+                                                src="https://images.unsplash.com/photo-1628045620864-d2e8b2b73ec4?q=80&w=800"
+                                                alt="Detail 3"
+                                                className="w-full h-full object-cover rounded-2xl"
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <p>No images available</p>
+                                )}
                             </div>
                         </section>
                     </div>
@@ -144,7 +173,7 @@ const LocationDetailsPage = () => {
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center py-3 border-b border-gray-200">
                                     <span className="text-gray-500">Elevation</span>
-                                    <span className="font-medium text-gray-900">{location.elevation}m</span>
+                                    <span className="font-medium text-gray-900">{location.elevation?.toLocaleString()}m</span>
                                 </div>
                                 <div className="flex justify-between items-center py-3 border-b border-gray-200">
                                     <span className="text-gray-500">Region</span>
@@ -162,7 +191,10 @@ const LocationDetailsPage = () => {
                         </div>
 
                         {/* Interactive Map Button */}
-                        <div className="bg-black text-white p-8 rounded-3xl relative overflow-hidden group cursor-pointer" onClick={() => navigate('/map')}>
+                        <div
+                            className="bg-black text-white p-8 rounded-3xl relative overflow-hidden group cursor-pointer"
+                            onClick={handleViewOnMap}
+                        >
                             <div className="relative z-10">
                                 <Map className="w-8 h-8 mb-4 text-amber-500" />
                                 <h3 className="text-2xl font-bold mb-2">View on Map</h3>
@@ -185,10 +217,12 @@ const LocationDetailsPage = () => {
                                             onClick={() => navigate(`/locations/${rel.id}`)}
                                             className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors"
                                         >
-                                            <img src={rel.images[0]} alt={rel.name} className="w-16 h-16 rounded-lg object-cover" />
+                                            {rel.images && rel.images[0] && (
+                                                <img src={rel.images[0]} alt={rel.name} className="w-16 h-16 rounded-lg object-cover" />
+                                            )}
                                             <div>
                                                 <h4 className="font-medium text-gray-900">{rel.name}</h4>
-                                                <p className="text-xs text-gray-500">{rel.type} • {rel.elevation}m</p>
+                                                <p className="text-xs text-gray-500">{rel.type} • {rel.elevation?.toLocaleString()}m</p>
                                             </div>
                                         </div>
                                     ))}
