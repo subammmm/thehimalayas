@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Loader2 } from 'lucide-react';
+import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Loader2, Share2, Check } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
 
 const LocationDetailsPage = () => {
@@ -23,11 +24,39 @@ const LocationDetailsPage = () => {
     // If we have no location data AND we are loading, show spinner.
     // If we have state.location, we can show it immediately even if 'locations' is loading.
     if (loading && !location) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-black">
-                <Loader2 className="w-8 h-8 text-white animate-spin" />
-            </div>
-        );
+        if (loading && !location) {
+            return (
+                <div className="min-h-screen bg-white">
+                    {/* Skeleton Hero */}
+                    <div className="h-[70vh] bg-gray-200 animate-pulse relative">
+                        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
+                            <div className="max-w-7xl mx-auto space-y-4">
+                                <div className="w-32 h-6 bg-gray-300 rounded-full" />
+                                <div className="w-3/4 md:w-1/2 h-16 bg-gray-300 rounded-xl" />
+                                <div className="flex gap-4">
+                                    <div className="w-24 h-6 bg-gray-300 rounded-full" />
+                                    <div className="w-24 h-6 bg-gray-300 rounded-full" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Skeleton Content */}
+                    <div className="max-w-7xl mx-auto -mt-10 relative z-10 px-6 grid grid-cols-1 lg:grid-cols-3 gap-16">
+                        <div className="lg:col-span-2 space-y-8 pt-12">
+                            <div className="space-y-4">
+                                <div className="w-1/4 h-8 bg-gray-200 rounded-lg animate-pulse" />
+                                <div className="w-full h-4 bg-gray-100 rounded animate-pulse" />
+                                <div className="w-full h-4 bg-gray-100 rounded animate-pulse" />
+                                <div className="w-3/4 h-4 bg-gray-100 rounded animate-pulse" />
+                            </div>
+                        </div>
+                        <div className="hidden lg:block lg:col-span-1 pt-12">
+                            <div className="h-64 bg-gray-100 rounded-3xl animate-pulse" />
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 
     if (!location) {
@@ -52,6 +81,26 @@ const LocationDetailsPage = () => {
         (l.region === location.region && l.id !== location.id)
     ).slice(0, 3);
 
+    const [copied, setCopied] = useState(false);
+
+    const handleShare = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: `Explore ${location.name} - The Himalayas`,
+                    text: `Check out ${location.name} in 3D on The Himalayas app.`,
+                    url: window.location.href,
+                });
+            } catch (err) {
+                console.log('Error sharing:', err);
+            }
+        } else {
+            await navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
+
     const handleViewOnMap = () => {
         navigate('/map', {
             state: {
@@ -70,6 +119,13 @@ const LocationDetailsPage = () => {
                     className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-colors pointer-events-auto"
                 >
                     <ArrowLeft className="w-6 h-6" />
+                </button>
+                <button
+                    onClick={handleShare}
+                    className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-colors pointer-events-auto flex items-center justify-center gap-2"
+                >
+                    {copied ? <Check className="w-5 h-5 text-green-400" /> : <Share2 className="w-5 h-5" />}
+                    {copied && <span className="text-sm font-medium pr-1">Copied</span>}
                 </button>
             </nav>
 

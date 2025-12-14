@@ -44,7 +44,7 @@ export const TopSearchBar = ({ value, onChange, locations, onLocationSelect }: T
                 bg-white/80 backdrop-blur-md 
                 rounded-[2rem] 
                 shadow-lg transition-all duration-300
-                ${showResults && searchResults.length > 0 ? 'rounded-b-[1.5rem] rounded-t-[1.5rem]' : ''}
+                ${showResults && value.length > 0 ? 'rounded-b-[1.5rem] rounded-t-[1.5rem]' : ''}
             `}>
                 <div className="flex items-center p-3 pl-5">
                     <Search className="w-5 h-5 text-gray-500 mr-3" />
@@ -64,7 +64,7 @@ export const TopSearchBar = ({ value, onChange, locations, onLocationSelect }: T
                 </div>
 
                 <AnimatePresence>
-                    {showResults && searchResults.length > 0 && (
+                    {(showResults && value.length > 0) && (
                         <motion.div
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
@@ -72,19 +72,26 @@ export const TopSearchBar = ({ value, onChange, locations, onLocationSelect }: T
                             className="overflow-hidden border-t border-gray-100"
                         >
                             <div className="max-h-60 overflow-y-auto py-2 custom-scrollbar">
-                                {searchResults.map((location) => (
-                                    <button
-                                        key={location.id}
-                                        onClick={() => handleSelect(location)}
-                                        className="w-full flex items-center gap-3 px-5 py-3 hover:bg-black/5 text-left transition-colors"
-                                    >
-                                        <MapPin className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                                        <div className="min-w-0 flex-1">
-                                            <p className="text-sm font-medium text-gray-900 truncate">{location.name}</p>
-                                            <p className="text-xs text-gray-500 truncate">{location.region} • {location.type}</p>
-                                        </div>
-                                    </button>
-                                ))}
+                                {searchResults.length > 0 ? (
+                                    searchResults.map((location) => (
+                                        <button
+                                            key={location.id}
+                                            onClick={() => handleSelect(location)}
+                                            className="w-full flex items-center gap-3 px-5 py-3 hover:bg-black/5 text-left transition-colors"
+                                        >
+                                            <MapPin className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                                            <div className="min-w-0 flex-1">
+                                                <p className="text-sm font-medium text-gray-900 truncate">{location.name}</p>
+                                                <p className="text-xs text-gray-500 truncate">{location.region} • {location.type}</p>
+                                            </div>
+                                        </button>
+                                    ))
+                                ) : (
+                                    <div className="px-5 py-6 text-center text-gray-500">
+                                        <p className="text-sm font-medium">No results found</p>
+                                        <p className="text-xs mt-1">Try another search term</p>
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     )}

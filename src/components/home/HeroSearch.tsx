@@ -117,7 +117,7 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
 
             {/* Search Results Dropdown - Now Scrollable */}
             <AnimatePresence>
-                {showResults && searchResults.length > 0 && (
+                {(showResults && query.length > 0) && (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -133,36 +133,43 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                             z-50
                         "
                     >
-                        {searchResults.map((location, index) => (
-                            <motion.button
-                                key={location.id}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.05 }}
-                                onClick={() => handleSelect(location)}
-                                className="
-                                    w-full flex items-center gap-4 px-6 py-4
-                                    hover:bg-black/5 transition-colors
-                                    border-b border-black/5 last:border-0
-                                    text-left
-                                "
-                            >
-                                <MapPin className="w-4 h-4 text-black/40 flex-shrink-0" />
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium text-black truncate">
-                                        {location.name}
-                                    </p>
-                                    <p className="text-xs text-black/50">
-                                        {location.region} • {location.type}
-                                    </p>
-                                </div>
-                                {location.elevation && (
-                                    <span className="text-xs text-black/40 flex-shrink-0">
-                                        {location.elevation.toLocaleString()}m
-                                    </span>
-                                )}
-                            </motion.button>
-                        ))}
+                        {searchResults.length > 0 ? (
+                            searchResults.map((location, index) => (
+                                <motion.button
+                                    key={location.id}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    onClick={() => handleSelect(location)}
+                                    className="
+                                        w-full flex items-center gap-4 px-6 py-4
+                                        hover:bg-black/5 transition-colors
+                                        border-b border-black/5 last:border-0
+                                        text-left
+                                    "
+                                >
+                                    <MapPin className="w-4 h-4 text-black/40 flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-medium text-black truncate">
+                                            {location.name}
+                                        </p>
+                                        <p className="text-xs text-black/50">
+                                            {location.region} • {location.type}
+                                        </p>
+                                    </div>
+                                    {location.elevation && (
+                                        <span className="text-xs text-black/40 flex-shrink-0">
+                                            {location.elevation.toLocaleString()}m
+                                        </span>
+                                    )}
+                                </motion.button>
+                            ))
+                        ) : (
+                            <div className="px-6 py-8 text-center text-black/60">
+                                <p className="font-medium mb-1">No locations found</p>
+                                <p className="text-sm">Try searching for 'Everest' or 'Annapurna'</p>
+                            </div>
+                        )}
                     </motion.div>
                 )}
             </AnimatePresence>
