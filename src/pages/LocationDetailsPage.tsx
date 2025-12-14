@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Loader2 } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
@@ -6,17 +6,23 @@ import { useLocations } from '../hooks/useLocations';
 const LocationDetailsPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { state } = useLocation(); // Import useLocation
     const { scrollY } = useScroll();
     const { locations, loading } = useLocations();
 
-    // Determine location
-    const location = locations.find(l => l.id === id);
+    // Determine location: Prefer live data, fallback to passed state (instant load), then 404
+    // We check 'locations' first. If 'locations' is empty (loading), we check 'state.location'.
+    // Actually best is: state.location ?? locations.find(...)
+    // validLocation is the one we use to render.
+    const location = state?.location || locations.find(l => l.id === id);
 
     // Parallax for hero image
     const y = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-    if (loading) {
+    // If we have no location data AND we are loading, show spinner.
+    // If we have state.location, we can show it immediately even if 'locations' is loading.
+    if (loading && !location) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-black">
                 <Loader2 className="w-8 h-8 text-white animate-spin" />

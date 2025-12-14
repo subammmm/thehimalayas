@@ -80,7 +80,7 @@ export const LocationPopover = ({ location, onClose, on3DView }: LocationPopover
 
                 <div className="mt-6 flex gap-3">
                     <button
-                        onClick={() => navigate(`/locations/${location.id}`)}
+                        onClick={() => navigate(`/locations/${location.id}`, { state: { location } })}
                         className="flex-1 bg-black text-white py-2.5 rounded-xl font-medium text-sm hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
                     >
                         Details

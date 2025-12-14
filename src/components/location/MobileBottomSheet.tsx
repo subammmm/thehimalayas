@@ -89,7 +89,7 @@ export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomS
 
                     <div className="flex gap-3 pt-4">
                         <button
-                            onClick={() => navigate(`/locations/${location.id}`)}
+                            onClick={() => navigate(`/locations/${location.id}`, { state: { location } })}
                             className="flex-1 bg-black text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors"
                         >
                             Details
