@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Loader2, Share2, Check } from 'lucide-react';
+import { ArrowLeft, MapPin, Mountain, TrendingUp, Info, Map, Share2, Check } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
 
 const LocationDetailsPage = () => {
