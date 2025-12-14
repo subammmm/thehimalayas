@@ -51,6 +51,17 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
             navigate('/map', {
                 state: { searchQuery: query }
             });
+        } else {
+            // I'm Feeling Lucky: Random Location
+            if (locations.length > 0) {
+                const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+                navigate('/map', {
+                    state: {
+                        selectedLocation: randomLocation,
+                        searchQuery: '' // Clear search
+                    }
+                });
+            }
         }
     };
 
@@ -110,7 +121,7 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                         shadow-lg
                     "
                 >
-                    <span>Explore</span>
+                    <span>{query ? 'Search' : 'Explore'}</span>
                     <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1" />
                 </button>
             </motion.form>

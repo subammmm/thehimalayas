@@ -1,8 +1,23 @@
 import { motion } from 'framer-motion';
 import { Mountain } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLocations } from '../hooks/useLocations';
 
 const AboutPage = () => {
+    const navigate = useNavigate();
+    const { locations } = useLocations();
+
+    const handleExplore = () => {
+        if (locations.length > 0) {
+            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+            navigate('/map', {
+                state: { selectedLocation: randomLocation }
+            });
+        } else {
+            navigate('/map');
+        }
+    };
+
     return (
         <div className="min-h-screen relative overflow-hidden bg-black text-white">
             {/* 4K Mountain Background with overlay */}
@@ -22,9 +37,12 @@ const AboutPage = () => {
                     <Mountain className="w-8 h-8" />
                     <span className="font-bold text-xl tracking-wider">THE HIMALAYAS</span>
                 </Link>
-                <Link to="/map" className="px-5 py-2 bg-white text-black font-medium rounded-full hover:bg-amber-500 hover:text-white transition-colors">
+                <button
+                    onClick={handleExplore}
+                    className="px-5 py-2 bg-white text-black font-medium rounded-full hover:bg-amber-500 hover:text-white transition-colors cursor-pointer"
+                >
                     Explore Map
-                </Link>
+                </button>
             </nav>
 
             {/* Content */}
@@ -68,12 +86,12 @@ const AboutPage = () => {
                             >
                                 View on GitHub
                             </a>
-                            <Link
-                                to="/map"
-                                className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-full transition-colors font-medium"
+                            <button
+                                onClick={handleExplore}
+                                className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-full transition-colors font-medium cursor-pointer"
                             >
                                 Explore Map
-                            </Link>
+                            </button>
                         </div>
                     </section>
                 </div>
