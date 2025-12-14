@@ -65,7 +65,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="text-center mb-16"
+                        className="text-center mb-16 scale-[0.85] origin-center"
                     >
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-display font-bold text-white mb-6 leading-none tracking-tight">
                             The Himalayas
