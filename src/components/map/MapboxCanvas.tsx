@@ -129,7 +129,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                             'line-cap': 'round'
                         },
                         paint: {
-                            'line-color': '#f97316', // Orange to match existing style
+                            'line-color': ['get', 'color'], // Use color from feature properties
                             'line-width': 3,
                             'line-opacity': 0.8,
                             'line-dasharray': [2, 2] // Dashed line
@@ -201,27 +201,45 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             return;
         }
 
-        // Create a chain of connections between all filtered locations
-        const coordinates: [number, number][] = locations.map(loc => [
-            loc.coordinates.lng,
-            loc.coordinates.lat
-        ]);
+        // Group locations by type and create line segments for each type
+        const locationsByType = new Map<string, Location[]>();
 
-        // Create GeoJSON LineString connecting all points
-        const geojsonData: GeoJSON.FeatureCollection = {
-            type: 'FeatureCollection',
-            features: [{
+        locations.forEach(loc => {
+            const existing = locationsByType.get(loc.type) || [];
+            existing.push(loc);
+            locationsByType.set(loc.type, existing);
+        });
+
+        // Create line features for each type (connecting locations of same type)
+        const features: GeoJSON.Feature[] = [];
+
+        locationsByType.forEach((locs, type) => {
+            if (locs.length < 2) return; // Need at least 2 to draw a line
+
+            const color = getColorByType(type as LocationType);
+            const coordinates: [number, number][] = locs.map(loc => [
+                loc.coordinates.lng,
+                loc.coordinates.lat
+            ]);
+
+            features.push({
                 type: 'Feature',
-                properties: {},
+                properties: { color, type },
                 geometry: {
                     type: 'LineString',
                     coordinates: coordinates
                 }
-            }]
+            });
+        });
+
+        // Create GeoJSON with type-colored lines
+        const geojsonData: GeoJSON.FeatureCollection = {
+            type: 'FeatureCollection',
+            features
         };
 
         source.setData(geojsonData);
-        console.log(`🔗 Connection lines drawn between ${locations.length} locations`);
+        console.log(`🔗 Connection lines drawn between ${locations.length} locations (${features.length} type groups)`);
 
     }, [locations, showConnections, isMapLoaded]);
 

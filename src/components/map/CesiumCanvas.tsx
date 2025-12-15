@@ -187,35 +187,46 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
             entities.push(entity);
         });
 
-        // Draw dynamic connection lines between filtered locations
-        const locationsToConnect = showConnections && filteredLocations && filteredLocations.length >= 2
-            ? filteredLocations
-            : [];
+        // Draw dynamic connection lines between filtered locations, grouped by type
+        if (showConnections && filteredLocations && filteredLocations.length >= 2 && viewerRef.current) {
+            // Group filtered locations by type
+            const locationsByType = new Map<string, Location[]>();
 
-        if (locationsToConnect.length >= 2 && viewerRef.current) {
-            console.log(`🔗 Drawing connection lines between ${locationsToConnect.length} filtered locations`);
+            filteredLocations.forEach(loc => {
+                const existing = locationsByType.get(loc.type) || [];
+                existing.push(loc);
+                locationsByType.set(loc.type, existing);
+            });
 
-            // Create a chain connecting all filtered locations
-            for (let i = 0; i < locationsToConnect.length - 1; i++) {
-                const fromLoc = locationsToConnect[i];
-                const toLoc = locationsToConnect[i + 1];
+            // Draw lines for each type with matching color
+            locationsByType.forEach((locs, type) => {
+                if (locs.length < 2 || !viewerRef.current) return;
 
-                const lineEntity = viewerRef.current.entities.add({
-                    polyline: {
-                        positions: Cesium.Cartesian3.fromDegreesArray([
-                            fromLoc.coordinates.lng, fromLoc.coordinates.lat,
-                            toLoc.coordinates.lng, toLoc.coordinates.lat
-                        ]),
-                        width: 3,
-                        clampToGround: true,
-                        material: new Cesium.PolylineDashMaterialProperty({
-                            color: Cesium.Color.ORANGE.withAlpha(0.8),
-                            dashLength: 16.0
-                        })
-                    }
-                } as any);
-                entities.push(lineEntity);
-            }
+                const typeColor = getColorByType(type as LocationType);
+                console.log(`🔗 Drawing ${locs.length} ${type} connections with color`);
+
+                // Create a chain connecting all locations of this type
+                for (let i = 0; i < locs.length - 1; i++) {
+                    const fromLoc = locs[i];
+                    const toLoc = locs[i + 1];
+
+                    const lineEntity = viewerRef.current.entities.add({
+                        polyline: {
+                            positions: Cesium.Cartesian3.fromDegreesArray([
+                                fromLoc.coordinates.lng, fromLoc.coordinates.lat,
+                                toLoc.coordinates.lng, toLoc.coordinates.lat
+                            ]),
+                            width: 3,
+                            clampToGround: true,
+                            material: new Cesium.PolylineDashMaterialProperty({
+                                color: typeColor.withAlpha(0.8),
+                                dashLength: 16.0
+                            })
+                        }
+                    } as any);
+                    entities.push(lineEntity);
+                }
+            });
         }
 
         // Handle selection
