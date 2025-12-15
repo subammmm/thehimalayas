@@ -268,7 +268,9 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                 border: 3px solid white;
                 box-shadow: 0 0 0 2px ${color}40, 0 4px 12px rgba(0,0,0,0.3);
                 cursor: pointer;
-                transition: all 0.2s ease;
+                transition: transform 0.2s ease;
+                transform-origin: center center;
+                will-change: transform;
             `;
 
             el.addEventListener('mouseenter', () => {
