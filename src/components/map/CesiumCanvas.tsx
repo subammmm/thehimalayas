@@ -33,7 +33,6 @@ const getColorByType = (type: LocationType): Cesium.Color => {
         case 'Route/Trek': return Cesium.Color.BLUE;
         case 'Glacier': return Cesium.Color.CYAN;
         case 'Basecamp': return Cesium.Color.RED;
-        case 'Basecamp': return Cesium.Color.RED;
         case 'Historical Site': return Cesium.Color.GOLD;
         default: return Cesium.Color.GRAY;
     }
