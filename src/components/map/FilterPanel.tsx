@@ -36,26 +36,25 @@ export const FilterPanel = ({
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    initial={{ opacity: 0, x: -20, scale: 0.95 }}
+                    initial={{ opacity: 0, x: 20, scale: 0.95 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: -20, scale: 0.95 }}
-                    className={`absolute z-[1000] bg-white/95 backdrop-blur-xl p-6 rounded-3xl shadow-2xl w-80 border border-white/20 ${className}`}
+                    exit={{ opacity: 0, x: 20, scale: 0.95 }}
+                    className={`absolute z-[1000] bg-black/80 backdrop-blur-xl p-8 rounded-3xl shadow-2xl w-80 border border-white/20 ${className}`}
                 >
-                    <div className="flex justify-between items-center mb-6">
-                        <h3 className="font-bold text-gray-900 text-lg">Filter Locations</h3>
-                        <button onClick={onReset} className="text-xs font-medium text-gray-500 hover:text-black flex items-center gap-1">
+                    <div className="flex justify-between items-center mb-8">
+                        <h3 className="font-display font-bold text-white text-xl tracking-tight">Filter Locations</h3>
+                        <button onClick={onReset} className="text-xs font-medium text-white/50 hover:text-white flex items-center gap-1 transition-colors uppercase tracking-wider">
                             <RotateCcw className="w-3 h-3" /> Reset
                         </button>
                     </div>
 
                     {/* Elevation Slider */}
-                    {/* ... (rest of logic same as before but using safe types) */}
-                    <div className="mb-6">
-                        <div className="flex justify-between items-center mb-3">
-                            <label className="flex items-center gap-2 text-sm font-bold text-gray-700">
-                                <Ruler className="w-4 h-4 text-gray-400" /> Min Elevation
+                    <div className="mb-8">
+                        <div className="flex justify-between items-center mb-4">
+                            <label className="flex items-center gap-2 text-sm font-medium text-white/80">
+                                <Ruler className="w-4 h-4 text-white/40" /> Min Elevation
                             </label>
-                            <span className="text-amber-600 font-mono text-sm">{minElevation.toLocaleString()}m</span>
+                            <span className="text-amber-400 font-mono text-sm">{minElevation.toLocaleString()}m</span>
                         </div>
                         <input
                             type="range"
@@ -64,18 +63,18 @@ export const FilterPanel = ({
                             step="500"
                             value={minElevation}
                             onChange={(e) => setMinElevation(Number(e.target.value))}
-                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black"
+                            className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-white"
                         />
-                        <div className="flex justify-between text-xs text-gray-400 mt-2">
+                        <div className="flex justify-between text-xs text-white/30 mt-2 font-mono">
                             <span>0m</span>
                             <span>{maxElevation.toLocaleString()}m</span>
                         </div>
                     </div>
 
                     {/* Regions */}
-                    <div className="mb-6">
-                        <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-3">
-                            <MapIcon className="w-4 h-4 text-gray-400" /> Regions
+                    <div className="mb-8">
+                        <label className="flex items-center gap-2 text-sm font-medium text-white/80 mb-4">
+                            <MapIcon className="w-4 h-4 text-white/40" /> Regions
                         </label>
                         <div className="flex flex-wrap gap-2">
                             {regions.map(region => (
@@ -83,10 +82,10 @@ export const FilterPanel = ({
                                     key={region}
                                     onClick={() => toggleRegion(region)}
                                     className={`
-                                        px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border
+                                        px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border
                                         ${selectedRegions.includes(region)
-                                            ? 'bg-black text-white border-black'
-                                            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'}
+                                            ? 'bg-white text-black border-white shadow-lg shadow-white/10'
+                                            : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:bg-white/10'}
                                     `}
                                 >
                                     {region}
@@ -97,8 +96,8 @@ export const FilterPanel = ({
 
                     {/* Types */}
                     <div className="mb-8">
-                        <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-3">
-                            <Mountain className="w-4 h-4 text-gray-400" /> Terrain Type
+                        <label className="flex items-center gap-2 text-sm font-medium text-white/80 mb-4">
+                            <Mountain className="w-4 h-4 text-white/40" /> Terrain Type
                         </label>
                         <div className="flex flex-wrap gap-2">
                             {types.map(type => (
@@ -106,10 +105,10 @@ export const FilterPanel = ({
                                     key={type}
                                     onClick={() => toggleType(type)}
                                     className={`
-                                        px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border
+                                        px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border
                                         ${selectedTypes.includes(type)
-                                            ? 'bg-black text-white border-black'
-                                            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'}
+                                            ? 'bg-white text-black border-white shadow-lg shadow-white/10'
+                                            : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:bg-white/10'}
                                     `}
                                 >
                                     {type}
@@ -120,13 +119,13 @@ export const FilterPanel = ({
 
                     <button
                         onClick={onClose}
-                        className="w-full py-3 bg-black text-white rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-white text-black rounded-2xl font-bold text-sm hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 shadow-xl shadow-white/5"
                     >
-                        <Check className="w-4 h-4" /> Done
+                        <Check className="w-4 h-4" /> Apply Filters
                     </button>
 
-                    <button onClick={onClose} className="absolute top-6 right-6 p-1 hover:bg-gray-100 rounded-full transition-colors">
-                        <X className="w-5 h-5 text-gray-500" />
+                    <button onClick={onClose} className="absolute top-6 right-6 p-2 hover:bg-white/10 rounded-full transition-colors group">
+                        <X className="w-5 h-5 text-white/40 group-hover:text-white" />
                     </button>
                 </motion.div>
             )}

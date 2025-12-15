@@ -42,30 +42,33 @@ const Home = () => {
     return (
         <div className="min-h-screen bg-black">
             {/* Full-Screen Hero Section */}
-            <section className="relative h-[100dvh] w-full overflow-hidden">
-                {/* Animated 4K Background Image with 3D panning effect */}
-                <motion.div
-                    className="absolute inset-0"
-                    animate={{
-                        scale: [1, 1.1, 1],
-                        x: [0, -20, 0],
-                        y: [0, -10, 0],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                >
-                    <img
-                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=3840&auto=format&fit=crop"
-                        alt="The Himalayas"
-                        className="w-full h-full object-cover scale-110"
-                        style={{ imageRendering: '-webkit-optimize-contrast' }}
-                    />
-                    {/* Subtle gradient for depth and readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
-                </motion.div>
+            <section className="relative h-[100dvh] w-full">
+                {/* Background Image Wrapper */}
+                <div className="absolute inset-0 overflow-hidden">
+                    {/* Animated 4K Background Image with 3D panning effect */}
+                    <motion.div
+                        className="absolute inset-0"
+                        animate={{
+                            scale: [1, 1.1, 1],
+                            x: [0, -20, 0],
+                            y: [0, -10, 0],
+                        }}
+                        transition={{
+                            duration: 25,
+                            repeat: Infinity,
+                            ease: "linear"
+                        }}
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=3840&auto=format&fit=crop"
+                            alt="The Himalayas"
+                            className="w-full h-full object-cover scale-110"
+                            style={{ imageRendering: '-webkit-optimize-contrast' }}
+                        />
+                        {/* Subtle gradient for depth and readability */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
+                    </motion.div>
+                </div>
 
                 {/* Logo - Top Left */}
                 <div className="absolute top-6 left-6 md:top-8 md:left-8 z-20">
@@ -132,7 +135,7 @@ const Home = () => {
 
                             <AnimatePresence>
                                 {isFilterOpen && (
-                                    <div className="absolute top-14 right-0 z-[2000]">
+                                    <div className="absolute top-0 left-full ml-6 z-[2000]">
                                         <FilterPanel
                                             isOpen={true}
                                             onClose={() => setIsFilterOpen(false)}
@@ -143,7 +146,7 @@ const Home = () => {
                                             minElevation={minElevation}
                                             setMinElevation={setMinElevation}
                                             onReset={handleReset}
-                                            className="!relative !top-0 !left-0 w-80 shadow-2xl border-white/30"
+                                            className="!relative !top-0 !left-0 w-80 shadow-2xl border-white/10"
                                         />
                                     </div>
                                 )}
