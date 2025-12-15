@@ -6,9 +6,14 @@ import type { Location } from '../../types';
 
 interface HeroSearchProps {
     locations: Location[];
+    filters?: {
+        selectedTypes: string[];
+        selectedRegions: string[];
+        minElevation: number;
+    };
 }
 
-export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
+export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
     const [query, setQuery] = useState('');
     const [showResults, setShowResults] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
@@ -38,7 +43,8 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
         navigate('/map', {
             state: {
                 selectedLocation: location,
-                searchQuery: location.name
+                searchQuery: location.name,
+                filters // Pass current filters
             }
         });
     };
@@ -49,7 +55,10 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
             handleSelect(searchResults[0]);
         } else if (query) {
             navigate('/map', {
-                state: { searchQuery: query }
+                state: {
+                    searchQuery: query,
+                    filters // Pass filters
+                }
             });
         } else {
             // I'm Feeling Lucky: Random Location
@@ -58,7 +67,8 @@ export const HeroSearch = ({ locations = [] }: HeroSearchProps) => {
                 navigate('/map', {
                     state: {
                         selectedLocation: randomLocation,
-                        searchQuery: '' // Clear search
+                        searchQuery: '', // Clear search
+                        filters // Pass filters
                     }
                 });
             }

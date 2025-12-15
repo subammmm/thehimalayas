@@ -1,16 +1,42 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Mountain } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Keep Link if used, or remove both if unused
+// Actually Link is used for Logo. useNavigate is used? No, HeroSearch handles navigation.
+// Let's check line 4.
+
 import { HeroSearch } from '../components/home/HeroSearch';
 import { FilterButton } from '../components/map/FilterButton';
+import { FilterPanel } from '../components/map/FilterPanel';
 import { mockLocations } from '../data/mockData';
+import type { LocationType, Region } from '../types';
 
 const Home = () => {
     // Derived stats
-    const navigate = useNavigate();
+
+
+    // Filter State
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [selectedTypes, setSelectedTypes] = useState<LocationType[]>([]);
+    const [selectedRegions, setSelectedRegions] = useState<Region[]>([]);
+    const [minElevation, setMinElevation] = useState(0);
+
+    const toggleType = (type: LocationType) => {
+        setSelectedTypes(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]);
+    };
+
+    const toggleRegion = (region: Region) => {
+        setSelectedRegions(prev => prev.includes(region) ? prev.filter(r => r !== region) : [...prev, region]);
+    };
+
+    const handleReset = () => {
+        setSelectedTypes([]);
+        setSelectedRegions([]);
+        setMinElevation(0);
+    };
+
     // Derived stats
     const totalLocations = "100+";
-    const regions = 8;
     const countries = 3;
 
     return (
@@ -83,20 +109,45 @@ const Home = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
-                        className="w-full max-w-2xl"
+                        className="w-full max-w-2xl flex items-center gap-4 relative"
                     >
-                        <HeroSearch locations={mockLocations} />
-                        <div className="flex justify-center mt-6">
+                        <div className="flex-1">
+                            <HeroSearch
+                                locations={mockLocations}
+                                filters={{ selectedTypes, selectedRegions, minElevation }}
+                            />
+                        </div>
+
+                        <div className="relative z-[1001]">
                             <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <FilterButton
-                                    onClick={() => navigate('/map')}
-                                    activeCount={0}
-                                    className="relative !top-0 !right-0 !w-12 !h-12 !bg-white/10 !backdrop-blur-md border border-white/20"
+                                    onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                    activeCount={selectedTypes.length + selectedRegions.length + (minElevation > 0 ? 1 : 0)}
+                                    className="!relative !top-0 !right-0 !w-12 !h-12 !bg-white/10 !backdrop-blur-md border border-white/20"
                                 />
                             </motion.div>
+
+                            <AnimatePresence>
+                                {isFilterOpen && (
+                                    <div className="absolute top-14 right-0 z-[2000]">
+                                        <FilterPanel
+                                            isOpen={true}
+                                            onClose={() => setIsFilterOpen(false)}
+                                            selectedTypes={selectedTypes}
+                                            toggleType={toggleType}
+                                            selectedRegions={selectedRegions}
+                                            toggleRegion={toggleRegion}
+                                            minElevation={minElevation}
+                                            setMinElevation={setMinElevation}
+                                            onReset={handleReset}
+                                            className="!relative !top-0 !left-0 w-80 shadow-2xl border-white/30"
+                                        />
+                                    </div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </motion.div>
 
@@ -112,11 +163,6 @@ const Home = () => {
                                 {totalLocations}
                             </div>
                             <div className="text-xs">Locations</div>
-                        </div>
-                        <div className="w-px h-10 bg-white/20" />
-                        <div className="text-center">
-                            <div className="text-xl font-semibold text-white/90 mb-1">{regions}</div>
-                            <div className="text-xs">Regions</div>
                         </div>
                         <div className="w-px h-10 bg-white/20" />
                         <div className="text-center">

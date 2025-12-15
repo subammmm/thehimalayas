@@ -12,6 +12,7 @@ interface FilterPanelProps {
     minElevation: number;
     setMinElevation: (elevation: number) => void;
     onReset: () => void;
+    className?: string; // Allow custom positioning
 }
 
 export const FilterPanel = ({
@@ -23,7 +24,8 @@ export const FilterPanel = ({
     toggleRegion,
     minElevation,
     setMinElevation,
-    onReset
+    onReset,
+    className = "top-24 left-6" // Default position
 }: FilterPanelProps) => {
 
     const regions: Region[] = ['Everest', 'Annapurna', 'Langtang', 'Manaslu', 'Kanchenjunga', 'Makalu', 'Dolpo', 'Mustang'];
@@ -37,7 +39,7 @@ export const FilterPanel = ({
                     initial={{ opacity: 0, x: -20, scale: 0.95 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={{ opacity: 0, x: -20, scale: 0.95 }}
-                    className="absolute top-24 left-6 z-[1000] bg-white/95 backdrop-blur-xl p-6 rounded-3xl shadow-2xl w-80 border border-white/20"
+                    className={`absolute z-[1000] bg-white/95 backdrop-blur-xl p-6 rounded-3xl shadow-2xl w-80 border border-white/20 ${className}`}
                 >
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="font-bold text-gray-900 text-lg">Filter Locations</h3>
