@@ -257,42 +257,52 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         locations.forEach(location => {
             const color = getColorByType(location.type);
 
-            // Create marker element with custom styling
-            const el = document.createElement('div');
-            el.className = 'custom-mapbox-marker';
-            el.style.cssText = `
+            // Create marker container (Mapbox positions this)
+            const container = document.createElement('div');
+            container.className = 'marker-container';
+            container.style.cssText = `
                 width: 20px;
                 height: 20px;
+                cursor: pointer;
+            `;
+
+            // Create visible inner dot (we animate this)
+            const inner = document.createElement('div');
+            inner.className = 'custom-mapbox-marker';
+            inner.style.cssText = `
+                width: 100%;
+                height: 100%;
                 border-radius: 50%;
                 background-color: ${color};
                 border: 3px solid white;
                 box-shadow: 0 0 0 2px ${color}40, 0 4px 12px rgba(0,0,0,0.3);
-                cursor: pointer;
                 transition: transform 0.2s ease;
                 transform-origin: center center;
                 will-change: transform;
             `;
+            container.appendChild(inner);
 
-            el.addEventListener('mouseenter', () => {
-                el.style.transform = 'scale(1.3)';
-                el.style.zIndex = '1000';
+            // Hover effects on the inner element
+            container.addEventListener('mouseenter', () => {
+                inner.style.transform = 'scale(1.3)';
+                container.style.zIndex = '1000';
             });
 
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = 'scale(1)';
-                el.style.zIndex = 'auto';
+            container.addEventListener('mouseleave', () => {
+                inner.style.transform = 'scale(1)';
+                container.style.zIndex = 'auto';
             });
 
-            // Create marker
+            // Create marker using the container
             const marker = new mapboxgl.Marker({
-                element: el,
+                element: container,
                 anchor: 'center'
             })
                 .setLngLat([location.coordinates.lng, location.coordinates.lat])
                 .addTo(map.current!);
 
             // Add click handler
-            el.addEventListener('click', (e) => {
+            container.addEventListener('click', (e) => {
                 e.stopPropagation();
                 onLocationSelect(location);
 
