@@ -99,7 +99,11 @@ const HimalayanMapPage = () => {
                 }}
             />
 
-            <FilterButton onClick={() => setIsFilterOpen(!isFilterOpen)} activeCount={activeFilterCount} />
+            <FilterButton
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                activeCount={activeFilterCount}
+                className="top-20 right-6"
+            />
 
             {/* Status Indicators */}
             {(loading || error) && (
@@ -128,6 +132,7 @@ const HimalayanMapPage = () => {
                 minElevation={minElevation}
                 setMinElevation={setMinElevation}
                 onReset={resetFilters}
+                className="top-36 right-6"
             />
 
             <AnimatePresence>
