@@ -1,14 +1,17 @@
 import { motion } from 'framer-motion';
 import { Mountain } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { HeroSearch } from '../components/home/HeroSearch';
+import { FilterButton } from '../components/map/FilterButton';
 import { mockLocations } from '../data/mockData';
 
 const Home = () => {
     // Derived stats
-    const totalLocations = mockLocations.length;
-    const regions = new Set(mockLocations.map(l => l.region)).size;
-    const highestPeak = Math.max(...mockLocations.map(l => l.elevation));
+    const navigate = useNavigate();
+    // Derived stats
+    const totalLocations = "100+";
+    const regions = 8;
+    const countries = 3;
 
     return (
         <div className="min-h-screen bg-black">
@@ -83,6 +86,18 @@ const Home = () => {
                         className="w-full max-w-2xl"
                     >
                         <HeroSearch locations={mockLocations} />
+                        <div className="flex justify-center mt-6">
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <FilterButton
+                                    onClick={() => navigate('/map')}
+                                    activeCount={0}
+                                    className="relative !top-0 !right-0 !w-12 !h-12 !bg-white/10 !backdrop-blur-md border border-white/20"
+                                />
+                            </motion.div>
+                        </div>
                     </motion.div>
 
                     {/* Minimal Stats - Responsive positioning */}
@@ -94,7 +109,7 @@ const Home = () => {
                     >
                         <div className="text-center">
                             <div className="text-xl font-semibold text-white/90 mb-1">
-                                {totalLocations}+
+                                {totalLocations}
                             </div>
                             <div className="text-xs">Locations</div>
                         </div>
@@ -106,9 +121,9 @@ const Home = () => {
                         <div className="w-px h-10 bg-white/20" />
                         <div className="text-center">
                             <div className="text-xl font-semibold text-white/90 mb-1">
-                                {highestPeak.toLocaleString()}m
+                                {countries}
                             </div>
-                            <div className="text-xs">Highest Peak</div>
+                            <div className="text-xs">Countries</div>
                         </div>
                     </motion.div>
                 </div>

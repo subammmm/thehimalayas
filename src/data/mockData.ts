@@ -689,5 +689,66 @@ export const mockLocations: Location[] = [
         images: ['https://images.unsplash.com/photo-1502570149072-474ee4877777?q=80&w=1600&auto=format&fit=crop'],
         tags: ['Technical', 'Rock Face'],
         relatedLocations: ['26']
+    },
+    // HISTORICAL SITES
+    {
+        id: 'h1',
+        name: 'Lumbini',
+        type: 'Historical Site',
+        region: 'Annapurna', // Using nearest region for grouping, though strictly it's Terai
+        coordinates: { lat: 27.4705, lng: 83.2755 },
+        elevation: 150,
+        description: 'The birthplace of Lord Buddha and a UNESCO World Heritage Site.',
+        images: ['https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?q=80&w=1600&auto=format&fit=crop'],
+        tags: ['UNESCO', 'Buddhism', 'Birthplace'],
+        relatedLocations: ['12', '15']
+    },
+    {
+        id: 'h2',
+        name: 'Kathmandu Durbar Square',
+        type: 'Historical Site',
+        region: 'Langtang', // Central region
+        coordinates: { lat: 27.7042, lng: 85.3065 },
+        elevation: 1400,
+        description: 'Historic palace square with spectacular architecture and vivid culture.',
+        images: ['https://images.unsplash.com/photo-1542640244-7e672d6bd4a8?q=80&w=1600&auto=format&fit=crop'],
+        tags: ['UNESCO', 'Architecture', 'Royal'],
+        relatedLocations: ['19', '20']
+    },
+    {
+        id: 'h3',
+        name: 'Bhaktapur Durbar Square',
+        type: 'Historical Site',
+        region: 'Langtang',
+        coordinates: { lat: 27.6722, lng: 85.4278 },
+        elevation: 1400,
+        description: 'A museum of medieval art and architecture with many examples of sculpture, woodcarving and colossal pagoda temples.',
+        images: ['https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1600&auto=format&fit=crop'],
+        tags: ['Medieval', 'Culture', 'Art'],
+        relatedLocations: ['h2']
+    },
+    {
+        id: 'h4',
+        name: 'Patan Durbar Square',
+        type: 'Historical Site',
+        region: 'Langtang',
+        coordinates: { lat: 27.6727, lng: 85.3253 },
+        elevation: 1350,
+        description: 'Best known for its rich artistic heritage and fine metal work.',
+        images: ['https://images.unsplash.com/photo-1534067783849-51d072559b99?q=80&w=1600&auto=format&fit=crop'],
+        tags: ['Heritage', 'Art', 'Metal Work'],
+        relatedLocations: ['h2', 'h3']
+    },
+    {
+        id: 'h5',
+        name: 'Changunarayan Temple',
+        type: 'Historical Site',
+        region: 'Langtang',
+        coordinates: { lat: 27.7170, lng: 85.4290 },
+        elevation: 1541,
+        description: 'The oldest Hindu temple in the Kathmandu Valley.',
+        images: ['https://images.unsplash.com/photo-1628045620864-d2e8b2b73ec4?q=80&w=1600&auto=format&fit=crop'],
+        tags: ['Oldest', 'Hindu', 'Temple'],
+        relatedLocations: ['h3']
     }
 ];

@@ -6,7 +6,8 @@ export type LocationType =
     | 'Village'
     | 'Route/Trek'
     | 'Glacier'
-    | 'Basecamp';
+    | 'Basecamp'
+    | 'Historical Site';
 
 export type Region =
     | 'Everest'

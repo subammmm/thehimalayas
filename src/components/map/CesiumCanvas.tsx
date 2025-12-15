@@ -31,6 +31,8 @@ const getColorByType = (type: LocationType): Cesium.Color => {
         case 'Route/Trek': return Cesium.Color.BLUE;
         case 'Glacier': return Cesium.Color.CYAN;
         case 'Basecamp': return Cesium.Color.RED;
+        case 'Basecamp': return Cesium.Color.RED;
+        case 'Historical Site': return Cesium.Color.GOLD;
         default: return Cesium.Color.GRAY;
     }
 };
@@ -181,6 +183,29 @@ export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: C
             } as any);
 
             entities.push(entity);
+
+            // Draw connection lines to related locations
+            if (location.relatedLocations && location.relatedLocations.length > 0) {
+                location.relatedLocations.forEach(relatedId => {
+                    const relatedLoc = locations.find(l => l.id === relatedId);
+                    if (relatedLoc && viewerRef.current) {
+                        const lineEntity = viewerRef.current.entities.add({
+                            polyline: {
+                                positions: Cesium.Cartesian3.fromDegreesArrayHeights([
+                                    location.coordinates.lng, location.coordinates.lat, location.elevation || 0,
+                                    relatedLoc.coordinates.lng, relatedLoc.coordinates.lat, relatedLoc.elevation || 0
+                                ]),
+                                width: 1,
+                                material: new Cesium.PolylineDashMaterialProperty({
+                                    color: Cesium.Color.WHITE.withAlpha(0.3),
+                                    dashLength: 16.0
+                                })
+                            }
+                        } as any);
+                        entities.push(lineEntity);
+                    }
+                });
+            }
         });
 
         // Handle selection
