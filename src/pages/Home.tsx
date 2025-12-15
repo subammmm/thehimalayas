@@ -135,7 +135,7 @@ const Home = () => {
 
                             <AnimatePresence>
                                 {isFilterOpen && (
-                                    <div className="absolute top-0 left-full ml-6 z-[2000]">
+                                    <div className="absolute top-1/2 -translate-y-1/2 left-full ml-6 z-[2000]">
                                         <FilterPanel
                                             isOpen={true}
                                             onClose={() => setIsFilterOpen(false)}
@@ -146,7 +146,7 @@ const Home = () => {
                                             minElevation={minElevation}
                                             setMinElevation={setMinElevation}
                                             onReset={handleReset}
-                                            className="!relative !top-0 !left-0 w-80 shadow-2xl border-white/10"
+                                            className="!relative !top-0 !left-0 w-72 shadow-2xl border-white/10"
                                         />
                                     </div>
                                 )}

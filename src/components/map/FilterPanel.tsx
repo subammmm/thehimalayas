@@ -43,9 +43,6 @@ export const FilterPanel = ({
                 >
                     <div className="flex justify-between items-center mb-4">
                         <h3 className="font-display font-bold text-white text-base tracking-tight">Filter Locations</h3>
-                        <button onClick={onReset} className="text-[10px] font-medium text-white/50 hover:text-white flex items-center gap-1 transition-colors uppercase tracking-wider">
-                            <RotateCcw className="w-3 h-3" /> Reset
-                        </button>
                     </div>
 
                     {/* Elevation Slider */}
@@ -113,12 +110,21 @@ export const FilterPanel = ({
                         </div>
                     </div>
 
-                    <button
-                        onClick={onClose}
-                        className="w-full py-2.5 bg-white text-black rounded-xl font-bold text-xs hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 shadow-xl shadow-white/5"
-                    >
-                        <Check className="w-3.5 h-3.5" /> Apply Filters
-                    </button>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={onReset}
+                            className="px-3 py-2.5 bg-white/10 text-white rounded-xl font-bold text-xs hover:bg-white/20 transition-colors flex items-center justify-center"
+                            title="Reset Filters"
+                        >
+                            <RotateCcw className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                            onClick={onClose}
+                            className="flex-1 py-2.5 bg-white text-black rounded-xl font-bold text-xs hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 shadow-xl shadow-white/5"
+                        >
+                            <Check className="w-3.5 h-3.5" /> Apply Filters
+                        </button>
+                    </div>
 
                     <button onClick={onClose} className="absolute top-4 right-4 p-1.5 hover:bg-white/10 rounded-full transition-colors group">
                         <X className="w-4 h-4 text-white/40 group-hover:text-white" />
