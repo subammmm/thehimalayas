@@ -18,6 +18,7 @@ interface MapboxCanvasProps {
     locations: Location[];
     onLocationSelect: (location: Location) => void;
     focusedLocation: Location | null;
+    showConnections?: boolean; // Draw lines when filtering is active
 }
 
 const getColorByType = (type: LocationType): string => {
@@ -34,7 +35,7 @@ const getColorByType = (type: LocationType): string => {
     }
 };
 
-export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation }: MapboxCanvasProps) => {
+export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, showConnections = false }: MapboxCanvasProps) => {
     const mapContainer = useRef<HTMLDivElement>(null);
     const map = useRef<mapboxgl.Map | null>(null);
     const markers = useRef<mapboxgl.Marker[]>([]);
@@ -110,7 +111,32 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation }: M
                         }
                     });
 
-                    console.log('✓ 3D terrain added');
+                    // Add connection lines source and layer
+                    map.current.addSource('connection-lines', {
+                        type: 'geojson',
+                        data: {
+                            type: 'FeatureCollection',
+                            features: []
+                        }
+                    });
+
+                    map.current.addLayer({
+                        id: 'connection-lines-layer',
+                        type: 'line',
+                        source: 'connection-lines',
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': '#f97316', // Orange to match existing style
+                            'line-width': 3,
+                            'line-opacity': 0.8,
+                            'line-dasharray': [2, 2] // Dashed line
+                        }
+                    });
+
+                    console.log('✓ 3D terrain and connection lines layer added');
                     setIsMapLoaded(true);
                 } catch (err) {
                     console.error('❌ Error adding terrain:', err);
@@ -157,6 +183,47 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation }: M
         // For now just moving the camera is sufficient.
 
     }, [focusedLocation, isMapLoaded]);
+
+    // Update connection lines when locations or showConnections changes
+    useEffect(() => {
+        if (!map.current || !isMapLoaded) return;
+
+        const source = map.current.getSource('connection-lines') as mapboxgl.GeoJSONSource;
+        if (!source) return;
+
+        // Only show connections if showConnections is true and we have 2+ locations
+        if (!showConnections || locations.length < 2) {
+            source.setData({
+                type: 'FeatureCollection',
+                features: []
+            });
+            console.log('🔗 Connection lines cleared');
+            return;
+        }
+
+        // Create a chain of connections between all filtered locations
+        const coordinates: [number, number][] = locations.map(loc => [
+            loc.coordinates.lng,
+            loc.coordinates.lat
+        ]);
+
+        // Create GeoJSON LineString connecting all points
+        const geojsonData: GeoJSON.FeatureCollection = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                    type: 'LineString',
+                    coordinates: coordinates
+                }
+            }]
+        };
+
+        source.setData(geojsonData);
+        console.log(`🔗 Connection lines drawn between ${locations.length} locations`);
+
+    }, [locations, showConnections, isMapLoaded]);
 
     // Update markers when locations change
     useEffect(() => {

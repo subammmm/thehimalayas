@@ -17,8 +17,10 @@ if (CESIUM_TOKEN) {
 
 interface CesiumCanvasProps {
     locations: Location[];
+    filteredLocations?: Location[]; // Subset from active filters
     onLocationSelect: (location: Location) => void;
     focusedLocation: Location | null;
+    showConnections?: boolean; // Draw lines when filtering is active
 }
 
 const getColorByType = (type: LocationType): Cesium.Color => {
@@ -37,7 +39,7 @@ const getColorByType = (type: LocationType): Cesium.Color => {
     }
 };
 
-export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: CesiumCanvasProps) => {
+export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, focusedLocation, showConnections = false }: CesiumCanvasProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const viewerRef = useRef<Cesium.Viewer | null>(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -183,30 +185,38 @@ export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: C
             } as any);
 
             entities.push(entity);
-
-            // Draw connection lines to related locations
-            if (location.relatedLocations && location.relatedLocations.length > 0) {
-                location.relatedLocations.forEach(relatedId => {
-                    const relatedLoc = locations.find(l => l.id === relatedId);
-                    if (relatedLoc && viewerRef.current) {
-                        const lineEntity = viewerRef.current.entities.add({
-                            polyline: {
-                                positions: Cesium.Cartesian3.fromDegreesArrayHeights([
-                                    location.coordinates.lng, location.coordinates.lat, location.elevation || 0,
-                                    relatedLoc.coordinates.lng, relatedLoc.coordinates.lat, relatedLoc.elevation || 0
-                                ]),
-                                width: 1,
-                                material: new Cesium.PolylineDashMaterialProperty({
-                                    color: Cesium.Color.WHITE.withAlpha(0.3),
-                                    dashLength: 16.0
-                                })
-                            }
-                        } as any);
-                        entities.push(lineEntity);
-                    }
-                });
-            }
         });
+
+        // Draw dynamic connection lines between filtered locations
+        const locationsToConnect = showConnections && filteredLocations && filteredLocations.length >= 2
+            ? filteredLocations
+            : [];
+
+        if (locationsToConnect.length >= 2 && viewerRef.current) {
+            console.log(`🔗 Drawing connection lines between ${locationsToConnect.length} filtered locations`);
+
+            // Create a chain connecting all filtered locations
+            for (let i = 0; i < locationsToConnect.length - 1; i++) {
+                const fromLoc = locationsToConnect[i];
+                const toLoc = locationsToConnect[i + 1];
+
+                const lineEntity = viewerRef.current.entities.add({
+                    polyline: {
+                        positions: Cesium.Cartesian3.fromDegreesArray([
+                            fromLoc.coordinates.lng, fromLoc.coordinates.lat,
+                            toLoc.coordinates.lng, toLoc.coordinates.lat
+                        ]),
+                        width: 3,
+                        clampToGround: true,
+                        material: new Cesium.PolylineDashMaterialProperty({
+                            color: Cesium.Color.ORANGE.withAlpha(0.8),
+                            dashLength: 16.0
+                        })
+                    }
+                } as any);
+                entities.push(lineEntity);
+            }
+        }
 
         // Handle selection
         const handler = new Cesium.ScreenSpaceEventHandler(viewerRef.current.scene.canvas);

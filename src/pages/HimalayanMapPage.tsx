@@ -46,6 +46,14 @@ const HimalayanMapPage = () => {
 
             return matchesSearch && matchesType && matchesRegion && matchesElevation;
         });
+    }, [searchQuery, selectedTypes, selectedRegions, minElevation, locations]);
+
+    // Determine if any filters are active (excluding search)
+    const hasActiveFilters = useMemo(() => {
+        return searchQuery.length > 0 ||
+            selectedTypes.length > 0 ||
+            selectedRegions.length > 0 ||
+            minElevation > 0;
     }, [searchQuery, selectedTypes, selectedRegions, minElevation]);
 
     const toggleType = (type: LocationType) => {
@@ -144,8 +152,10 @@ const HimalayanMapPage = () => {
                 <div className="absolute inset-0 z-[1100]">
                     <CesiumCanvas
                         locations={locations}
+                        filteredLocations={filteredLocations}
                         onLocationSelect={setSelectedLocation}
                         focusedLocation={selectedLocation}
+                        showConnections={hasActiveFilters}
                     />
                     <button
                         onClick={() => setIs3DMode(false)}
@@ -162,6 +172,7 @@ const HimalayanMapPage = () => {
                     locations={filteredLocations}
                     onLocationSelect={setSelectedLocation}
                     focusedLocation={selectedLocation}
+                    showConnections={hasActiveFilters}
                 />
             </div>
 
