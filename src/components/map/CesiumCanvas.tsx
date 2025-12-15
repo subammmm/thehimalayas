@@ -50,63 +50,83 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
 
         console.log('🌍 Initializing Cesium 3D Globe...');
 
-        try {
-            // Revert to strict Cesium Ion usage
-            if (!Cesium.Ion.defaultAccessToken && !import.meta.env.VITE_CESIUM_TOKEN) {
-                console.warn('⚠️ No Cesium Token found. Map may not load correctly.');
-            }
-
-            const viewer = new Cesium.Viewer(containerRef.current, {
-                terrain: Cesium.Terrain.fromWorldTerrain({
-                    requestWaterMask: true,
-                    requestVertexNormals: true
-                }),
-                baseLayerPicker: false,
-                geocoder: false,
-                homeButton: false,
-                sceneModePicker: false,
-                timeline: false,
-                navigationHelpButton: false,
-                animation: false,
-                fullscreenButton: false,
-                vrButton: false,
-                infoBox: true,
-                selectionIndicator: true,
-                shadows: true
-            });
-
-            viewerRef.current = viewer;
-
-            // Enable lighting and HDR
-            viewer.scene.globe.enableLighting = true;
-            viewer.scene.highDynamicRange = true; // Fix "washed out" look
-            viewer.scene.globe.depthTestAgainstTerrain = true;
-            if (viewer.scene.sun) {
-                viewer.scene.sun.show = true;
-            }
-            // Set time to noon for best lighting
-            viewer.clock.currentTime = Cesium.JulianDate.fromDate(new Date('2024-05-15T12:00:00Z'));
-
-            // Position camera CLOSE to Himalayas
-            viewer.camera.setView({
-                destination: Cesium.Cartesian3.fromDegrees(84.1240, 28.3949, 10000), // 10km altitude
-                orientation: {
-                    heading: Cesium.Math.toRadians(0),
-                    pitch: Cesium.Math.toRadians(-20),
-                    roll: 0.0
+        const initCesium = async () => {
+            try {
+                // Revert to strict Cesium Ion usage
+                if (!Cesium.Ion.defaultAccessToken && !import.meta.env.VITE_CESIUM_TOKEN) {
+                    console.warn('⚠️ No Cesium Token found. Map may not load correctly.');
                 }
-            });
 
-            console.log('✓ Cesium positioned at 10km altitude over Himalayas');
-            setIsLoaded(true);
+                const viewer = new Cesium.Viewer(containerRef.current as HTMLElement, {
+                    terrain: Cesium.Terrain.fromWorldTerrain({
+                        requestWaterMask: true,
+                        requestVertexNormals: true
+                    }),
+                    baseLayerPicker: false,
+                    geocoder: false,
+                    homeButton: false,
+                    sceneModePicker: false,
+                    timeline: false,
+                    navigationHelpButton: false,
+                    animation: false,
+                    fullscreenButton: false,
+                    vrButton: false,
+                    infoBox: true,
+                    selectionIndicator: true,
+                    shadows: true,
+                    skyAtmosphere: new Cesium.SkyAtmosphere()
+                });
 
-        } catch (err) {
-            console.error('❌ Cesium error:', err);
-            setError(err instanceof Error ? err.message : 'Failed to initialize Cesium');
-        }
+                viewerRef.current = viewer;
+
+                // Add base imagery layer asynchronously
+                try {
+                    const imageryProvider = await Cesium.IonImageryProvider.fromAssetId(2); // Bing Maps Aerial
+                    viewer.imageryLayers.addImageryProvider(imageryProvider);
+                } catch (imgError) {
+                    console.warn('⚠️ Failed to load Ion imagery, trying OpenStreetMap fallback:', imgError);
+                    // Fallback to OSM if Ion fails
+                    const osmProvider = new Cesium.OpenStreetMapImageryProvider({
+                        url: 'https://a.tile.openstreetmap.org/'
+                    });
+                    viewer.imageryLayers.addImageryProvider(osmProvider);
+                }
+
+                // Enable lighting and HDR
+                viewer.scene.globe.enableLighting = true;
+                viewer.scene.highDynamicRange = true;
+                viewer.scene.globe.depthTestAgainstTerrain = true;
+                if (viewer.scene.sun) {
+                    viewer.scene.sun.show = true;
+                }
+
+                // Set time to noon for best lighting
+                viewer.clock.currentTime = Cesium.JulianDate.fromDate(new Date('2024-05-15T12:00:00Z'));
+
+                // Position camera CLOSE to Himalayas
+                viewer.camera.setView({
+                    destination: Cesium.Cartesian3.fromDegrees(84.1240, 28.3949, 15000), // 15km altitude (slightly higher)
+                    orientation: {
+                        heading: Cesium.Math.toRadians(0),
+                        pitch: Cesium.Math.toRadians(-20),
+                        roll: 0.0
+                    }
+                });
+
+                console.log('✓ Cesium positioned at 15km altitude over Himalayas');
+                setIsLoaded(true);
+
+            } catch (err) {
+                console.error('❌ Cesium error:', err);
+                setError(err instanceof Error ? err.message : 'Failed to initialize Cesium');
+            }
+        };
+
+        initCesium();
 
         return () => {
             if (viewerRef.current) {
+                console.log('Cleaning up Cesium viewer');
                 viewerRef.current.destroy();
                 viewerRef.current = null;
             }
