@@ -34,12 +34,12 @@ function parseCoordinates(coordStr: string | null): Coordinates | null {
     return null;
 }
 
-// Transform database row to app HistoricalSite type with compatibility properties
+// Transform database row to app HistoricalSite type with all fields
 function transformDbSite(row: DbHistoricalSite): HistoricalSite {
     const coords = parseCoordinates(row.coordinates);
 
     return {
-        // Core fields
+        // Core fields from database
         id: row.id,
         entry_no: row.entry_no || '',
         country: row.country,
@@ -51,6 +51,8 @@ function transformDbSite(row: DbHistoricalSite): HistoricalSite {
         description: row.description,
         visit_date: row.visit_date,
         phase: row.phase,
+        language: row.language,
+        translation: row.translation,
         source: row.source,
         created_at: row.created_at,
 

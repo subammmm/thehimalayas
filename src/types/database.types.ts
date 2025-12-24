@@ -17,13 +17,18 @@ export interface Database {
                     district: string | null;
                     location: string;
                     coordinates: string | null;
+                    latitude: number | null;
+                    longitude: number | null;
                     site_type: string;
                     documentation: string | null;
                     description: string | null;
                     visit_date: string | null;
                     phase: number | null;
+                    language: string | null;
+                    translation: string | null;
                     source: string | null;
                     created_at: string;
+                    updated_at: string | null;
                 };
                 Insert: {
                     id?: string;
@@ -32,13 +37,18 @@ export interface Database {
                     district?: string | null;
                     location: string;
                     coordinates?: string | null;
+                    latitude?: number | null;
+                    longitude?: number | null;
                     site_type: string;
                     documentation?: string | null;
                     description?: string | null;
                     visit_date?: string | null;
                     phase?: number | null;
+                    language?: string | null;
+                    translation?: string | null;
                     source?: string | null;
                     created_at?: string;
+                    updated_at?: string | null;
                 };
                 Update: {
                     id?: string;
@@ -47,13 +57,18 @@ export interface Database {
                     district?: string | null;
                     location?: string;
                     coordinates?: string | null;
+                    latitude?: number | null;
+                    longitude?: number | null;
                     site_type?: string;
                     documentation?: string | null;
                     description?: string | null;
                     visit_date?: string | null;
                     phase?: number | null;
+                    language?: string | null;
+                    translation?: string | null;
                     source?: string | null;
                     created_at?: string;
+                    updated_at?: string | null;
                 };
             };
             // Keep old locations type for reference but mark as deprecated

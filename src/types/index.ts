@@ -67,7 +67,7 @@ export interface Coordinates {
 }
 
 // Historical site from Khasa Malla research
-// Includes compatibility properties for existing map components
+// Includes all fields from the database plus compatibility properties
 export interface HistoricalSite {
     id: string;
     entry_no: string;
@@ -80,6 +80,8 @@ export interface HistoricalSite {
     description: string | null;
     visit_date: string | null;
     phase: number | null;
+    language: string | null;
+    translation: string | null;
     source: string | null;
     created_at: string;
 
