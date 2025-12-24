@@ -201,7 +201,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                         <p><strong>Elevation:</strong> ${location.elevation?.toLocaleString()}m</p>
                     </div>
                 `
-            } as any);
+            });
 
             entities.push(entity);
         });
@@ -242,7 +242,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                                 dashLength: 16.0
                             })
                         }
-                    } as any);
+                    });
                     entities.push(lineEntity);
                 }
             });
@@ -250,7 +250,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
 
         // Handle selection
         const handler = new Cesium.ScreenSpaceEventHandler(viewerRef.current.scene.canvas);
-        handler.setInputAction((click: any) => {
+        handler.setInputAction((click: Cesium.ScreenSpaceEventHandler.PositionedEvent) => {
             const pickedObject = viewerRef.current?.scene.pick(click.position);
             if (Cesium.defined(pickedObject) && pickedObject.id) {
                 const clickedEntity = pickedObject.id;
@@ -286,7 +286,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
             handler.destroy();
             entities.forEach(e => viewerRef.current?.entities.remove(e));
         };
-    }, [locations, isLoaded, onLocationSelect]);
+    }, [locations, filteredLocations, showConnections, isLoaded, onLocationSelect]);
 
     return (
         <div className="relative w-full h-full">

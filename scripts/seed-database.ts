@@ -12,12 +12,13 @@ import { mockLocations } from '../src/data/mockData';
 
 // Generate SQL INSERT statements for all locations
 function generateInsertStatements(): string {
-    const values = mockLocations.map((loc, index) => {
-        const images = `'{${loc.images.map(img => `"${img}"`).join(',')}}'`;
-        const tags = `'{${loc.tags.map(tag => `"${tag}"`).join(',')}}'`;
-        const description = loc.description.replace(/'/g, "''"); // Escape single quotes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const values = mockLocations.map((loc, _index) => {
+    const images = `'{${loc.images.map(img => `"${img}"`).join(',')}}'`;
+    const tags = `'{${loc.tags.map(tag => `"${tag}"`).join(',')}}'`;
+    const description = loc.description.replace(/'/g, "''"); // Escape single quotes
 
-        return `(
+    return `(
     '${loc.name}',
     '${loc.type}',
     '${loc.region}',
@@ -29,9 +30,9 @@ function generateInsertStatements(): string {
     ${tags},
     '{}'
   )`;
-    });
+  });
 
-    return `-- Insert all locations from mockData.ts
+  return `-- Insert all locations from mockData.ts
 -- Run this in Supabase Dashboard > SQL Editor AFTER creating the table
 
 INSERT INTO locations (name, type, region, latitude, longitude, elevation, description, images, tags, related_location_ids)

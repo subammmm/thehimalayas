@@ -8,56 +8,60 @@ import { CitationModal } from '../components/location/CitationModal';
 const LocationDetailsPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { state } = useLocation(); // Import useLocation
+    const { state } = useLocation();
     const { scrollY } = useScroll();
     const { locations, loading } = useLocations();
 
+    // All hooks must be at the top before any conditional logic
+    const [showCitation, setShowCitation] = useState(false);
+    const [copied, setCopied] = useState(false);
+
     // Determine location: Prefer live data, fallback to passed state (instant load), then 404
-    // We check 'locations' first. If 'locations' is empty (loading), we check 'state.location'.
-    // Actually best is: state.location ?? locations.find(...)
-    // validLocation is the one we use to render.
     const location = state?.location || locations.find(l => l.id === id);
 
     // Parallax for hero image
     const y = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
+    // Find related locations (computed before conditional returns)
+    const relatedLocations = location ? locations.filter(l =>
+        location.relatedLocations?.includes(l.id) ||
+        (l.region === location.region && l.id !== location.id)
+    ).slice(0, 3) : [];
+
     // If we have no location data AND we are loading, show spinner.
-    // If we have state.location, we can show it immediately even if 'locations' is loading.
     if (loading && !location) {
-        if (loading && !location) {
-            return (
-                <div className="min-h-screen bg-white">
-                    {/* Skeleton Hero */}
-                    <div className="h-[70vh] bg-gray-200 animate-pulse relative">
-                        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
-                            <div className="max-w-7xl mx-auto space-y-4">
-                                <div className="w-32 h-6 bg-gray-300 rounded-full" />
-                                <div className="w-3/4 md:w-1/2 h-16 bg-gray-300 rounded-xl" />
-                                <div className="flex gap-4">
-                                    <div className="w-24 h-6 bg-gray-300 rounded-full" />
-                                    <div className="w-24 h-6 bg-gray-300 rounded-full" />
-                                </div>
+        return (
+            <div className="min-h-screen bg-white">
+                {/* Skeleton Hero */}
+                <div className="h-[70vh] bg-gray-200 animate-pulse relative">
+                    <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
+                        <div className="max-w-7xl mx-auto space-y-4">
+                            <div className="w-32 h-6 bg-gray-300 rounded-full" />
+                            <div className="w-3/4 md:w-1/2 h-16 bg-gray-300 rounded-xl" />
+                            <div className="flex gap-4">
+                                <div className="w-24 h-6 bg-gray-300 rounded-full" />
+                                <div className="w-24 h-6 bg-gray-300 rounded-full" />
                             </div>
-                        </div>
-                    </div>
-                    {/* Skeleton Content */}
-                    <div className="max-w-7xl mx-auto -mt-10 relative z-10 px-6 grid grid-cols-1 lg:grid-cols-3 gap-16">
-                        <div className="lg:col-span-2 space-y-8 pt-12">
-                            <div className="space-y-4">
-                                <div className="w-1/4 h-8 bg-gray-200 rounded-lg animate-pulse" />
-                                <div className="w-full h-4 bg-gray-100 rounded animate-pulse" />
-                                <div className="w-full h-4 bg-gray-100 rounded animate-pulse" />
-                                <div className="w-3/4 h-4 bg-gray-100 rounded animate-pulse" />
-                            </div>
-                        </div>
-                        <div className="hidden lg:block lg:col-span-1 pt-12">
-                            <div className="h-64 bg-gray-100 rounded-3xl animate-pulse" />
                         </div>
                     </div>
                 </div>
-            );
-        }
+                {/* Skeleton Content */}
+                <div className="max-w-7xl mx-auto -mt-10 relative z-10 px-6 grid grid-cols-1 lg:grid-cols-3 gap-16">
+                    <div className="lg:col-span-2 space-y-8 pt-12">
+                        <div className="space-y-4">
+                            <div className="w-1/4 h-8 bg-gray-200 rounded-lg animate-pulse" />
+                            <div className="w-full h-4 bg-gray-100 rounded animate-pulse" />
+                            <div className="w-full h-4 bg-gray-100 rounded animate-pulse" />
+                            <div className="w-3/4 h-4 bg-gray-100 rounded animate-pulse" />
+                        </div>
+                    </div>
+                    <div className="hidden lg:block lg:col-span-1 pt-12">
+                        <div className="h-64 bg-gray-100 rounded-3xl animate-pulse" />
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     if (!location) {
@@ -75,15 +79,6 @@ const LocationDetailsPage = () => {
             </div>
         );
     }
-
-    // Find related locations (mock logic for now if related_ids empty)
-    const relatedLocations = locations.filter(l =>
-        location.relatedLocations?.includes(l.id) ||
-        (l.region === location.region && l.id !== location.id)
-    ).slice(0, 3);
-
-    const [showCitation, setShowCitation] = useState(false);
-    const [copied, setCopied] = useState(false);
 
     const handleShare = async () => {
         if (navigator.share) {

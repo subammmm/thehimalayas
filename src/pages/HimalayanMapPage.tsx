@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Loader2 } from 'lucide-react';
@@ -26,15 +26,9 @@ const HimalayanMapPage = () => {
     const [selectedTypes, setSelectedTypes] = useState<LocationType[]>([]);
     const [selectedRegions, setSelectedRegions] = useState<Region[]>([]);
     const [minElevation, setMinElevation] = useState(0);
-    const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+    // Initialize with selectedFromSearch if available, avoiding setState in useEffect
+    const [selectedLocation, setSelectedLocation] = useState<Location | null>(selectedFromSearch);
     const [is3DMode, setIs3DMode] = useState(false);
-
-    // Auto-select location if navigated from search
-    useEffect(() => {
-        if (selectedFromSearch) {
-            setSelectedLocation(selectedFromSearch);
-        }
-    }, [selectedFromSearch]);
 
     const filteredLocations = useMemo(() => {
         return locations.filter(loc => {

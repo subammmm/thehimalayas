@@ -47,7 +47,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
 
         if (!mapContainer.current) {
             console.error('❌ No map container!');
-            ('Map container missing');
+            console.error('Map container missing');
             return;
         }
 
@@ -59,7 +59,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         if (!MAPBOX_TOKEN || !mapboxgl.accessToken) {
             const msg = 'Missing Mapbox token - check .env file has VITE_MAPBOX_TOKEN';
             console.error('❌', msg);
-            (msg);
             return;
         }
 
@@ -140,19 +139,19 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                     setIsMapLoaded(true);
                 } catch (err) {
                     console.error('❌ Error adding terrain:', err);
-                    ('Failed to add 3D terrain: ' + (err instanceof Error ? err.message : String(err)));
+                    console.error('Failed to add 3D terrain: ' + (err instanceof Error ? err.message : String(err)));
                 }
             });
 
             // Handle errors
             map.current.on('error', (e) => {
                 console.error('❌ Mapbox error event:', e);
-                ('Map error: ' + (e.error?.message || 'Unknown error'));
+                console.error('Map error: ' + (e.error?.message || 'Unknown error'));
             });
 
         } catch (err) {
             console.error('❌ Failed to create map:', err);
-            ('Failed to create map: ' + (err instanceof Error ? err.message : String(err)));
+            console.error('Failed to create map: ' + (err instanceof Error ? err.message : String(err)));
         }
 
         return () => {

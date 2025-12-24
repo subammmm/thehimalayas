@@ -9,14 +9,13 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'mapbox': ['mapbox-gl'],
-          'leaflet': ['leaflet', 'react-leaflet']
+          'mapbox': ['mapbox-gl']
         }
       }
     },
     chunkSizeWarningLimit: 2000
   },
   optimizeDeps: {
-    include: ['mapbox-gl', 'react', 'react-dom', 'framer-motion', 'leaflet']
+    include: ['mapbox-gl', 'react', 'react-dom', 'framer-motion']
   }
 });

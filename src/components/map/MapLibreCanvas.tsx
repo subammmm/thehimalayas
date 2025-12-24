@@ -91,7 +91,10 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
 
         } catch (err) {
             console.error('❌ Failed to create map:', err);
-            setError(err instanceof Error ? err.message : 'Failed to initialize map');
+            // Use setTimeout to avoid synchronous setState in effect
+            setTimeout(() => {
+                setError(err instanceof Error ? err.message : 'Failed to initialize map');
+            }, 0);
         }
 
         return () => {

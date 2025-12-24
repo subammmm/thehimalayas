@@ -16,7 +16,8 @@ try {
     for (const k in envConfig) {
         process.env[k] = envConfig[k];
     }
-} catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+} catch (_e) {
     console.log("Could not load .env file, checking process.env");
 }
 
@@ -53,7 +54,8 @@ async function migrate() {
 
     // Prepare data
     // Map existing structure to database structure (snake_case)
-    const records = mockLocations.map(loc => ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const records = mockLocations.map((loc, _index) => ({
         name: loc.name,
         type: loc.type,
         region: loc.region,

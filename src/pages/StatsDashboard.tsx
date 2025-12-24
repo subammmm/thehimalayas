@@ -4,6 +4,33 @@ import { useNavigate } from 'react-router-dom';
 import { useLocations } from '../hooks/useLocations';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 
+// Define types for tooltip props
+interface TooltipPayload {
+    value: number;
+    dataKey: string;
+}
+
+interface CustomTooltipProps {
+    active?: boolean;
+    payload?: TooltipPayload[];
+    label?: string;
+}
+
+// Move CustomTooltip outside render to prevent re-creation on each render
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="bg-black/90 border border-white/20 p-3 rounded-xl shadow-2xl backdrop-blur-md">
+                <p className="text-white font-medium text-sm">{label}</p>
+                <p className="text-emerald-400 text-xs font-bold mt-1">
+                    {payload[0].value.toLocaleString()} {payload[0].dataKey === 'elevation' ? 'meters' : 'locations'}
+                </p>
+            </div>
+        );
+    }
+    return null;
+};
+
 export default function StatsDashboard() {
     const navigate = useNavigate();
     const { locations } = useLocations();
@@ -39,20 +66,6 @@ export default function StatsDashboard() {
     // Aesthetics
     const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#ec4899', '#06b6d4', '#6366f1'];
     const CARD_STYLE = "bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 hover:bg-white/10 transition-colors duration-300";
-
-    const CustomTooltip = ({ active, payload, label }: any) => {
-        if (active && payload && payload.length) {
-            return (
-                <div className="bg-black/90 border border-white/20 p-3 rounded-xl shadow-2xl backdrop-blur-md">
-                    <p className="text-white font-medium text-sm">{label}</p>
-                    <p className="text-emerald-400 text-xs font-bold mt-1">
-                        {payload[0].value.toLocaleString()} {payload[0].dataKey === 'elevation' ? 'meters' : 'locations'}
-                    </p>
-                </div>
-            );
-        }
-        return null;
-    };
 
     return (
         <div className="min-h-screen bg-[#050505] text-white selection:bg-amber-500/30">
