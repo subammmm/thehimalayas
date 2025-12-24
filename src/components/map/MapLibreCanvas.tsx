@@ -1,25 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import type { Location, LocationType } from '../../types';
+import type { Location } from '../../types';
 
 interface MapLibreCanvasProps {
     locations: Location[];
     onLocationSelect: (location: Location) => void;
 }
 
-const getColorByType = (type: LocationType): string => {
-    switch (type) {
-        case 'Peak': return '#f97316';
-        case 'Valley': return '#22c55e';
-        case 'Lake': return '#0ea5e9';
-        case 'Monastery': return '#a855f7';
-        case 'Village': return '#eab308';
-        case 'Route/Trek': return '#3b82f6';
-        case 'Glacier': return '#06b6d4';
-        case 'Basecamp': return '#ef4444';
-        default: return '#6b7280';
-    }
+const getColorByType = (type: string): string => {
+    const normalizedType = type.toLowerCase();
+
+    if (normalizedType.includes('stele')) return '#fbbf24';
+    if (normalizedType.includes('pillar')) return '#f97316';
+    if (normalizedType.includes('deval')) return '#a855f7';
+    if (normalizedType.includes('stupa')) return '#84cc16';
+    if (normalizedType.includes('temple')) return '#ef4444';
+    if (normalizedType.includes('fountain')) return '#06b6d4';
+    if (normalizedType.includes('fort')) return '#92400e';
+    if (normalizedType.includes('inscription')) return '#eab308';
+    if (normalizedType.includes('monastery')) return '#d946ef';
+    if (normalizedType.includes('remains')) return '#bc6c25';
+
+    return '#6b7280';
 };
 
 export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasProps) => {
@@ -32,7 +35,6 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
     // Initialize map
     useEffect(() => {
         if (!containerRef.current || mapRef.current) return;
-
 
         try {
             const map = new maplibregl.Map({
@@ -63,7 +65,7 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
                         exaggeration: 1.5
                     }
                 },
-                center: [84.1240, 28.3949],
+                center: [81.8, 28.8], // Khasa Malla region
                 zoom: 7,
                 pitch: 60,
                 bearing: 0
@@ -71,7 +73,6 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
 
             mapRef.current = map;
 
-            // Add navigation controls
             map.addControl(new maplibregl.NavigationControl({
                 visualizePitch: true
             }), 'top-right');
@@ -87,7 +88,6 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
 
         } catch (err) {
             console.error('❌ Failed to create map:', err);
-            // Use setTimeout to avoid synchronous setState in effect
             setTimeout(() => {
                 setError(err instanceof Error ? err.message : 'Failed to initialize map');
             }, 0);
@@ -105,18 +105,19 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
     useEffect(() => {
         if (!mapRef.current || !isLoaded || locations.length === 0) return;
 
-
         // Remove existing
         markersRef.current.forEach(m => m.remove());
         markersRef.current = [];
 
+        // Filter locations with coordinates
+        const mappableLocations = locations.filter(loc => loc.coordinates !== null);
+
         // Add new markers
-        locations.forEach(location => {
-            if (!mapRef.current) return;
+        mappableLocations.forEach(location => {
+            if (!mapRef.current || !location.coordinates) return;
 
             const color = getColorByType(location.type);
 
-            // Create marker element
             const el = document.createElement('div');
             el.style.cssText = `
                 width: 16px;
@@ -139,12 +140,14 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
 
             el.addEventListener('click', () => {
                 onLocationSelect(location);
-                mapRef.current?.flyTo({
-                    center: [location.coordinates.lng, location.coordinates.lat],
-                    zoom: 12,
-                    pitch: 70,
-                    duration: 2000
-                });
+                if (location.coordinates) {
+                    mapRef.current?.flyTo({
+                        center: [location.coordinates.lng, location.coordinates.lat],
+                        zoom: 12,
+                        pitch: 70,
+                        duration: 2000
+                    });
+                }
             });
 
             const marker = new maplibregl.Marker({ element: el })

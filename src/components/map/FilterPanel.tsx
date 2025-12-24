@@ -1,18 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Mountain, Ruler, Map as MapIcon, RotateCcw } from 'lucide-react';
-import type { LocationType, Region } from '../../types';
+import { X, Check, Building, Map as MapIcon, RotateCcw } from 'lucide-react';
 
+// Use simple string types for flexibility with historical site data
 interface FilterPanelProps {
     isOpen: boolean;
     onClose: () => void;
-    selectedTypes: LocationType[];
-    toggleType: (type: LocationType) => void;
-    selectedRegions: Region[];
-    toggleRegion: (region: Region) => void;
+    selectedTypes: string[];
+    toggleType: (type: string) => void;
+    selectedRegions: string[];
+    toggleRegion: (region: string) => void;
     minElevation: number;
     setMinElevation: (elevation: number) => void;
     onReset: () => void;
-    className?: string; // Allow custom positioning
+    className?: string;
 }
 
 export const FilterPanel = ({
@@ -22,15 +22,15 @@ export const FilterPanel = ({
     toggleType,
     selectedRegions,
     toggleRegion,
-    minElevation,
-    setMinElevation,
     onReset,
-    className = "top-24 left-6" // Default position
+    className = "top-24 left-6"
 }: FilterPanelProps) => {
 
-    const regions: Region[] = ['Everest', 'Annapurna', 'Langtang', 'Manaslu', 'Kanchenjunga', 'Makalu', 'Dolpo', 'Mustang'];
-    const types: LocationType[] = ['Peak', 'Valley', 'Lake', 'Monastery', 'Village', 'Route/Trek', 'Glacier', 'Basecamp'];
-    const maxElevation = 8849; // Everest height
+    // Districts where Khasa Malla sites are located
+    const regions = ['Dailekh', 'Jumla', 'Surkhet', 'Mugu', 'Kalikot', 'Achham', 'Bajhang', 'Bihar', 'Tibet'];
+
+    // Site types from the historical data
+    const types = ['Pillar', 'Stele', 'Deval', 'Stupa', 'Temple', 'Fountain', 'Fort', 'Inscription', 'Monastery', 'Remains'];
 
     return (
         <AnimatePresence>
@@ -42,32 +42,13 @@ export const FilterPanel = ({
                     className={`absolute z-[1000] bg-black/80 backdrop-blur-xl p-5 rounded-2xl shadow-2xl w-72 border border-white/20 ${className}`}
                 >
                     <div className="flex justify-between items-center mb-4">
-                        <h3 className="font-display font-bold text-white text-base tracking-tight">Filter Locations</h3>
+                        <h3 className="font-display font-bold text-white text-base tracking-tight">Filter Sites</h3>
                     </div>
 
-                    {/* Elevation Slider */}
-                    <div className="mb-4">
-                        <div className="flex justify-between items-center mb-2">
-                            <label className="flex items-center gap-1.5 text-xs font-medium text-white/80">
-                                <Ruler className="w-3.5 h-3.5 text-white/40" /> Min Elevation
-                            </label>
-                            <span className="text-amber-400 font-mono text-xs">{minElevation.toLocaleString()}m</span>
-                        </div>
-                        <input
-                            type="range"
-                            min="0"
-                            max={maxElevation}
-                            step="500"
-                            value={minElevation}
-                            onChange={(e) => setMinElevation(Number(e.target.value))}
-                            className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-white"
-                        />
-                    </div>
-
-                    {/* Regions */}
+                    {/* Districts */}
                     <div className="mb-4">
                         <label className="flex items-center gap-1.5 text-xs font-medium text-white/80 mb-2">
-                            <MapIcon className="w-3.5 h-3.5 text-white/40" /> Regions
+                            <MapIcon className="w-3.5 h-3.5 text-white/40" /> Districts
                         </label>
                         <div className="flex flex-wrap gap-1.5">
                             {regions.map(region => (
@@ -87,10 +68,10 @@ export const FilterPanel = ({
                         </div>
                     </div>
 
-                    {/* Types */}
+                    {/* Site Types */}
                     <div className="mb-5">
                         <label className="flex items-center gap-1.5 text-xs font-medium text-white/80 mb-2">
-                            <Mountain className="w-3.5 h-3.5 text-white/40" /> Terrain Type
+                            <Building className="w-3.5 h-3.5 text-white/40" /> Site Type
                         </label>
                         <div className="flex flex-wrap gap-1.5">
                             {types.map(type => (

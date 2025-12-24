@@ -1,9 +1,12 @@
 
 import { motion } from 'framer-motion';
 import type { PanInfo } from 'framer-motion';
-import { X, MapPin, Mountain } from 'lucide-react';
+import { X, MapPin, Building } from 'lucide-react';
 import type { Location } from '../../types';
 import { useNavigate } from 'react-router-dom';
+
+// Default placeholder image for historical sites
+const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=400';
 
 interface MobileBottomSheetProps {
     location: Location | null;
@@ -47,7 +50,7 @@ export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomS
             <div className="flex-grow overflow-y-auto p-0 pb-10">
                 <div className="relative h-64 w-full">
                     <img
-                        src={location.images[0]}
+                        src={PLACEHOLDER_IMAGE}
                         alt={location.name}
                         className="w-full h-full object-cover"
                     />
@@ -65,27 +68,36 @@ export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomS
                         </div>
                         <h2 className="text-3xl font-bold">{location.name}</h2>
                         <div className="flex items-center gap-4 mt-2 text-sm opacity-90">
-                            <span className="flex items-center"><Mountain className="w-4 h-4 mr-1" /> {location.elevation}m</span>
+                            <span className="flex items-center"><Building className="w-4 h-4 mr-1" /> {location.entry_no}</span>
                             <span className="flex items-center"><MapPin className="w-4 h-4 mr-1" /> {location.region}</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="p-6 space-y-6">
-                    <p className="text-gray-600 text-lg leading-relaxed">
-                        {location.description}
-                    </p>
+                    {location.description && (
+                        <p className="text-gray-600 text-lg leading-relaxed">
+                            {location.description}
+                        </p>
+                    )}
 
-                    <div>
-                        <h4 className="font-bold text-gray-900 mb-3">Tags</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {location.tags.map(tag => (
-                                <span key={tag} className="px-3 py-1.5 bg-gray-100 text-gray-600 text-sm rounded-lg font-medium">
-                                    #{tag}
-                                </span>
-                            ))}
+                    {location.documentation && (
+                        <div>
+                            <h4 className="font-bold text-gray-900 mb-3">Documentation</h4>
+                            <p className="text-gray-600">
+                                {location.documentation.length > 300
+                                    ? location.documentation.substring(0, 300) + '...'
+                                    : location.documentation}
+                            </p>
                         </div>
-                    </div>
+                    )}
+
+                    {location.source && (
+                        <div>
+                            <h4 className="font-bold text-gray-900 mb-3">Source</h4>
+                            <p className="text-gray-500 text-sm italic">{location.source}</p>
+                        </div>
+                    )}
 
                     <div className="flex gap-3 pt-4">
                         <button

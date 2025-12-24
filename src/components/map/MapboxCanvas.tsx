@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import type { Location, LocationType } from '../../types';
+import type { HistoricalSite, SiteType } from '../../types';
+
+// Type alias for backward compatibility
+type Location = HistoricalSite;
+type LocationType = SiteType | string;
 
 // Get token from environment
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -21,17 +25,26 @@ interface MapboxCanvasProps {
 }
 
 const getColorByType = (type: LocationType): string => {
-    switch (type) {
-        case 'Peak': return '#f97316';
-        case 'Valley': return '#22c55e';
-        case 'Lake': return '#0ea5e9';
-        case 'Monastery': return '#a855f7';
-        case 'Village': return '#eab308';
-        case 'Route/Trek': return '#3b82f6';
-        case 'Glacier': return '#06b6d4';
-        case 'Basecamp': return '#ef4444';
-        default: return '#6b7280';
-    }
+    // Normalize type for matching (handle variations)
+    const normalizedType = type.toLowerCase();
+
+    if (normalizedType.includes('stele')) return '#fbbf24'; // amber
+    if (normalizedType.includes('pillar')) return '#f97316'; // orange
+    if (normalizedType.includes('deval')) return '#a855f7'; // purple
+    if (normalizedType.includes('stupa')) return '#84cc16'; // lime
+    if (normalizedType.includes('temple')) return '#ef4444'; // red
+    if (normalizedType.includes('fountain')) return '#06b6d4'; // cyan
+    if (normalizedType.includes('fort')) return '#92400e'; // brown
+    if (normalizedType.includes('palace')) return '#dc2626'; // crimson
+    if (normalizedType.includes('inscription')) return '#eab308'; // yellow
+    if (normalizedType.includes('monastery') || normalizedType.includes('vihara')) return '#d946ef'; // fuchsia
+    if (normalizedType.includes('remains')) return '#bc6c25'; // tan
+    if (normalizedType.includes('museum')) return '#0ea5e9'; // sky
+    if (normalizedType.includes('mounds')) return '#d97706'; // amber
+    if (normalizedType.includes('sculpture')) return '#f97316'; // coral
+    if (normalizedType.includes('pavilion')) return '#8b5cf6'; // violet
+
+    return '#6b7280'; // gray
 };
 
 export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, showConnections = false }: MapboxCanvasProps) => {
@@ -157,7 +170,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
 
     // Handle external focus changes (SEARCH or CLICK)
     useEffect(() => {
-        if (!map.current || !isMapLoaded || !focusedLocation) return;
+        if (!map.current || !isMapLoaded || !focusedLocation || !focusedLocation.coordinates) return;
 
         map.current.flyTo({
             center: [focusedLocation.coordinates.lng, focusedLocation.coordinates.lat],
@@ -202,13 +215,17 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         const features: GeoJSON.Feature[] = [];
 
         locationsByType.forEach((locs, type) => {
-            if (locs.length < 2) return; // Need at least 2 to draw a line
+            // Filter out locations without coordinates
+            const validLocs = locs.filter(loc => loc.coordinates !== null);
+            if (validLocs.length < 2) return; // Need at least 2 to draw a line
 
             const color = getColorByType(type as LocationType);
-            const coordinates: [number, number][] = locs.map(loc => [
-                loc.coordinates.lng,
-                loc.coordinates.lat
-            ]);
+            const coordinates: [number, number][] = validLocs
+                .filter(loc => loc.coordinates)
+                .map(loc => [
+                    loc.coordinates!.lng,
+                    loc.coordinates!.lat
+                ]);
 
             features.push({
                 type: 'Feature',
@@ -239,72 +256,79 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         markers.current.forEach(marker => marker.remove());
         markers.current = [];
 
-        // Add new markers
-        locations.forEach(location => {
-            const color = getColorByType(location.type);
+        // Add new markers (only for locations with valid coordinates)
+        locations
+            .filter(loc => loc.coordinates !== null)
+            .forEach(location => {
+                if (!location.coordinates) return; // Type guard
 
-            // Create marker container (Mapbox positions this)
-            const container = document.createElement('div');
-            container.className = 'marker-container';
-            container.style.cssText = `
-                width: 20px;
-                height: 20px;
-                cursor: pointer;
-            `;
+                const color = getColorByType(location.type);
 
-            // Create visible inner dot (we animate this)
-            const inner = document.createElement('div');
-            inner.className = 'custom-mapbox-marker';
-            inner.style.cssText = `
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                background-color: ${color};
-                border: 3px solid white;
-                box-shadow: 0 0 0 2px ${color}40, 0 4px 12px rgba(0,0,0,0.3);
-                transition: transform 0.2s ease;
-                transform-origin: center center;
-                will-change: transform;
-            `;
-            container.appendChild(inner);
+                // Create marker container (Mapbox positions this)
+                const container = document.createElement('div');
+                container.className = 'marker-container';
+                container.style.cssText = `
+                    width: 20px;
+                    height: 20px;
+                    cursor: pointer;
+                `;
 
-            // Hover effects on the inner element
-            container.addEventListener('mouseenter', () => {
-                inner.style.transform = 'scale(1.3)';
-                container.style.zIndex = '1000';
-            });
+                // Create visible inner dot (we animate this)
+                const inner = document.createElement('div');
+                inner.className = 'custom-mapbox-marker';
+                inner.style.cssText = `
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    background-color: ${color};
+                    border: 3px solid white;
+                    box-shadow: 0 0 0 2px ${color}40, 0 4px 12px rgba(0,0,0,0.3);
+                    transition: transform 0.2s ease;
+                    transform-origin: center center;
+                    will-change: transform;
+                `;
+                container.appendChild(inner);
 
-            container.addEventListener('mouseleave', () => {
-                inner.style.transform = 'scale(1)';
-                container.style.zIndex = 'auto';
-            });
-
-            // Create marker using the container
-            const marker = new mapboxgl.Marker({
-                element: container,
-                anchor: 'center'
-            })
-                .setLngLat([location.coordinates.lng, location.coordinates.lat])
-                .addTo(map.current!);
-
-            // Add click handler
-            container.addEventListener('click', (e) => {
-                e.stopPropagation();
-                onLocationSelect(location);
-
-                // Fly to location with smooth animation
-                map.current?.flyTo({
-                    center: [location.coordinates.lng, location.coordinates.lat],
-                    zoom: 13,
-                    pitch: 70,
-                    bearing: 30,
-                    duration: 2000,
-                    essential: true
+                // Hover effects on the inner element
+                container.addEventListener('mouseenter', () => {
+                    inner.style.transform = 'scale(1.3)';
+                    container.style.zIndex = '1000';
                 });
-            });
 
-            markers.current.push(marker);
-        });
+                container.addEventListener('mouseleave', () => {
+                    inner.style.transform = 'scale(1)';
+                    container.style.zIndex = 'auto';
+                });
+
+                // Create marker using the container (coordinates guaranteed non-null here)
+                const coords = location.coordinates;
+                const marker = new mapboxgl.Marker({
+                    element: container,
+                    anchor: 'center'
+                })
+                    .setLngLat([coords.lng, coords.lat])
+                    .addTo(map.current!);
+
+                // Add click handler
+                container.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    onLocationSelect(location);
+
+                    // Fly to location with smooth animation
+                    if (location.coordinates) {
+                        map.current?.flyTo({
+                            center: [location.coordinates.lng, location.coordinates.lat],
+                            zoom: 13,
+                            pitch: 70,
+                            bearing: 30,
+                            duration: 2000,
+                            essential: true
+                        });
+                    }
+                });
+
+                markers.current.push(marker);
+            });
     }, [locations, isMapLoaded, onLocationSelect]);
 
     return (

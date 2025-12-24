@@ -1,37 +1,76 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import { mockLocations } from '../data/mockData';
-import type { Location } from '../types';
-import type { DbLocation } from '../types/database.types';
+import type { HistoricalSite, Coordinates } from '../types';
+import type { DbHistoricalSite } from '../types/database.types';
 
-// Transform database row to app Location type
-function transformDbLocation(row: DbLocation): Location {
+// Parse coordinates string like "29.2717, 82.1568" to Coordinates object
+function parseCoordinates(coordStr: string | null): Coordinates | null {
+    if (!coordStr) return null;
+
+    // Try different formats
+    // Format 1: "29.2717, 82.1568"
+    // Format 2: "29°16'18.1"N 82°09'24.5"E"
+
+    // Simple decimal format
+    const simpleMatch = coordStr.match(/(-?\d+\.?\d*),\s*(-?\d+\.?\d*)/);
+    if (simpleMatch) {
+        return {
+            lat: parseFloat(simpleMatch[1]),
+            lng: parseFloat(simpleMatch[2])
+        };
+    }
+
+    // DMS format: 29°16'18.1"N 82°09'24.5"E
+    const dmsMatch = coordStr.match(/(\d+)[°](\d+)['''](\d+\.?\d*)[""']?\s*([NS])\s+(\d+)[°](\d+)['''](\d+\.?\d*)[""']?\s*([EW])/);
+    if (dmsMatch) {
+        const lat = parseInt(dmsMatch[1]) + parseInt(dmsMatch[2]) / 60 + parseFloat(dmsMatch[3]) / 3600;
+        const lng = parseInt(dmsMatch[5]) + parseInt(dmsMatch[6]) / 60 + parseFloat(dmsMatch[7]) / 3600;
+        return {
+            lat: dmsMatch[4] === 'S' ? -lat : lat,
+            lng: dmsMatch[8] === 'W' ? -lng : lng
+        };
+    }
+
+    return null;
+}
+
+// Transform database row to app HistoricalSite type with compatibility properties
+function transformDbSite(row: DbHistoricalSite): HistoricalSite {
+    const coords = parseCoordinates(row.coordinates);
+
     return {
+        // Core fields
         id: row.id,
-        name: row.name,
-        type: row.type as Location['type'],
-        region: row.region as Location['region'],
-        coordinates: {
-            lat: row.latitude,
-            lng: row.longitude,
-        },
-        elevation: row.elevation,
-        description: row.description || '',
-        images: row.images || [],
-        tags: row.tags || [],
-        relatedLocations: row.related_location_ids || [],
+        entry_no: row.entry_no || '',
+        country: row.country,
+        district: row.district || 'N/A',
+        location: row.location,
+        coordinates: coords,
+        site_type: row.site_type,
+        documentation: row.documentation,
+        description: row.description,
+        visit_date: row.visit_date,
+        phase: row.phase,
+        source: row.source,
+        created_at: row.created_at,
+
+        // Compatibility aliases for map components
+        name: row.location,           // Map uses 'name' for labels
+        type: row.site_type,          // Map uses 'type' for colors
+        region: row.district || 'N/A', // Map uses 'region' for grouping
+        elevation: 0                   // Historical sites don't have elevation
     };
 }
 
 interface UseLocationsResult {
-    locations: Location[];
+    locations: HistoricalSite[];
     loading: boolean;
     error: string | null;
     refetch: () => Promise<void>;
 }
 
 export function useLocations(): UseLocationsResult {
-    const [locations, setLocations] = useState<Location[]>([]);
+    const [locations, setLocations] = useState<HistoricalSite[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -41,27 +80,28 @@ export function useLocations(): UseLocationsResult {
 
         try {
             const { data, error: supabaseError } = await supabase
-                .from('locations')
+                .from('historical_sites')
                 .select('*')
-                .order('name');
+                .order('location');
 
             if (supabaseError) {
                 throw supabaseError;
             }
 
             if (data && data.length > 0) {
-                const transformedLocations = data.map(transformDbLocation);
-                setLocations(transformedLocations);
+                const transformedLocations = data.map(transformDbSite);
+                // Filter out sites without coordinates (can't display on map)
+                const mappableLocations = transformedLocations.filter(loc => loc.coordinates !== null);
+                setLocations(mappableLocations);
+                console.log(`✓ Loaded ${mappableLocations.length} mappable historical sites (${transformedLocations.length - mappableLocations.length} without coordinates)`);
             } else {
-                // Fallback to mock data if no data in Supabase
-                console.warn('No data in Supabase, using mock data fallback');
-                setLocations(mockLocations);
+                console.warn('No historical sites found in Supabase');
+                setLocations([]);
             }
         } catch (err) {
-            console.error('Error fetching locations:', err);
-            setError(err instanceof Error ? err.message : 'Failed to fetch locations');
-            // Fallback to mock data on error
-            setLocations(mockLocations);
+            console.error('Error fetching historical sites:', err);
+            setError(err instanceof Error ? err.message : 'Failed to fetch historical sites');
+            setLocations([]);
         } finally {
             setLoading(false);
         }

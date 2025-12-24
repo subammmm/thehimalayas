@@ -10,7 +10,7 @@ import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
 import { LocationPopover } from '../components/location/LocationPopover';
 import { MobileBottomSheet } from '../components/location/MobileBottomSheet';
-import type { LocationType, Region, Location } from '../types';
+import type { Location } from '../types';
 
 const HimalayanMapPage = () => {
     const navigate = useNavigate();
@@ -23,8 +23,8 @@ const HimalayanMapPage = () => {
 
     const [searchQuery, setSearchQuery] = useState(initialSearch);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [selectedTypes, setSelectedTypes] = useState<LocationType[]>([]);
-    const [selectedRegions, setSelectedRegions] = useState<Region[]>([]);
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+    const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
     const [minElevation, setMinElevation] = useState(0);
     // Initialize with selectedFromSearch if available, avoiding setState in useEffect
     const [selectedLocation, setSelectedLocation] = useState<Location | null>(selectedFromSearch);
@@ -33,36 +33,41 @@ const HimalayanMapPage = () => {
     const filteredLocations = useMemo(() => {
         return locations.filter(loc => {
             const matchesSearch = loc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                loc.region.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchesType = selectedTypes.length === 0 || selectedTypes.includes(loc.type);
-            const matchesRegion = selectedRegions.length === 0 || selectedRegions.includes(loc.region);
-            const matchesElevation = (loc.elevation || 0) >= minElevation;
+                loc.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                loc.type.toLowerCase().includes(searchQuery.toLowerCase());
 
-            return matchesSearch && matchesType && matchesRegion && matchesElevation;
+            // Check if any selected type matches (partial match for combined types like "Deval / Fountain")
+            const matchesType = selectedTypes.length === 0 ||
+                selectedTypes.some(selType => loc.type.toLowerCase().includes(selType.toLowerCase()));
+
+            // Check if district matches
+            const matchesRegion = selectedRegions.length === 0 ||
+                selectedRegions.some(selRegion => loc.region.toLowerCase().includes(selRegion.toLowerCase()));
+
+            return matchesSearch && matchesType && matchesRegion;
         });
-    }, [searchQuery, selectedTypes, selectedRegions, minElevation, locations]);
+    }, [searchQuery, selectedTypes, selectedRegions, locations]);
 
     // Determine if any filters are active (excluding search)
     const hasActiveFilters = useMemo(() => {
         return searchQuery.length > 0 ||
             selectedTypes.length > 0 ||
-            selectedRegions.length > 0 ||
-            minElevation > 0;
-    }, [searchQuery, selectedTypes, selectedRegions, minElevation]);
+            selectedRegions.length > 0;
+    }, [searchQuery, selectedTypes, selectedRegions]);
 
-    const toggleType = (type: LocationType) => {
+    const toggleType = (type: string) => {
         setSelectedTypes(prev =>
             prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
         );
     };
 
-    const toggleRegion = (region: Region) => {
+    const toggleRegion = (region: string) => {
         setSelectedRegions(prev =>
             prev.includes(region) ? prev.filter(r => r !== region) : [...prev, region]
         );
     };
 
-    const activeFilterCount = selectedTypes.length + selectedRegions.length + (minElevation > 0 ? 1 : 0);
+    const activeFilterCount = selectedTypes.length + selectedRegions.length;
 
     const resetFilters = () => {
         setSelectedTypes([]);
@@ -87,9 +92,6 @@ const HimalayanMapPage = () => {
                 locations={locations}
                 onLocationSelect={(loc) => {
                     setSelectedLocation(loc);
-                    // Also fly to it immediately
-                    // The useEffect logic for 'selectedLocation' changes might handle this, 
-                    // but we ensure it's set as the focused/selected one.
                 }}
             />
 
@@ -105,12 +107,12 @@ const HimalayanMapPage = () => {
                     {loading && (
                         <div className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur rounded-full shadow-lg text-sm font-medium text-gray-700">
                             <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                            Loading locations...
+                            Loading historical sites...
                         </div>
                     )}
                     {error && (
                         <div className="mt-2 flex items-center gap-2 px-4 py-2 bg-red-50/90 backdrop-blur rounded-full shadow-lg text-sm font-medium text-red-700 border border-red-200">
-                            Using offline data ({error})
+                            Error loading data ({error})
                         </div>
                     )}
                 </div>
@@ -177,19 +179,19 @@ const HimalayanMapPage = () => {
 
             {/* Location Counter */}
             <div className="absolute bottom-8 left-8 z-[1200] glass-overlay px-4 py-2 rounded-lg shadow-lg pointer-events-auto">
-                <span className="font-medium text-gray-800">Showing {filteredLocations.length} locations</span>
+                <span className="font-medium text-gray-800">Showing {filteredLocations.length} sites</span>
             </div>
 
-            {/* Legend - now visible in 3D mode too */}
+            {/* Legend - Historical Site Types */}
             <div className="absolute bottom-8 right-8 z-[1200] glass-overlay p-4 rounded-xl shadow-lg max-w-xs pointer-events-auto">
                 <h4 className="font-semibold text-sm mb-2 text-gray-800">Legend</h4>
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-orange-500 mr-2"></span>Peak</div>
-                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-green-500 mr-2"></span>Valley</div>
-                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-sky-500 mr-2"></span>Lake</div>
-                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-purple-500 mr-2"></span>Monastery</div>
-                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>Village</div>
-                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>Route</div>
+                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-amber-400 mr-2"></span>Stele</div>
+                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-orange-500 mr-2"></span>Pillar</div>
+                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-purple-500 mr-2"></span>Deval</div>
+                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-lime-500 mr-2"></span>Stupa</div>
+                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-red-500 mr-2"></span>Temple</div>
+                    <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-cyan-500 mr-2"></span>Fountain</div>
                 </div>
             </div>
         </div>

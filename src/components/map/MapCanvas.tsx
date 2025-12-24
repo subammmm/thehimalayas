@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
-import type { Location, LocationType } from '../../types';
+import type { Location } from '../../types';
 import L from 'leaflet';
 
 // Fix for default marker icons
@@ -17,18 +17,24 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const getColorByType = (type: LocationType): string => {
-    switch (type) {
-        case 'Peak': return '#f97316';
-        case 'Valley': return '#22c55e';
-        case 'Lake': return '#0ea5e9';
-        case 'Monastery': return '#a855f7';
-        case 'Village': return '#eab308';
-        case 'Route/Trek': return '#3b82f6';
-        case 'Glacier': return '#06b6d4';
-        case 'Basecamp': return '#ef4444';
-        default: return '#6b7280';
-    }
+const getColorByType = (type: string): string => {
+    // Normalize type for matching (handle variations)
+    const normalizedType = type.toLowerCase();
+
+    if (normalizedType.includes('stele')) return '#fbbf24'; // amber
+    if (normalizedType.includes('pillar')) return '#f97316'; // orange
+    if (normalizedType.includes('deval')) return '#a855f7'; // purple
+    if (normalizedType.includes('stupa')) return '#84cc16'; // lime
+    if (normalizedType.includes('temple')) return '#ef4444'; // red
+    if (normalizedType.includes('fountain')) return '#06b6d4'; // cyan
+    if (normalizedType.includes('fort')) return '#92400e'; // brown
+    if (normalizedType.includes('palace')) return '#dc2626'; // crimson
+    if (normalizedType.includes('inscription')) return '#eab308'; // yellow
+    if (normalizedType.includes('monastery') || normalizedType.includes('vihara')) return '#d946ef'; // fuchsia
+    if (normalizedType.includes('remains')) return '#bc6c25'; // tan
+    if (normalizedType.includes('museum')) return '#0ea5e9'; // sky
+
+    return '#6b7280'; // gray
 };
 
 interface MapCanvasProps {
@@ -38,13 +44,16 @@ interface MapCanvasProps {
 
 export const MapCanvas = ({ locations, onLocationSelect }: MapCanvasProps) => {
     useEffect(() => {
-        console.log('🗺️ Leaflet map initialized with', locations.length, 'locations');
+        console.log('🗺️ Leaflet map initialized with', locations.length, 'historical sites');
     }, [locations]);
+
+    // Filter out locations without coordinates
+    const mappableLocations = locations.filter(loc => loc.coordinates !== null);
 
     return (
         <div className="w-full h-full">
             <MapContainer
-                center={[28.3949, 84.1240]}
+                center={[28.8, 81.8]} // Center on western Nepal (Khasa Malla region)
                 zoom={7}
                 scrollWheelZoom={true}
                 className="w-full h-full"
@@ -54,7 +63,9 @@ export const MapCanvas = ({ locations, onLocationSelect }: MapCanvasProps) => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {locations.map((location) => {
+                {mappableLocations.map((location) => {
+                    if (!location.coordinates) return null;
+
                     const color = getColorByType(location.type);
 
                     const customIcon = L.divIcon({
@@ -87,8 +98,8 @@ export const MapCanvas = ({ locations, onLocationSelect }: MapCanvasProps) => {
                                 <div className="p-2">
                                     <h3 className="font-bold">{location.name}</h3>
                                     <p className="text-sm">{location.type} • {location.region}</p>
-                                    {location.elevation && (
-                                        <p className="text-xs text-gray-600">{location.elevation.toLocaleString()}m</p>
+                                    {location.entry_no && (
+                                        <p className="text-xs text-gray-600">Entry: {location.entry_no}</p>
                                     )}
                                 </div>
                             </Popup>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { X, ExternalLink, Box, MapPin, Mountain } from 'lucide-react';
+import { X, ExternalLink, Box, MapPin, FileText } from 'lucide-react';
 import type { Location } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,9 @@ interface LocationPopoverProps {
     onClose: () => void;
     on3DView: () => void;
 }
+
+// Default placeholder image for historical sites
+const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=400';
 
 export const LocationPopover = ({ location, onClose, on3DView }: LocationPopoverProps) => {
     const navigate = useNavigate();
@@ -22,7 +25,7 @@ export const LocationPopover = ({ location, onClose, on3DView }: LocationPopover
         >
             <div className="relative h-48 w-full flex-shrink-0">
                 <img
-                    src={location.images[0]}
+                    src={PLACEHOLDER_IMAGE}
                     alt={location.name}
                     className="w-full h-full object-cover"
                 />
@@ -38,45 +41,47 @@ export const LocationPopover = ({ location, onClose, on3DView }: LocationPopover
                         <span className="px-2 py-0.5 rounded-full bg-amber-500/80 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider">
                             {location.type}
                         </span>
-                        <span className="text-xs font-medium opacity-80 flex items-center">
-                            <Mountain className="w-3 h-3 mr-1" />
-                            {location.elevation}m
-                        </span>
+                        {location.phase && (
+                            <span className="text-xs font-medium opacity-80 flex items-center">
+                                Phase {location.phase}
+                            </span>
+                        )}
                     </div>
                     <h2 className="text-2xl font-bold leading-tight">{location.name}</h2>
                     <p className="text-sm opacity-80 flex items-center mt-1">
                         <MapPin className="w-3 h-3 mr-1" />
-                        {location.region} Region
+                        {location.region}, {location.country}
                     </p>
                 </div>
             </div>
 
             <div className="p-5 overflow-y-auto custom-scrollbar">
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                    {location.description}
-                </p>
+                {location.description && (
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                        {location.description}
+                    </p>
+                )}
 
-                <div className="space-y-4">
-                    <div>
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Tags</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {location.tags.map(tag => (
-                                <span key={tag} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md font-medium">
-                                    #{tag}
-                                </span>
-                            ))}
-                        </div>
+                {location.documentation && (
+                    <div className="mb-4">
+                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center">
+                            <FileText className="w-3 h-3 mr-1" />
+                            Documentation
+                        </h4>
+                        <p className="text-gray-600 text-sm leading-relaxed bg-gray-50 p-3 rounded-lg">
+                            {location.documentation.length > 200
+                                ? location.documentation.substring(0, 200) + '...'
+                                : location.documentation}
+                        </p>
                     </div>
+                )}
 
-                    <div>
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Gallery</h4>
-                        <div className="grid grid-cols-2 gap-2">
-                            {/* Just reusing main image for mock gallery feel if multiple dont exist, or use placeholder */}
-                            <img src={location.images[0]} className="w-full h-24 object-cover rounded-lg" />
-                            <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=400" className="w-full h-24 object-cover rounded-lg" />
-                        </div>
+                {location.source && (
+                    <div className="mb-4">
+                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Source</h4>
+                        <p className="text-gray-500 text-xs italic">{location.source}</p>
                     </div>
-                </div>
+                )}
 
                 <div className="mt-6 flex gap-3">
                     <button

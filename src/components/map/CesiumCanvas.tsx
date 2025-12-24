@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import * as Cesium from 'cesium';
-import type { Location, LocationType } from '../../types';
+import type { HistoricalSite, SiteType } from '../../types';
+
+// Type alias for backward compatibility
+type Location = HistoricalSite;
+type LocationType = SiteType;
 
 // Use Cesium Ion's default public access token (works for everyone)
 // For production, get your own free token at: https://ion.cesium.com/
@@ -21,19 +25,27 @@ interface CesiumCanvasProps {
     showConnections?: boolean; // Draw lines when filtering is active
 }
 
-const getColorByType = (type: LocationType): Cesium.Color => {
-    switch (type) {
-        case 'Peak': return Cesium.Color.ORANGE;
-        case 'Valley': return Cesium.Color.GREEN;
-        case 'Lake': return Cesium.Color.DEEPSKYBLUE;
-        case 'Monastery': return Cesium.Color.PURPLE;
-        case 'Village': return Cesium.Color.YELLOW;
-        case 'Route/Trek': return Cesium.Color.BLUE;
-        case 'Glacier': return Cesium.Color.CYAN;
-        case 'Basecamp': return Cesium.Color.RED;
-        case 'Historical Site': return Cesium.Color.GOLD;
-        default: return Cesium.Color.GRAY;
-    }
+const getColorByType = (type: LocationType | string): Cesium.Color => {
+    // Normalize type for matching (handle variations)
+    const normalizedType = type.toLowerCase();
+
+    if (normalizedType.includes('stele')) return Cesium.Color.GOLD;
+    if (normalizedType.includes('pillar')) return Cesium.Color.ORANGE;
+    if (normalizedType.includes('deval')) return Cesium.Color.PURPLE;
+    if (normalizedType.includes('stupa')) return Cesium.Color.LIME;
+    if (normalizedType.includes('temple')) return Cesium.Color.RED;
+    if (normalizedType.includes('fountain')) return Cesium.Color.CYAN;
+    if (normalizedType.includes('fort')) return Cesium.Color.BROWN;
+    if (normalizedType.includes('palace')) return Cesium.Color.CRIMSON;
+    if (normalizedType.includes('inscription')) return Cesium.Color.YELLOW;
+    if (normalizedType.includes('monastery') || normalizedType.includes('vihara')) return Cesium.Color.MAGENTA;
+    if (normalizedType.includes('remains')) return Cesium.Color.ROSYBROWN;
+    if (normalizedType.includes('museum')) return Cesium.Color.DEEPSKYBLUE;
+    if (normalizedType.includes('mounds')) return Cesium.Color.SANDYBROWN;
+    if (normalizedType.includes('sculpture')) return Cesium.Color.CORAL;
+    if (normalizedType.includes('pavilion')) return Cesium.Color.MEDIUMPURPLE;
+
+    return Cesium.Color.GRAY;
 };
 
 export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, focusedLocation, showConnections = false }: CesiumCanvasProps) => {
@@ -129,8 +141,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
 
     // Handle external focus (Search/Selection)
     useEffect(() => {
-        if (!viewerRef.current || !isLoaded || !focusedLocation) return;
-
+        if (!viewerRef.current || !isLoaded || !focusedLocation || !focusedLocation.coordinates) return;
 
         const cameraLat = focusedLocation.coordinates.lat - 0.08; // Stand off South
 
@@ -138,7 +149,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
             destination: Cesium.Cartesian3.fromDegrees(
                 focusedLocation.coordinates.lng,
                 cameraLat,
-                8000 + (focusedLocation.elevation || 5000)
+                8000
             ),
             orientation: {
                 heading: Cesium.Math.toRadians(0), // Look North
@@ -156,14 +167,17 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
 
         const entities: Cesium.Entity[] = [];
 
-        locations.forEach(location => {
-            if (!viewerRef.current) return;
+        // Filter locations with valid coordinates
+        const mappableLocations = locations.filter(loc => loc.coordinates !== null);
+
+        mappableLocations.forEach(location => {
+            if (!viewerRef.current || !location.coordinates) return;
 
             const entity = viewerRef.current.entities.add({
                 position: Cesium.Cartesian3.fromDegrees(
                     location.coordinates.lng,
                     location.coordinates.lat,
-                    location.elevation || 0
+                    0
                 ),
                 point: {
                     pixelSize: 12,
@@ -188,8 +202,8 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                     <div style="padding:10px;">
                         <h3>${location.name}</h3>
                         <p><strong>Type:</strong> ${location.type}</p>
-                        <p><strong>Region:</strong> ${location.region}</p>
-                        <p><strong>Elevation:</strong> ${location.elevation?.toLocaleString()}m</p>
+                        <p><strong>District:</strong> ${location.region}</p>
+                        ${location.documentation ? `<p><strong>Notes:</strong> ${location.documentation.substring(0, 200)}...</p>` : ''}
                     </div>
                 `
             });
@@ -199,14 +213,16 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
 
         // Draw dynamic connection lines between filtered locations, grouped by type
         if (showConnections && filteredLocations && filteredLocations.length >= 2 && viewerRef.current) {
-            // Group filtered locations by type
+            // Group filtered locations by type (only those with valid coordinates)
             const locationsByType = new Map<string, Location[]>();
 
-            filteredLocations.forEach(loc => {
-                const existing = locationsByType.get(loc.type) || [];
-                existing.push(loc);
-                locationsByType.set(loc.type, existing);
-            });
+            filteredLocations
+                .filter(loc => loc.coordinates !== null)
+                .forEach(loc => {
+                    const existing = locationsByType.get(loc.type) || [];
+                    existing.push(loc);
+                    locationsByType.set(loc.type, existing);
+                });
 
             // Draw lines for each type with matching color
             locationsByType.forEach((locs, type) => {
@@ -218,6 +234,9 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                 for (let i = 0; i < locs.length - 1; i++) {
                     const fromLoc = locs[i];
                     const toLoc = locs[i + 1];
+
+                    // Skip if coordinates are null (shouldn't happen after filter)
+                    if (!fromLoc.coordinates || !toLoc.coordinates) continue;
 
                     const lineEntity = viewerRef.current.entities.add({
                         polyline: {
@@ -249,7 +268,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                     loc.name === clickedEntity.label?.text?.getValue()
                 );
 
-                if (location && viewerRef.current) {
+                if (location && location.coordinates && viewerRef.current) {
                     onLocationSelect(location);
 
                     const cameraLat = location.coordinates.lat - 0.08;
@@ -259,7 +278,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                         destination: Cesium.Cartesian3.fromDegrees(
                             location.coordinates.lng,
                             cameraLat,
-                            8000 + (location.elevation || 5000)
+                            8000
                         ),
                         orientation: {
                             heading: Cesium.Math.toRadians(0),

@@ -1,31 +1,27 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mountain } from 'lucide-react';
-import { Link } from 'react-router-dom'; // Keep Link if used, or remove both if unused
-// Actually Link is used for Logo. useNavigate is used? No, HeroSearch handles navigation.
-// Let's check line 4.
+import { Link } from 'react-router-dom';
 
 import { HeroSearch } from '../components/home/HeroSearch';
 import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
-import { mockLocations } from '../data/mockData';
-import type { LocationType, Region } from '../types';
+import { useLocations } from '../hooks/useLocations';
 
 const Home = () => {
-    // Derived stats
+    const { locations } = useLocations();
 
-
-    // Filter State
+    // Filter State - using string types for flexibility
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [selectedTypes, setSelectedTypes] = useState<LocationType[]>([]);
-    const [selectedRegions, setSelectedRegions] = useState<Region[]>([]);
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+    const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
     const [minElevation, setMinElevation] = useState(0);
 
-    const toggleType = (type: LocationType) => {
+    const toggleType = (type: string) => {
         setSelectedTypes(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]);
     };
 
-    const toggleRegion = (region: Region) => {
+    const toggleRegion = (region: string) => {
         setSelectedRegions(prev => prev.includes(region) ? prev.filter(r => r !== region) : [...prev, region]);
     };
 
@@ -36,7 +32,7 @@ const Home = () => {
     };
 
     // Derived stats
-    const totalLocations = "100+";
+    const totalLocations = locations.length > 0 ? `${locations.length}+` : "100+";
     const countries = 3;
 
     return (
@@ -103,7 +99,7 @@ const Home = () => {
                             The Himalayas
                         </h1>
                         <p className="text-lg md:text-2xl text-white/80 font-light tracking-wide">
-                            Explore the world's highest peaks and sacred valleys
+                            Explore Khasa Malla historical sites across the Himalayas
                         </p>
                     </motion.div>
 
@@ -116,7 +112,7 @@ const Home = () => {
                     >
                         <div className="flex-1">
                             <HeroSearch
-                                locations={mockLocations}
+                                locations={locations}
                                 filters={{ selectedTypes, selectedRegions, minElevation }}
                             />
                         </div>
@@ -128,7 +124,7 @@ const Home = () => {
                             >
                                 <FilterButton
                                     onClick={() => setIsFilterOpen(!isFilterOpen)}
-                                    activeCount={selectedTypes.length + selectedRegions.length + (minElevation > 0 ? 1 : 0)}
+                                    activeCount={selectedTypes.length + selectedRegions.length}
                                     className="!relative !top-0 !right-0 !w-12 !h-12 !bg-white/10 !backdrop-blur-md border border-white/20"
                                 />
                             </motion.div>
@@ -165,7 +161,7 @@ const Home = () => {
                             <div className="text-xl font-semibold text-white/90 mb-1">
                                 {totalLocations}
                             </div>
-                            <div className="text-xs">Locations</div>
+                            <div className="text-xs">Historical Sites</div>
                         </div>
                         <div className="w-px h-10 bg-white/20" />
                         <div className="text-center">
