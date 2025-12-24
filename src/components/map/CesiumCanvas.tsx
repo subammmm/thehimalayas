@@ -8,11 +8,9 @@ const CESIUM_TOKEN = import.meta.env.VITE_CESIUM_TOKEN;
 
 if (CESIUM_TOKEN) {
     Cesium.Ion.defaultAccessToken = CESIUM_TOKEN;
-    console.log('✅ Using custom Cesium token from env');
 } else {
     // Use Cesium's example token (public, works for testing)
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5N2UyMjcwOS00MDY1LTQxYjEtYjZjMy00YTU0ZTg1YWUzMjYiLCJpZCI6ODAzMDYsImlhdCI6MTY0Mjc0ODI2MX0.dkwAL1CcljUV7NA7fDbhXXnmyZQU_c-G5zRx8PtEcxE';
-    console.log('⚠️ Using Cesium public demo token');
 }
 
 interface CesiumCanvasProps {
@@ -47,8 +45,6 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
     // Initialize Cesium Viewer
     useEffect(() => {
         if (!containerRef.current || viewerRef.current) return;
-
-        console.log('🌍 Initializing Cesium 3D Globe...');
 
         const initCesium = async () => {
             try {
@@ -113,7 +109,6 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                     }
                 });
 
-                console.log('✓ Cesium positioned at 15km altitude over Himalayas');
                 setIsLoaded(true);
 
             } catch (err) {
@@ -126,7 +121,6 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
 
         return () => {
             if (viewerRef.current) {
-                console.log('Cleaning up Cesium viewer');
                 viewerRef.current.destroy();
                 viewerRef.current = null;
             }
@@ -137,7 +131,6 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
     useEffect(() => {
         if (!viewerRef.current || !isLoaded || !focusedLocation) return;
 
-        console.log('🌍 3D FlyTo:', focusedLocation.name);
 
         const cameraLat = focusedLocation.coordinates.lat - 0.08; // Stand off South
 
@@ -160,8 +153,6 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
     // Add location markers
     useEffect(() => {
         if (!viewerRef.current || !isLoaded || locations.length === 0) return;
-
-        console.log(`📍 Adding ${locations.length} markers...`);
 
         const entities: Cesium.Entity[] = [];
 
@@ -222,7 +213,6 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                 if (locs.length < 2 || !viewerRef.current) return;
 
                 const typeColor = getColorByType(type as LocationType);
-                console.log(`🔗 Drawing ${locs.length} ${type} connections with color`);
 
                 // Create a chain connecting all locations of this type
                 for (let i = 0; i < locs.length - 1; i++) {

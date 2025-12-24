@@ -3,8 +3,6 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { Location, LocationType } from '../../types';
 
-console.log('🗺️ MapLibre GL initialized (free, no token needed)');
-
 interface MapLibreCanvasProps {
     locations: Location[];
     onLocationSelect: (location: Location) => void;
@@ -35,7 +33,6 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
     useEffect(() => {
         if (!containerRef.current || mapRef.current) return;
 
-        console.log('🎯 Creating MapLibre map...');
 
         try {
             const map = new maplibregl.Map({
@@ -80,7 +77,6 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
             }), 'top-right');
 
             map.on('load', () => {
-                console.log('✓ MapLibre loaded with terrain!');
                 setIsLoaded(true);
             });
 
@@ -109,7 +105,6 @@ export const MapLibreCanvas = ({ locations, onLocationSelect }: MapLibreCanvasPr
     useEffect(() => {
         if (!mapRef.current || !isLoaded || locations.length === 0) return;
 
-        console.log(`📍 Adding ${locations.length} markers`);
 
         // Remove existing
         markersRef.current.forEach(m => m.remove());

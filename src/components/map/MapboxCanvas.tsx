@@ -9,7 +9,6 @@ const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 // Set token immediately
 if (MAPBOX_TOKEN) {
     mapboxgl.accessToken = MAPBOX_TOKEN;
-    console.log('✓ Mapbox token SET:', MAPBOX_TOKEN.substring(0, 20) + '...');
 } else {
     console.error('✗ MAPBOX TOKEN MISSING! Check .env file');
 }
@@ -43,7 +42,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
 
     // Initialize map
     useEffect(() => {
-        console.log('🗺️ MapboxCanvas: Starting initialization...');
 
         if (!mapContainer.current) {
             console.error('❌ No map container!');
@@ -52,7 +50,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         }
 
         if (map.current) {
-            console.log('ℹ️ Map already initialized');
             return;
         }
 
@@ -62,7 +59,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             return;
         }
 
-        console.log('🎯 Creating Mapbox map...');
+
 
         try {
             map.current = new mapboxgl.Map({
@@ -74,14 +71,11 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                 antialias: true
             });
 
-            console.log('✓ Map instance created');
-
             // Add navigation
             map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
             // Wait for map load
             map.current.on('load', () => {
-                console.log('🎉 Map loaded successfully!');
 
                 try {
                     if (!map.current) return;
@@ -135,7 +129,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                         }
                     });
 
-                    console.log('✓ 3D terrain and connection lines layer added');
                     setIsMapLoaded(true);
                 } catch (err) {
                     console.error('❌ Error adding terrain:', err);
@@ -155,7 +148,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         }
 
         return () => {
-            console.log('MapboxCanvas: Cleanup');
             markers.current.forEach(m => m.remove());
             markers.current = [];
             map.current?.remove();
@@ -166,8 +158,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
     // Handle external focus changes (SEARCH or CLICK)
     useEffect(() => {
         if (!map.current || !isMapLoaded || !focusedLocation) return;
-
-        console.log('🦅 Flying to:', focusedLocation.name);
 
         map.current.flyTo({
             center: [focusedLocation.coordinates.lng, focusedLocation.coordinates.lat],
@@ -196,7 +186,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                 type: 'FeatureCollection',
                 features: []
             });
-            console.log('🔗 Connection lines cleared');
             return;
         }
 
@@ -238,15 +227,13 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         };
 
         source.setData(geojsonData);
-        console.log(`🔗 Connection lines drawn between ${locations.length} locations (${features.length} type groups)`);
+
 
     }, [locations, showConnections, isMapLoaded]);
 
     // Update markers when locations change
     useEffect(() => {
         if (!map.current || !isMapLoaded) return;
-
-        console.log(`MapboxCanvas: Updating ${locations.length} markers`);
 
         // Remove existing markers
         markers.current.forEach(marker => marker.remove());
