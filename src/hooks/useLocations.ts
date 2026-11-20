@@ -1,39 +1,9 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import type { HistoricalSite, Coordinates } from '../types';
+import type { HistoricalSite } from '../types';
+import { parseCoordinates } from '../lib/sites';
 import type { DbHistoricalSite } from '../types/database.types';
 import bundledSites from '../data/sites.json';
-
-// Parse coordinates string like "29.2717, 82.1568" to Coordinates object
-function parseCoordinates(coordStr: string | null): Coordinates | null {
-    if (!coordStr) return null;
-
-    // Try different formats
-    // Format 1: "29.2717, 82.1568"
-    // Format 2: "29°16'18.1"N 82°09'24.5"E"
-
-    // Simple decimal format
-    const simpleMatch = coordStr.match(/(-?\d+\.?\d*),\s*(-?\d+\.?\d*)/);
-    if (simpleMatch) {
-        return {
-            lat: parseFloat(simpleMatch[1]),
-            lng: parseFloat(simpleMatch[2])
-        };
-    }
-
-    // DMS format: 29°16'18.1"N 82°09'24.5"E
-    const dmsMatch = coordStr.match(/(\d+)[°](\d+)['''](\d+\.?\d*)[""']?\s*([NS])\s+(\d+)[°](\d+)['''](\d+\.?\d*)[""']?\s*([EW])/);
-    if (dmsMatch) {
-        const lat = parseInt(dmsMatch[1]) + parseInt(dmsMatch[2]) / 60 + parseFloat(dmsMatch[3]) / 3600;
-        const lng = parseInt(dmsMatch[5]) + parseInt(dmsMatch[6]) / 60 + parseFloat(dmsMatch[7]) / 3600;
-        return {
-            lat: dmsMatch[4] === 'S' ? -lat : lat,
-            lng: dmsMatch[8] === 'W' ? -lng : lng
-        };
-    }
-
-    return null;
-}
 
 // Transform database row to app HistoricalSite type with all fields
 function transformDbSite(row: DbHistoricalSite): HistoricalSite {
@@ -52,6 +22,8 @@ function transformDbSite(row: DbHistoricalSite): HistoricalSite {
         coordinates: coords,
         site_type: row.site_type,
         categories: row.site_categories ?? [row.site_type],
+        possibly_related: row.possibly_related ?? [],
+        images: row.images ?? [],
         documentation: row.documentation,
         description: row.description,
         visit_date: row.visit_date,

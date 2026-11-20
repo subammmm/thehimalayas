@@ -2,15 +2,13 @@ import { motion } from 'framer-motion';
 import { X, ExternalLink, Box, MapPin, FileText } from 'lucide-react';
 import type { Location } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { SitePhoto } from './SitePhoto';
 
 interface LocationPopoverProps {
     location: Location | null;
     onClose: () => void;
     on3DView: () => void;
 }
-
-// Default placeholder image for historical sites
-const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=400';
 
 export const LocationPopover = ({ location, onClose, on3DView }: LocationPopoverProps) => {
     const navigate = useNavigate();
@@ -24,11 +22,7 @@ export const LocationPopover = ({ location, onClose, on3DView }: LocationPopover
             className="hidden md:flex absolute top-20 left-20 z-[1100] w-96 glass-panel rounded-2xl overflow-hidden flex-col shadow-2xl max-h-[calc(100vh-100px)] pointer-events-auto"
         >
             <div className="relative h-48 w-full flex-shrink-0">
-                <img
-                    src={PLACEHOLDER_IMAGE}
-                    alt=""
-                    className="w-full h-full object-cover"
-                />
+                <SitePhoto site={location} />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent" />
                 <button
                     onClick={onClose}

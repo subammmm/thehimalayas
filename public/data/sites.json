@@ -18,7 +18,9 @@
    "Stele"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-2",
@@ -40,7 +42,9 @@
    "Stele"
   ],
   "latitude": 29.271694,
-  "longitude": 82.156806
+  "longitude": 82.156806,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-3",
@@ -61,7 +65,9 @@
    "Monastery / Vihara"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-4",
@@ -82,7 +88,9 @@
    "Pillar"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-5",
@@ -103,7 +111,9 @@
    "Pillar"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-6",
@@ -124,7 +134,9 @@
    "Pillar"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-7",
@@ -145,7 +157,9 @@
    "Remains"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-8",
@@ -166,7 +180,9 @@
    "Fort / Palace"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-9",
@@ -187,7 +203,9 @@
    "Pillar"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-10",
@@ -208,7 +226,9 @@
    "Other"
   ],
   "latitude": 28.851791,
-  "longitude": 81.608254
+  "longitude": 81.608254,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-11",
@@ -229,7 +249,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-12",
@@ -250,7 +272,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-13",
@@ -271,7 +295,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-14",
@@ -293,7 +319,9 @@
    "Pillar"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-15",
@@ -314,7 +342,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-16",
@@ -335,7 +365,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-17",
@@ -356,7 +388,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-18",
@@ -377,7 +411,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-19",
@@ -398,7 +434,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-20",
@@ -419,7 +457,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-21",
@@ -440,7 +480,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-22",
@@ -461,7 +503,9 @@
    "Temple"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-23",
@@ -482,7 +526,9 @@
    "Temple"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-24",
@@ -503,7 +549,9 @@
    "Temple"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-25",
@@ -524,7 +572,9 @@
    "Monastery / Vihara"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-26",
@@ -545,7 +595,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-27",
@@ -566,7 +618,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-28",
@@ -587,7 +641,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-29",
@@ -608,7 +664,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-30",
@@ -629,7 +687,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-31",
@@ -650,7 +710,9 @@
    "Inscription"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-32",
@@ -671,7 +733,9 @@
    "Stupa"
   ],
   "latitude": 29.2575,
-  "longitude": 82.135167
+  "longitude": 82.135167,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-33",
@@ -692,7 +756,9 @@
    "Pillar"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-34",
@@ -713,7 +779,9 @@
    "Sculpture"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-35",
@@ -734,7 +802,9 @@
    "Sculpture"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-36",
@@ -755,7 +825,9 @@
    "Fort / Palace"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-37",
@@ -776,7 +848,9 @@
    "Other"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-38",
@@ -797,7 +871,9 @@
    "Temple"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-39",
@@ -818,7 +894,9 @@
    "Fort / Palace"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-40",
@@ -839,7 +917,9 @@
    "Deval"
   ],
   "latitude": 28.864865,
-  "longitude": 81.607117
+  "longitude": 81.607117,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-41",
@@ -860,7 +940,9 @@
    "Temple"
   ],
   "latitude": 28.864779,
-  "longitude": 81.606838
+  "longitude": 81.606838,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-42",
@@ -881,7 +963,9 @@
    "Pillar"
   ],
   "latitude": 28.866258,
-  "longitude": 81.608778
+  "longitude": 81.608778,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-43",
@@ -902,7 +986,9 @@
    "Pillar"
   ],
   "latitude": 28.866232,
-  "longitude": 81.608994
+  "longitude": 81.608994,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-44",
@@ -923,7 +1009,9 @@
    "Pillar"
   ],
   "latitude": 28.867575,
-  "longitude": 81.609161
+  "longitude": 81.609161,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-45",
@@ -944,7 +1032,9 @@
    "Pillar"
   ],
   "latitude": 28.869176,
-  "longitude": 81.608814
+  "longitude": 81.608814,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-46",
@@ -965,7 +1055,9 @@
    "Other"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-47",
@@ -986,7 +1078,9 @@
    "Sculpture"
   ],
   "latitude": 28.873352,
-  "longitude": 81.60876
+  "longitude": 81.60876,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-48",
@@ -1008,7 +1102,9 @@
    "Inscription"
   ],
   "latitude": 28.878101,
-  "longitude": 81.608909
+  "longitude": 81.608909,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-49",
@@ -1030,7 +1126,9 @@
    "Sculpture"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-50",
@@ -1051,7 +1149,9 @@
    "Deval"
   ],
   "latitude": 28.893882,
-  "longitude": 81.617861
+  "longitude": 81.617861,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-51",
@@ -1072,7 +1172,9 @@
    "Pillar"
   ],
   "latitude": 28.910285,
-  "longitude": 81.629007
+  "longitude": 81.629007,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-52",
@@ -1093,7 +1195,9 @@
    "Pillar"
   ],
   "latitude": 28.912414,
-  "longitude": 81.628729
+  "longitude": 81.628729,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-53",
@@ -1114,7 +1218,9 @@
    "Pillar"
   ],
   "latitude": 28.837059,
-  "longitude": 81.624862
+  "longitude": 81.624862,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-54",
@@ -1135,7 +1241,9 @@
    "Pillar"
   ],
   "latitude": 28.830976,
-  "longitude": 81.630829
+  "longitude": 81.630829,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-55",
@@ -1156,7 +1264,9 @@
    "Pillar"
   ],
   "latitude": 28.830299,
-  "longitude": 81.631123
+  "longitude": 81.631123,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-56",
@@ -1177,7 +1287,9 @@
    "Pillar"
   ],
   "latitude": 28.825284,
-  "longitude": 81.631488
+  "longitude": 81.631488,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-57",
@@ -1198,7 +1310,9 @@
    "Pillar"
   ],
   "latitude": 28.828702,
-  "longitude": 81.709562
+  "longitude": 81.709562,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-58",
@@ -1219,7 +1333,9 @@
    "Deval"
   ],
   "latitude": 28.835402,
-  "longitude": 81.699995
+  "longitude": 81.699995,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-59",
@@ -1240,7 +1356,9 @@
    "Fort / Palace"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-60",
@@ -1262,7 +1380,9 @@
    "Inscription"
   ],
   "latitude": 28.837922,
-  "longitude": 81.708184
+  "longitude": 81.708184,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-61",
@@ -1283,7 +1403,9 @@
    "Pillar"
   ],
   "latitude": 28.842097,
-  "longitude": 81.71041
+  "longitude": 81.71041,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-62",
@@ -1305,7 +1427,9 @@
    "Fountain"
   ],
   "latitude": 28.855844,
-  "longitude": 81.708745
+  "longitude": 81.708745,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-63",
@@ -1326,7 +1450,9 @@
    "Pillar"
   ],
   "latitude": 28.856392,
-  "longitude": 81.714803
+  "longitude": 81.714803,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-64",
@@ -1347,7 +1473,9 @@
    "Pillar"
   ],
   "latitude": 28.858029,
-  "longitude": 81.716336
+  "longitude": 81.716336,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-65",
@@ -1368,7 +1496,9 @@
    "Deval"
   ],
   "latitude": 28.858928,
-  "longitude": 81.717963
+  "longitude": 81.717963,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-66",
@@ -1389,7 +1519,9 @@
    "Deval"
   ],
   "latitude": 28.860484,
-  "longitude": 81.721992
+  "longitude": 81.721992,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-67",
@@ -1410,7 +1542,9 @@
    "Temple"
   ],
   "latitude": 28.86175,
-  "longitude": 81.723333
+  "longitude": 81.723333,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-68",
@@ -1431,7 +1565,9 @@
    "Fountain"
   ],
   "latitude": 28.862111,
-  "longitude": 81.723361
+  "longitude": 81.723361,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-69",
@@ -1453,7 +1589,9 @@
    "Pillar"
   ],
   "latitude": 29.145246,
-  "longitude": 81.60281
+  "longitude": 81.60281,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-70",
@@ -1474,7 +1612,9 @@
    "Fountain"
   ],
   "latitude": 29.143778,
-  "longitude": 81.603389
+  "longitude": 81.603389,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-71",
@@ -1495,7 +1635,9 @@
    "Deval"
   ],
   "latitude": 29.142917,
-  "longitude": 81.602222
+  "longitude": 81.602222,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-72",
@@ -1516,7 +1658,9 @@
    "Temple"
   ],
   "latitude": null,
-  "longitude": null
+  "longitude": null,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-73",
@@ -1537,7 +1681,9 @@
    "Pillar"
   ],
   "latitude": 29.274694,
-  "longitude": 82.204667
+  "longitude": 82.204667,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-74",
@@ -1559,7 +1705,9 @@
    "Pillar"
   ],
   "latitude": 29.274437,
-  "longitude": 82.204832
+  "longitude": 82.204832,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-75",
@@ -1581,7 +1729,9 @@
    "Fountain"
   ],
   "latitude": 29.268889,
-  "longitude": 82.220389
+  "longitude": 82.220389,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-76",
@@ -1603,7 +1753,9 @@
    "Fountain"
   ],
   "latitude": 29.271361,
-  "longitude": 82.227806
+  "longitude": 82.227806,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-77",
@@ -1626,7 +1778,9 @@
    "Pillar"
   ],
   "latitude": 29.264111,
-  "longitude": 82.249472
+  "longitude": 82.249472,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-78",
@@ -1647,7 +1801,9 @@
    "Stupa"
   ],
   "latitude": 29.255111,
-  "longitude": 82.255028
+  "longitude": 82.255028,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-79",
@@ -1669,7 +1825,9 @@
    "Fountain"
   ],
   "latitude": 29.213389,
-  "longitude": 82.31475
+  "longitude": 82.31475,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-80",
@@ -1690,7 +1848,9 @@
    "Stupa"
   ],
   "latitude": 29.287361,
-  "longitude": 82.192083
+  "longitude": 82.192083,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-81",
@@ -1711,7 +1871,9 @@
    "Pillar"
   ],
   "latitude": 29.268,
-  "longitude": 82.158056
+  "longitude": 82.158056,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-82",
@@ -1732,7 +1894,9 @@
    "Temple"
   ],
   "latitude": 29.261056,
-  "longitude": 82.151556
+  "longitude": 82.151556,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-83",
@@ -1753,7 +1917,9 @@
    "Pillar"
   ],
   "latitude": 29.254778,
-  "longitude": 82.136694
+  "longitude": 82.136694,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-84",
@@ -1774,7 +1940,9 @@
    "Other"
   ],
   "latitude": 29.254417,
-  "longitude": 82.131417
+  "longitude": 82.131417,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-85",
@@ -1795,7 +1963,9 @@
    "Fountain"
   ],
   "latitude": 29.24025,
-  "longitude": 82.083167
+  "longitude": 82.083167,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-86",
@@ -1816,7 +1986,9 @@
    "Temple"
   ],
   "latitude": 29.239417,
-  "longitude": 82.071722
+  "longitude": 82.071722,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-87",
@@ -1837,7 +2009,9 @@
    "Temple"
   ],
   "latitude": 29.238361,
-  "longitude": 82.071417
+  "longitude": 82.071417,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-88",
@@ -1858,7 +2032,9 @@
    "Stele"
   ],
   "latitude": 29.237194,
-  "longitude": 82.066528
+  "longitude": 82.066528,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-89",
@@ -1879,7 +2055,9 @@
    "Deval"
   ],
   "latitude": 29.237417,
-  "longitude": 82.065417
+  "longitude": 82.065417,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-90",
@@ -1900,7 +2078,9 @@
    "Temple"
   ],
   "latitude": 29.231583,
-  "longitude": 82.064972
+  "longitude": 82.064972,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-91",
@@ -1922,7 +2102,9 @@
    "Pillar"
   ],
   "latitude": 29.312083,
-  "longitude": 81.981917
+  "longitude": 81.981917,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-92",
@@ -1943,7 +2125,9 @@
    "Pillar"
   ],
   "latitude": 29.325167,
-  "longitude": 81.982444
+  "longitude": 81.982444,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-93",
@@ -1964,7 +2148,9 @@
    "Stele"
   ],
   "latitude": 29.356306,
-  "longitude": 81.969583
+  "longitude": 81.969583,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-94",
@@ -1985,7 +2171,9 @@
    "Deval"
   ],
   "latitude": 29.356444,
-  "longitude": 81.969639
+  "longitude": 81.969639,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-95",
@@ -2006,7 +2194,9 @@
    "Other"
   ],
   "latitude": 29.356556,
-  "longitude": 81.969694
+  "longitude": 81.969694,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-96",
@@ -2027,7 +2217,9 @@
    "Stele"
   ],
   "latitude": 29.356611,
-  "longitude": 81.969694
+  "longitude": 81.969694,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-97",
@@ -2048,7 +2240,9 @@
    "Deval"
   ],
   "latitude": 29.357111,
-  "longitude": 81.970111
+  "longitude": 81.970111,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-98",
@@ -2069,7 +2263,9 @@
    "Stele"
   ],
   "latitude": 29.357222,
-  "longitude": 81.970194
+  "longitude": 81.970194,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-99",
@@ -2090,7 +2286,9 @@
    "Fountain"
   ],
   "latitude": 29.357444,
-  "longitude": 81.967972
+  "longitude": 81.967972,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-100",
@@ -2111,7 +2309,9 @@
    "Temple"
   ],
   "latitude": 29.365139,
-  "longitude": 81.971639
+  "longitude": 81.971639,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-101",
@@ -2133,7 +2333,9 @@
    "Stele"
   ],
   "latitude": 29.376444,
-  "longitude": 81.973194
+  "longitude": 81.973194,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-102",
@@ -2154,7 +2356,9 @@
    "Deval"
   ],
   "latitude": 29.381056,
-  "longitude": 81.978389
+  "longitude": 81.978389,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-103",
@@ -2175,7 +2379,9 @@
    "Fountain"
   ],
   "latitude": 29.380889,
-  "longitude": 81.978556
+  "longitude": 81.978556,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-104",
@@ -2196,7 +2402,9 @@
    "Temple"
   ],
   "latitude": 29.38075,
-  "longitude": 81.978639
+  "longitude": 81.978639,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-105",
@@ -2217,7 +2425,9 @@
    "Pillar"
   ],
   "latitude": 29.383722,
-  "longitude": 81.978667
+  "longitude": 81.978667,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-106",
@@ -2238,7 +2448,9 @@
    "Pillar"
   ],
   "latitude": 29.403694,
-  "longitude": 82.004861
+  "longitude": 82.004861,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-107",
@@ -2259,7 +2471,9 @@
    "Pillar"
   ],
   "latitude": 29.404111,
-  "longitude": 82.005361
+  "longitude": 82.005361,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-108",
@@ -2280,7 +2494,9 @@
    "Pillar"
   ],
   "latitude": 29.404389,
-  "longitude": 82.006083
+  "longitude": 82.006083,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-109",
@@ -2301,7 +2517,9 @@
    "Temple"
   ],
   "latitude": 29.404556,
-  "longitude": 82.008639
+  "longitude": 82.008639,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-110",
@@ -2322,7 +2540,9 @@
    "Pillar"
   ],
   "latitude": 29.411028,
-  "longitude": 82.020111
+  "longitude": 82.020111,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-111",
@@ -2345,7 +2565,9 @@
    "Remains"
   ],
   "latitude": 29.409222,
-  "longitude": 82.0245
+  "longitude": 82.0245,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-112",
@@ -2366,7 +2588,9 @@
    "Remains"
   ],
   "latitude": 29.408472,
-  "longitude": 82.022556
+  "longitude": 82.022556,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-113",
@@ -2387,7 +2611,9 @@
    "Remains"
   ],
   "latitude": 29.408083,
-  "longitude": 82.022833
+  "longitude": 82.022833,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-114",
@@ -2408,7 +2634,9 @@
    "Inscription"
   ],
   "latitude": 29.403861,
-  "longitude": 82.024611
+  "longitude": 82.024611,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-115",
@@ -2429,7 +2657,9 @@
    "Pillar"
   ],
   "latitude": 29.525556,
-  "longitude": 82.047556
+  "longitude": 82.047556,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-116",
@@ -2450,7 +2680,9 @@
    "Temple"
   ],
   "latitude": 29.526861,
-  "longitude": 82.047472
+  "longitude": 82.047472,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-117",
@@ -2471,7 +2703,9 @@
    "Pillar"
   ],
   "latitude": 29.537194,
-  "longitude": 82.075194
+  "longitude": 82.075194,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-118",
@@ -2493,7 +2727,9 @@
    "Fountain"
   ],
   "latitude": 29.545139,
-  "longitude": 82.093889
+  "longitude": 82.093889,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-119",
@@ -2515,7 +2751,9 @@
    "Pillar"
   ],
   "latitude": 29.544,
-  "longitude": 82.098944
+  "longitude": 82.098944,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-120",
@@ -2537,7 +2775,11 @@
    "Fountain"
   ],
   "latitude": 29.539944,
-  "longitude": 82.157278
+  "longitude": 82.157278,
+  "possibly_related": [
+   "N.D.D.125"
+  ],
+  "images": []
  },
  {
   "id": "site-121",
@@ -2558,7 +2800,9 @@
    "Temple"
   ],
   "latitude": 29.558806,
-  "longitude": 82.163139
+  "longitude": 82.163139,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-122",
@@ -2580,7 +2824,9 @@
    "Pillar"
   ],
   "latitude": 29.552111,
-  "longitude": 82.171667
+  "longitude": 82.171667,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-123",
@@ -2602,7 +2848,9 @@
    "Pillar"
   ],
   "latitude": 29.547556,
-  "longitude": 82.156972
+  "longitude": 82.156972,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-124",
@@ -2623,7 +2871,9 @@
    "Stele"
   ],
   "latitude": 29.539583,
-  "longitude": 82.156333
+  "longitude": 82.156333,
+  "possibly_related": [],
+  "images": []
  },
  {
   "id": "site-125",
@@ -2645,7 +2895,11 @@
    "Fountain"
   ],
   "latitude": 29.539944,
-  "longitude": 82.157278
+  "longitude": 82.157278,
+  "possibly_related": [
+   "N.D.D.120"
+  ],
+  "images": []
  },
  {
   "id": "site-126",
@@ -2666,7 +2920,11 @@
    "Pillar"
   ],
   "latitude": 29.531306,
-  "longitude": 82.162361
+  "longitude": 82.162361,
+  "possibly_related": [
+   "N.D.D.127"
+  ],
+  "images": []
  },
  {
   "id": "site-127",
@@ -2687,6 +2945,10 @@
    "Inscription"
   ],
   "latitude": 29.531306,
-  "longitude": 82.162361
+  "longitude": 82.162361,
+  "possibly_related": [
+   "N.D.D.126"
+  ],
+  "images": []
  }
 ]

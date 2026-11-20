@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import * as Cesium from 'cesium';
-import type { HistoricalSite, SiteType } from '../../types';
-import { markerPositions } from '../../lib/sites';
+import type { HistoricalSite } from '../../types';
+import { markerPositions, siteColor } from '../../lib/sites';
 
 // Type alias for backward compatibility
 type Location = HistoricalSite;
-type LocationType = SiteType;
 
 const CESIUM_TOKEN = import.meta.env.VITE_CESIUM_TOKEN;
 
@@ -13,36 +12,11 @@ if (CESIUM_TOKEN) Cesium.Ion.defaultAccessToken = CESIUM_TOKEN;
 
 interface CesiumCanvasProps {
     locations: Location[];
-    filteredLocations?: Location[]; // Subset from active filters
     onLocationSelect: (location: Location) => void;
     focusedLocation: Location | null;
-    showConnections?: boolean; // Draw lines when filtering is active
 }
 
-const getColorByType = (type: LocationType | string): Cesium.Color => {
-    // Normalize type for matching (handle variations)
-    const normalizedType = type.toLowerCase();
-
-    if (normalizedType.includes('stele')) return Cesium.Color.GOLD;
-    if (normalizedType.includes('pillar')) return Cesium.Color.ORANGE;
-    if (normalizedType.includes('deval')) return Cesium.Color.PURPLE;
-    if (normalizedType.includes('stupa')) return Cesium.Color.LIME;
-    if (normalizedType.includes('temple')) return Cesium.Color.RED;
-    if (normalizedType.includes('fountain')) return Cesium.Color.CYAN;
-    if (normalizedType.includes('fort')) return Cesium.Color.BROWN;
-    if (normalizedType.includes('palace')) return Cesium.Color.CRIMSON;
-    if (normalizedType.includes('inscription')) return Cesium.Color.YELLOW;
-    if (normalizedType.includes('monastery') || normalizedType.includes('vihara')) return Cesium.Color.MAGENTA;
-    if (normalizedType.includes('remains')) return Cesium.Color.ROSYBROWN;
-    if (normalizedType.includes('museum')) return Cesium.Color.DEEPSKYBLUE;
-    if (normalizedType.includes('mounds')) return Cesium.Color.SANDYBROWN;
-    if (normalizedType.includes('sculpture')) return Cesium.Color.CORAL;
-    if (normalizedType.includes('pavilion')) return Cesium.Color.MEDIUMPURPLE;
-
-    return Cesium.Color.GRAY;
-};
-
-export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, focusedLocation, showConnections = false }: CesiumCanvasProps) => {
+export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: CesiumCanvasProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const viewerRef = useRef<Cesium.Viewer | null>(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -173,7 +147,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
                 position: Cesium.Cartesian3.fromDegrees(coords.lng, coords.lat, 0),
                 point: {
                     pixelSize: 12,
-                    color: getColorByType(location.type),
+                    color: Cesium.Color.fromCssColorString(siteColor(location)), // same colours as the 2D map
                     outlineColor: Cesium.Color.WHITE,
                     outlineWidth: 2,
                     heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
@@ -203,52 +177,6 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
             entities.push(entity);
             locationByEntity.set(entity, location);
         });
-
-        // Draw dynamic connection lines between filtered locations, grouped by type
-        if (showConnections && filteredLocations && filteredLocations.length >= 2 && viewerRef.current) {
-            // Group filtered locations by type (only those with valid coordinates)
-            const locationsByType = new Map<string, Location[]>();
-
-            filteredLocations
-                .filter(loc => loc.coordinates !== null)
-                .forEach(loc => {
-                    const existing = locationsByType.get(loc.type) || [];
-                    existing.push(loc);
-                    locationsByType.set(loc.type, existing);
-                });
-
-            // Draw lines for each type with matching color
-            locationsByType.forEach((locs, type) => {
-                if (locs.length < 2 || !viewerRef.current) return;
-
-                const typeColor = getColorByType(type as LocationType);
-
-                // Create a chain connecting all locations of this type
-                for (let i = 0; i < locs.length - 1; i++) {
-                    const fromLoc = locs[i];
-                    const toLoc = locs[i + 1];
-
-                    // Skip if coordinates are null (shouldn't happen after filter)
-                    if (!fromLoc.coordinates || !toLoc.coordinates) continue;
-
-                    const lineEntity = viewerRef.current.entities.add({
-                        polyline: {
-                            positions: Cesium.Cartesian3.fromDegreesArray([
-                                fromLoc.coordinates.lng, fromLoc.coordinates.lat,
-                                toLoc.coordinates.lng, toLoc.coordinates.lat
-                            ]),
-                            width: 3,
-                            clampToGround: true,
-                            material: new Cesium.PolylineDashMaterialProperty({
-                                color: typeColor.withAlpha(0.8),
-                                dashLength: 16.0
-                            })
-                        }
-                    });
-                    entities.push(lineEntity);
-                }
-            });
-        }
 
         // Handle selection
         const handler = new Cesium.ScreenSpaceEventHandler(viewerRef.current.scene.canvas);
@@ -284,7 +212,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
             handler.destroy();
             entities.forEach(e => viewerRef.current?.entities.remove(e));
         };
-    }, [locations, filteredLocations, showConnections, isLoaded, onLocationSelect]);
+    }, [locations, isLoaded, onLocationSelect]);
 
     return (
         <div className="relative w-full h-full">

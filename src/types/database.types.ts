@@ -22,6 +22,8 @@ export interface Database {
                     site_type: string;
                     // Derived by scripts/build-sites-json.py; absent from the database table.
                     site_categories?: string[];
+                    possibly_related?: string[];
+                    images?: { src: string; alt: string; credit: string; licence: string }[];
                     documentation: string | null;
                     description: string | null;
                     visit_date: string | null;

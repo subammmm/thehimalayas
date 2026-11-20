@@ -2,13 +2,28 @@
 """Rebuild the dataset from scripts/khasa-malla-data-part*.sql.
 
 Writes src/data/sites.json (bundled into the app), the open-data downloads in
-public/data/ (sites.json, sites.geojson, sites.csv) and public/sitemap.xml.
+public/data/ (sites.json, sites.geojson, sites.csv, datapackage.json), CITATION.cff
+and public/sitemap.xml. Citation metadata comes from src/data/project.json.
 
 Run: python3 scripts/build-sites-json.py && python3 scripts/validate-data.py
 """
-import csv, glob, json, os, re
+import csv, glob, itertools, json, math, os, re
 
-SITE_URL = 'https://thehimalayas.vercel.app'
+PROJECT = json.load(open('src/data/project.json', encoding='utf-8'))
+SITE_URL = PROJECT['siteUrl']
+
+# Records that may describe the same site or object. Shown as a neutral "possibly related"
+# cross-reference on both records; nothing is merged or removed. For the author to review.
+POSSIBLY_RELATED = [
+    ('N.D.D.120', 'N.D.D.125'),  # same place name, type and coordinates, near-identical notes
+    ('N.D.D.126', 'N.D.D.127'),  # same place name and coordinates, different objects
+]
+
+# Photographs, keyed by entry_no. None are published yet, so the app shows a plain header.
+# 'N.D.D.42': [{'src': '/images/sites/ndd-42-1.jpg', 'alt': 'What the photo shows',
+#               'credit': 'Photographer, year', 'licence': 'CC BY 4.0'}]
+# Put the file itself in public/images/sites/. Only add photographs of that site.
+IMAGES = {}
 
 # Plausible bounding box for the survey region; anything outside is a data error.
 LAT_RANGE, LNG_RANGE = (26, 33), (78, 90)
@@ -94,7 +109,9 @@ fields = ['entry_no', 'country', 'district', 'location', 'coordinates', 'site_ty
 out = []
 for i, s in enumerate(sites):
     row = {'id': f'site-{i + 1}', **{f: s.get(f) for f in fields}, 'site_categories': categorise(s['site_type']),
-           'latitude': None, 'longitude': None, 'created_at': '', 'updated_at': None}
+           'latitude': None, 'longitude': None,
+           'possibly_related': sorted(b for pair in POSSIBLY_RELATED for a, b in (pair, pair[::-1]) if a == s['entry_no']),
+           'images': IMAGES.get(s['entry_no'], []), 'created_at': '', 'updated_at': None}
     if row['coordinates']:
         point = parse_coordinates(row['coordinates'])
         if point is None:
@@ -108,6 +125,20 @@ for i, s in enumerate(sites):
     out.append(row)
 
 assert len({r['entry_no'] for r in out}) == len(out), 'duplicate entry_no'
+entry_nos = {r['entry_no'] for r in out}
+assert {e for pair in POSSIBLY_RELATED for e in pair} | set(IMAGES) <= entry_nos, 'unknown entry_no in POSSIBLY_RELATED or IMAGES'
+assert all(set(image) == {'src', 'alt', 'credit', 'licence'} for images in IMAGES.values() for image in images)
+
+def metres(a, b):
+    rad = math.pi / 180
+    h = (math.sin((b['latitude'] - a['latitude']) * rad / 2) ** 2 + math.cos(a['latitude'] * rad) *
+         math.cos(b['latitude'] * rad) * math.sin((b['longitude'] - a['longitude']) * rad / 2) ** 2)
+    return 2 * 6371000 * math.asin(math.sqrt(h))
+
+# Reported for the author to decide; the script changes nothing because of them.
+for a, b in itertools.combinations([r for r in out if r['latitude'] is not None], 2):
+    if a['location'] == b['location'] and a['site_type'] == b['site_type'] and metres(a, b) <= 50:
+        print(f"candidate duplicate: {a['entry_no']} and {b['entry_no']}: {a['location']}, {a['site_type']}, {metres(a, b):.0f} m apart")
 
 def dump(path, data):
     with open(path, 'w', encoding='utf-8') as f:
@@ -118,7 +149,8 @@ os.makedirs('public/data', exist_ok=True)
 dump('src/data/sites.json', out)
 
 # Open-data downloads: the app-only bookkeeping columns are left out.
-public_fields = ['id', *fields, 'site_categories', 'latitude', 'longitude']
+public_fields = [f['name'] for f in PROJECT['fields']]
+assert set(public_fields) == set(out[0]) - {'created_at', 'updated_at'}, 'project.json fields do not match the records'
 records = [{f: r[f] for f in public_fields} for r in out]
 dump('public/data/sites.json', records)
 dump('public/data/sites.geojson', {
@@ -133,7 +165,41 @@ dump('public/data/sites.geojson', {
 with open('public/data/sites.csv', 'w', encoding='utf-8', newline='') as f:
     writer = csv.DictWriter(f, fieldnames=public_fields)
     writer.writeheader()
-    writer.writerows({**r, 'site_categories': '; '.join(r['site_categories'])} for r in records)
+    writer.writerows({**r, 'site_categories': '; '.join(r['site_categories']),
+                      'possibly_related': '; '.join(r['possibly_related']),
+                      'images': '; '.join(image['src'] for image in r['images'])} for r in records)
+
+# Machine-readable metadata. The licence is left out of both until project.json names one.
+spdx = PROJECT['licenceSpdx']
+dump('public/data/datapackage.json', {
+    'name': 'khasa-malla-historical-sites',
+    'title': PROJECT['datasetTitle'],
+    'description': f"{PROJECT['datasetDescription']} {len(out)} records, {sum(r['latitude'] is not None for r in out)} with coordinates. "
+                   f"Licence: {PROJECT['licence']}. Coordinate datum: {PROJECT['datum']}{'' if PROJECT['datumConfirmed'] else ' (assumed; not stated in the documentation)'}.",
+    'homepage': SITE_URL + '/data',
+    'contributors': [{'title': PROJECT['author'], 'role': 'author'}],
+    **({'licenses': [{'name': spdx, 'title': PROJECT['licence']}]} if spdx else {}),
+    'resources': [
+        {'name': 'sites-csv', 'path': 'sites.csv', 'format': 'csv', 'mediatype': 'text/csv', 'encoding': 'utf-8',
+         'schema': {'fields': PROJECT['fields'], 'primaryKey': 'id', 'missingValues': ['']}},
+        {'name': 'sites-geojson', 'path': 'sites.geojson', 'format': 'geojson', 'mediatype': 'application/geo+json'},
+        {'name': 'sites-json', 'path': 'sites.json', 'format': 'json', 'mediatype': 'application/json'},
+    ],
+})
+with open('CITATION.cff', 'w', encoding='utf-8') as f:
+    f.write(f"""# Generated by scripts/build-sites-json.py from src/data/project.json. Edit that file, not this one.
+# Author and licence are placeholders until the author confirms them (see "todo" in project.json).
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+type: dataset
+title: {json.dumps(PROJECT['datasetTitle'])}
+abstract: {json.dumps(PROJECT['datasetDescription'])}
+authors:
+  - name: {json.dumps(PROJECT['author'])}
+url: {json.dumps(SITE_URL + '/data')}
+repository-code: {json.dumps(PROJECT['repository'])}
+{f'license: {spdx}' if spdx else '# license: to be confirmed by the author'}
+""")
 
 pages = ['/', '/map', '/browse', '/atlas', '/data', '/about'] + [f"/locations/{r['id']}" for r in out]
 with open('public/sitemap.xml', 'w', encoding='utf-8') as f:

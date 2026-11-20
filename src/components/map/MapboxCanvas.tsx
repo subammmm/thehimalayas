@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import type { HistoricalSite, SiteType } from '../../types';
-import { markerPositions } from '../../lib/sites';
+import type { HistoricalSite } from '../../types';
+import { markerPositions, siteColor } from '../../lib/sites';
 
 // Type alias for backward compatibility
 type Location = HistoricalSite;
-type LocationType = SiteType | string;
 
 // Get token from environment
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -17,33 +16,11 @@ interface MapboxCanvasProps {
     locations: Location[];
     onLocationSelect: (location: Location) => void;
     focusedLocation: Location | null;
-    showConnections?: boolean; // Draw lines when filtering is active
+    // Shown under the notice when the base map cannot load: what still works on this page
+    fallbackHint?: string;
 }
 
-const getColorByType = (type: LocationType): string => {
-    // Normalize type for matching (handle variations)
-    const normalizedType = type.toLowerCase();
-
-    if (normalizedType.includes('stele')) return '#fbbf24'; // amber
-    if (normalizedType.includes('pillar')) return '#f97316'; // orange
-    if (normalizedType.includes('deval')) return '#a855f7'; // purple
-    if (normalizedType.includes('stupa')) return '#84cc16'; // lime
-    if (normalizedType.includes('temple')) return '#ef4444'; // red
-    if (normalizedType.includes('fountain')) return '#06b6d4'; // cyan
-    if (normalizedType.includes('fort')) return '#92400e'; // brown
-    if (normalizedType.includes('palace')) return '#dc2626'; // crimson
-    if (normalizedType.includes('inscription')) return '#eab308'; // yellow
-    if (normalizedType.includes('monastery') || normalizedType.includes('vihara')) return '#d946ef'; // fuchsia
-    if (normalizedType.includes('remains')) return '#bc6c25'; // tan
-    if (normalizedType.includes('museum')) return '#0ea5e9'; // sky
-    if (normalizedType.includes('mounds')) return '#d97706'; // amber
-    if (normalizedType.includes('sculpture')) return '#f97316'; // coral
-    if (normalizedType.includes('pavilion')) return '#8b5cf6'; // violet
-
-    return '#6b7280'; // gray
-};
-
-export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, showConnections = false }: MapboxCanvasProps) => {
+export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, fallbackHint = 'Search, filters and the site list still work.' }: MapboxCanvasProps) => {
     const mapContainer = useRef<HTMLDivElement>(null);
     const map = useRef<mapboxgl.Map | null>(null);
     const markers = useRef<mapboxgl.Marker[]>([]);
@@ -114,31 +91,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                         }
                     });
 
-                    // Add connection lines source and layer
-                    map.current.addSource('connection-lines', {
-                        type: 'geojson',
-                        data: {
-                            type: 'FeatureCollection',
-                            features: []
-                        }
-                    });
-
-                    map.current.addLayer({
-                        id: 'connection-lines-layer',
-                        type: 'line',
-                        source: 'connection-lines',
-                        layout: {
-                            'line-join': 'round',
-                            'line-cap': 'round'
-                        },
-                        paint: {
-                            'line-color': ['get', 'color'], // Use color from feature properties
-                            'line-width': 3,
-                            'line-opacity': 0.8,
-                            'line-dasharray': [2, 2] // Dashed line
-                        }
-                    });
-
                     setIsMapLoaded(true);
                 } catch (err) {
                     console.error('❌ Error adding terrain:', err);
@@ -187,68 +139,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
 
     }, [focusedLocation, isMapLoaded]);
 
-    // Update connection lines when locations or showConnections changes
-    useEffect(() => {
-        if (!map.current || !isMapLoaded) return;
-
-        const source = map.current.getSource('connection-lines') as mapboxgl.GeoJSONSource;
-        if (!source) return;
-
-        // Only show connections if showConnections is true and we have 2+ locations
-        if (!showConnections || locations.length < 2) {
-            source.setData({
-                type: 'FeatureCollection',
-                features: []
-            });
-            return;
-        }
-
-        // Group locations by type and create line segments for each type
-        const locationsByType = new Map<string, Location[]>();
-
-        locations.forEach(loc => {
-            const existing = locationsByType.get(loc.type) || [];
-            existing.push(loc);
-            locationsByType.set(loc.type, existing);
-        });
-
-        // Create line features for each type (connecting locations of same type)
-        const features: GeoJSON.Feature[] = [];
-
-        locationsByType.forEach((locs, type) => {
-            // Filter out locations without coordinates
-            const validLocs = locs.filter(loc => loc.coordinates !== null);
-            if (validLocs.length < 2) return; // Need at least 2 to draw a line
-
-            const color = getColorByType(type as LocationType);
-            const coordinates: [number, number][] = validLocs
-                .filter(loc => loc.coordinates)
-                .map(loc => [
-                    loc.coordinates!.lng,
-                    loc.coordinates!.lat
-                ]);
-
-            features.push({
-                type: 'Feature',
-                properties: { color, type },
-                geometry: {
-                    type: 'LineString',
-                    coordinates: coordinates
-                }
-            });
-        });
-
-        // Create GeoJSON with type-colored lines
-        const geojsonData: GeoJSON.FeatureCollection = {
-            type: 'FeatureCollection',
-            features
-        };
-
-        source.setData(geojsonData);
-
-
-    }, [locations, showConnections, isMapLoaded]);
-
     // Update markers when locations change
     useEffect(() => {
         if (!map.current || !isMapLoaded) return;
@@ -264,7 +154,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                 const coords = positions.get(location.id);
                 if (!coords) return; // no coordinates recorded
 
-                const color = getColorByType(location.type);
+                const color = siteColor(location);
 
                 // Create marker container (Mapbox positions this)
                 // A real button, so markers can be reached and activated from the keyboard
@@ -349,7 +239,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                 <div role="alert" className="absolute inset-0 flex items-start justify-center bg-gray-100 px-6 pt-36">
                     <div className="max-w-sm text-center">
                         <p className="font-semibold text-gray-900 mb-2">The base map could not be loaded</p>
-                        <p className="text-sm text-gray-600">{notice} Search, filters and the site list still work.</p>
+                        <p className="text-sm text-gray-600">{notice} {fallbackHint}</p>
                     </div>
                 </div>
             )}

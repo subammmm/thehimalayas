@@ -11,6 +11,7 @@ const StatsDashboard = lazy(() => import('./pages/StatsDashboard'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const DataPage = lazy(() => import('./pages/DataPage'));
 const BrowsePage = lazy(() => import('./pages/BrowsePage'));
+const EmbedPage = lazy(() => import('./pages/EmbedPage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -47,6 +48,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/data" element={<DataPage />} />
             <Route path="/browse" element={<BrowsePage />} />
+            <Route path="/embed" element={<EmbedPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

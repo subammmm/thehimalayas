@@ -64,3 +64,18 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
 }
+/* Printing a site record (/locations/:id): keep the panel tints */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* On a phone the map's zoom and compass buttons sat on top of the search bar; pinch and
+   two-finger rotate do the same job there. */
+@media (max-width: 767px) {
+  .mapboxgl-ctrl-top-right .mapboxgl-ctrl-group {
+    display: none;
+  }
+}

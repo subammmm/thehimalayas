@@ -66,6 +66,14 @@ export interface Coordinates {
     lng: number;
 }
 
+// A photograph of a site. None are published yet; see IMAGES in scripts/build-sites-json.py.
+export interface SiteImage {
+    src: string;
+    alt: string;
+    credit: string;
+    licence: string;
+}
+
 // Historical site from Khasa Malla research
 // Includes all fields from the database plus compatibility properties
 export interface HistoricalSite {
@@ -78,6 +86,9 @@ export interface HistoricalSite {
     site_type: SiteType | string;
     // Normalised categories used for filtering and browsing; site_type keeps the recorded text.
     categories: string[];
+    // Entry numbers of records that may describe the same site (editorial cross-reference).
+    possibly_related: string[];
+    images: SiteImage[];
     documentation: string | null;
     description: string | null;
     visit_date: string | null;

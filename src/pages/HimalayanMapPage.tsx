@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, List, X } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
 import { MapboxCanvas } from '../components/map/MapboxCanvas';
@@ -9,7 +9,7 @@ import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
 import { LocationPopover } from '../components/location/LocationPopover';
 import { MobileBottomSheet } from '../components/location/MobileBottomSheet';
-import { mapUrl, matchesFilters } from '../lib/sites';
+import { mapUrl, matchesFilters, parseMapParams } from '../lib/sites';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useEscapeKey } from '../hooks/useEscapeKey';
 import type { Location } from '../types';
@@ -36,19 +36,20 @@ const CesiumCanvas = lazy(async () => {
 
 const HimalayanMapPage = () => {
     const navigate = useNavigate();
-    const [params] = useSearchParams();
+    const { search } = useLocation();
     const { locations } = useLocations();
     usePageTitle('Map');
 
     // The view is shareable: ?q=<search>&type=<category>&district=<district>&site=<id>
     // (type and district may repeat). Read once on load, then kept in sync below.
-    const [searchQuery, setSearchQuery] = useState(() => params.get('q') ?? '');
-    const [selectedTypes, setSelectedTypes] = useState(() => params.getAll('type'));
-    const [selectedRegions, setSelectedRegions] = useState(() => params.getAll('district'));
-    const [selectedId, setSelectedId] = useState(() => params.get('site'));
+    const [initial] = useState(() => parseMapParams(search));
+    const [searchQuery, setSearchQuery] = useState(initial.query);
+    const [selectedTypes, setSelectedTypes] = useState(initial.types);
+    const [selectedRegions, setSelectedRegions] = useState(initial.districts);
+    const [selectedId, setSelectedId] = useState(initial.site ?? null);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     // Without a base map the list is the way in, so start with it open.
-    const [isListOpen, setIsListOpen] = useState(!import.meta.env.VITE_MAPBOX_TOKEN && !params.get('site'));
+    const [isListOpen, setIsListOpen] = useState(!import.meta.env.VITE_MAPBOX_TOKEN && !initial.site);
     const [is3DMode, setIs3DMode] = useState(false);
 
     useEffect(() => {
@@ -68,8 +69,6 @@ const HimalayanMapPage = () => {
         [searchQuery, selectedTypes, selectedRegions, locations]
     );
     const mappedCount = filteredLocations.filter(loc => loc.coordinates).length;
-
-    const hasActiveFilters = searchQuery.length > 0 || selectedTypes.length > 0 || selectedRegions.length > 0;
 
     const toggleType = (type: string) => {
         setSelectedTypes(prev =>
@@ -120,7 +119,7 @@ const HimalayanMapPage = () => {
             <FilterButton
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 activeCount={activeFilterCount}
-                className="top-20 right-6 z-[1200]"
+                className="top-28 right-6 z-[1200]"
             />
 
             <FilterPanel
@@ -132,7 +131,7 @@ const HimalayanMapPage = () => {
                 selectedRegions={selectedRegions}
                 toggleRegion={toggleRegion}
                 onReset={resetFilters}
-                className="top-36 right-6 z-[1200]"
+                className="top-44 right-6 z-[1200]"
             />
 
             <AnimatePresence>
@@ -161,10 +160,8 @@ const HimalayanMapPage = () => {
                     <Suspense fallback={<div className="absolute inset-0 bg-gray-900" />}>
                         <CesiumCanvas
                             locations={locations}
-                            filteredLocations={filteredLocations}
                             onLocationSelect={selectLocation}
                             focusedLocation={selectedLocation}
-                            showConnections={hasActiveFilters}
                         />
                     </Suspense>
                     <button
@@ -182,7 +179,6 @@ const HimalayanMapPage = () => {
                     locations={filteredLocations}
                     onLocationSelect={selectLocation}
                     focusedLocation={selectedLocation}
-                    showConnections={hasActiveFilters}
                 />
             </div>
 

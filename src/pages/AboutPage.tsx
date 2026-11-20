@@ -21,7 +21,7 @@ const AboutPage = () => {
             {/* 4K Mountain Background with overlay */}
             <div className="fixed inset-0 z-0">
                 <img
-                    src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?q=80&w=3840&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?q=80&w=1920&auto=format&fit=crop"
                     alt=""
                     className="w-full h-full object-cover"
                     style={{ imageRendering: '-webkit-optimize-contrast' }}
