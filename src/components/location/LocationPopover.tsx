@@ -56,6 +56,10 @@ export const LocationPopover = ({ location, onClose, on3DView }: LocationPopover
             </div>
 
             <div className="p-5 overflow-y-auto custom-scrollbar">
+                {!location.coordinates && (
+                    <p className="text-amber-700 text-sm mb-4">No coordinates recorded — this site is not shown on the map.</p>
+                )}
+
                 {location.description && (
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">
                         {location.description}

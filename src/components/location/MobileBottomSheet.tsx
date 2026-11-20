@@ -35,7 +35,7 @@ export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomS
             dragConstraints={{ top: 0 }}
             dragElastic={{ top: 0, bottom: 0.5 }}
             onDragEnd={onDragEnd}
-            className="md:hidden fixed bottom-0 left-0 right-0 z-[1200] bg-white rounded-t-3xl shadow-[0_-5px_40px_rgba(0,0,0,0.1)] h-[85vh] flex flex-col pointer-events-auto"
+            className="md:hidden fixed bottom-0 left-0 right-0 z-[1300] bg-white rounded-t-3xl shadow-[0_-5px_40px_rgba(0,0,0,0.1)] h-[85vh] flex flex-col pointer-events-auto"
         >
             {/* Drag Handle */}
             <div className="w-full h-8 flex items-center justify-center flex-shrink-0 cursor-grab active:cursor-grabbing border-b border-gray-100"
@@ -75,6 +75,9 @@ export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomS
                 </div>
 
                 <div className="p-6 space-y-6">
+                {!location.coordinates && (
+                    <p className="text-amber-700 text-sm">No coordinates recorded — this site is not shown on the map.</p>
+                )}
                     {location.description && (
                         <p className="text-gray-600 text-lg leading-relaxed">
                             {location.description}
