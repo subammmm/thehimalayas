@@ -23,7 +23,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
             <div className="bg-black/90 border border-white/20 p-3 rounded-xl shadow-2xl backdrop-blur-md">
                 <p className="text-white font-medium text-sm">{label}</p>
                 <p className="text-emerald-400 text-xs font-bold mt-1">
-                    {payload[0].value.toLocaleString()} {payload[0].dataKey === 'elevation' ? 'meters' : 'locations'}
+                    {payload[0].value.toLocaleString()} sites
                 </p>
             </div>
         );
@@ -37,13 +37,8 @@ export default function StatsDashboard() {
 
     // Data Processing
     const totalLocations = locations.length;
-    const avgElevation = Math.round(locations.reduce((acc, curr) => acc + (curr.elevation || 0), 0) / locations.length);
+    const mappedLocations = locations.filter(l => l.coordinates).length;
     const regions = new Set(locations.map(l => l.region)).size;
-
-    const sortedByElevation = [...locations]
-        .filter(l => l.elevation)
-        .sort((a, b) => (b.elevation || 0) - (a.elevation || 0))
-        .slice(0, 8);
 
     const regionCounts = locations.reduce((acc, curr) => {
         if (curr.region) acc[curr.region] = (acc[curr.region] || 0) + 1;
@@ -94,25 +89,19 @@ export default function StatsDashboard() {
                             Himalayan Atlas
                         </h1>
                         <p className="text-white/60 max-w-lg text-lg font-light">
-                            Deep insights into the world's highest peaks, valleys, and sacred regions.
+                            Khasa Malla historical sites by district and site type.
                         </p>
                     </div>
 
-                    <div className="flex gap-4">
-                        <div className="text-right hidden md:block">
-                            <div className="text-xs text-white/40 uppercase tracking-widest font-bold">Dataset Version</div>
-                            <div className="text-emerald-400 font-mono">v2.4.0 (Live)</div>
-                        </div>
-                    </div>
                 </motion.div>
 
                 {/* Key Metrics Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     {[
-                        { label: 'Total Locations', value: totalLocations, icon: MapPin, color: 'text-blue-400' },
-                        { label: 'Avg Elevation', value: `${avgElevation.toLocaleString()}m`, icon: TrendingUp, color: 'text-emerald-400' },
-                        { label: 'Regions Covered', value: regions, icon: Globe, color: 'text-purple-400' },
-                        { label: 'Terrain Types', value: typeData.length, icon: Layers, color: 'text-amber-400' },
+                        { label: 'Total Sites', value: totalLocations, icon: MapPin, color: 'text-blue-400' },
+                        { label: 'With Coordinates', value: mappedLocations, icon: TrendingUp, color: 'text-emerald-400' },
+                        { label: 'Districts Covered', value: regions, icon: Globe, color: 'text-purple-400' },
+                        { label: 'Site Types', value: typeData.length, icon: Layers, color: 'text-amber-400' },
                     ].map((stat, i) => (
                         <motion.div
                             key={stat.label}
@@ -132,7 +121,7 @@ export default function StatsDashboard() {
 
                 {/* Charts Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Top Peaks */}
+                    {/* Sites per district */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -143,14 +132,14 @@ export default function StatsDashboard() {
                             <div>
                                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                                     <Mountain className="w-5 h-5 text-emerald-400" />
-                                    Highest Peaks
+                                    Sites by District
                                 </h3>
-                                <p className="text-sm text-white/40">Top 8 elevations in the dataset</p>
+                                <p className="text-sm text-white/40">Number of recorded sites in each district</p>
                             </div>
                         </div>
                         <div className="h-[300px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={sortedByElevation} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                                <BarChart data={regionData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                                     <XAxis
                                         dataKey="name"
                                         axisLine={false}
@@ -164,8 +153,8 @@ export default function StatsDashboard() {
                                         tick={{ fill: '#71717a', fontSize: 12 }}
                                     />
                                     <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
-                                    <Bar dataKey="elevation" radius={[6, 6, 0, 0]} maxBarSize={60}>
-                                        {sortedByElevation.map((_entry, index) => (
+                                    <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={60}>
+                                        {regionData.map((_entry, index) => (
                                             <Cell key={`cell-${index}`} fill={index === 0 ? '#10b981' : '#3b82f6'} fillOpacity={0.9} />
                                         ))}
                                     </Bar>
@@ -183,7 +172,7 @@ export default function StatsDashboard() {
                     >
                         <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
                             <Globe className="w-5 h-5 text-blue-400" />
-                            Regional Coverage
+                            District Share
                         </h3>
                         <div className="h-[300px]">
                             <ResponsiveContainer width="100%" height="100%">
@@ -216,7 +205,7 @@ export default function StatsDashboard() {
                         </div>
                     </motion.div>
 
-                    {/* Terrain Types */}
+                    {/* Site Types */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -225,7 +214,7 @@ export default function StatsDashboard() {
                     >
                         <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                             <BarChart2 className="w-5 h-5 text-purple-400" />
-                            Terrain Composition
+                            Site Types
                         </h3>
                         <div className="space-y-4">
                             {typeData.map((item, index) => (
