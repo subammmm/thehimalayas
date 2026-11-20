@@ -7,14 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "data": "python3 scripts/build-sites-json.py && python3 scripts/validate-data.py"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
     "@types/cesium": "^1.67.14",
     "@types/mapbox-gl": "^3.4.1",
     "cesium": "^1.136.0",
-    "dotenv": "^17.2.3",
     "mapbox-gl": "^3.17.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

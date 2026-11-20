@@ -76,6 +76,8 @@ export interface HistoricalSite {
     location: string;
     coordinates: Coordinates | null;
     site_type: SiteType | string;
+    // Normalised categories used for filtering and browsing; site_type keeps the recorded text.
+    categories: string[];
     documentation: string | null;
     description: string | null;
     visit_date: string | null;
@@ -89,7 +91,6 @@ export interface HistoricalSite {
     name: string;           // Alias for location
     type: SiteType | string; // Alias for site_type
     region: District | string; // Alias for district
-    elevation: number;      // Default 0 for historical sites
 }
 
 // Backward compatibility

@@ -26,12 +26,13 @@ export const LocationPopover = ({ location, onClose, on3DView }: LocationPopover
             <div className="relative h-48 w-full flex-shrink-0">
                 <img
                     src={PLACEHOLDER_IMAGE}
-                    alt={location.name}
+                    alt=""
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent" />
                 <button
                     onClick={onClose}
+                    aria-label="Close"
                     className="absolute top-3 right-3 p-1.5 bg-black/40 hover:bg-black/60 text-white rounded-full backdrop-blur-md transition-colors"
                 >
                     <X className="w-4 h-4" />

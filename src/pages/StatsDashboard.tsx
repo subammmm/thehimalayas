@@ -2,7 +2,13 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, BarChart2, MapPin, Mountain, Globe, TrendingUp, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLocations } from '../hooks/useLocations';
+import { usePageTitle } from '../hooks/usePageTitle';
+import { countBy } from '../lib/sites';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
+
+// Recharts measures its container after the first render and warns about the default
+// -1 x -1 size until then; start from a real size instead.
+const CHART_INITIAL_SIZE = { width: 300, height: 300 };
 
 // Define types for tooltip props
 interface TooltipPayload {
@@ -34,6 +40,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 export default function StatsDashboard() {
     const navigate = useNavigate();
     const { locations } = useLocations();
+    usePageTitle('Atlas');
 
     // Data Processing
     const totalLocations = locations.length;
@@ -49,14 +56,9 @@ export default function StatsDashboard() {
         .map(([name, value]) => ({ name, value }))
         .sort((a, b) => b.value - a.value);
 
-    const typeCounts = locations.reduce((acc, curr) => {
-        if (curr.type) acc[curr.type] = (acc[curr.type] || 0) + 1;
-        return acc;
-    }, {} as Record<string, number>);
-
-    const typeData = Object.entries(typeCounts)
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => b.value - a.value);
+    // Normalised categories, so "Pillar" and "Pillars" are one row. A site with several
+    // features ("Deval / Fountain") counts under each.
+    const typeData = countBy(locations, site => site.categories).map(([name, value]) => ({ name, value }));
 
     // Aesthetics
     const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#ec4899', '#06b6d4', '#6366f1'];
@@ -138,7 +140,7 @@ export default function StatsDashboard() {
                             </div>
                         </div>
                         <div className="h-[300px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer width="100%" height="100%" initialDimension={CHART_INITIAL_SIZE}>
                                 <BarChart data={regionData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                                     <XAxis
                                         dataKey="name"
@@ -175,7 +177,7 @@ export default function StatsDashboard() {
                             District Share
                         </h3>
                         <div className="h-[300px]">
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer width="100%" height="100%" initialDimension={CHART_INITIAL_SIZE}>
                                 <PieChart>
                                     <Pie
                                         data={regionData}
@@ -212,10 +214,11 @@ export default function StatsDashboard() {
                         transition={{ delay: 0.6 }}
                         className={CARD_STYLE}
                     >
-                        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
                             <BarChart2 className="w-5 h-5 text-purple-400" />
                             Site Types
                         </h3>
+                        <p className="text-sm text-white/40 mb-6">A site with several features is counted under each type.</p>
                         <div className="space-y-4">
                             {typeData.map((item, index) => (
                                 <div key={item.name} className="group">

@@ -2,21 +2,18 @@ import { motion } from 'framer-motion';
 import { Mountain } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocations } from '../hooks/useLocations';
+import { usePageTitle } from '../hooks/usePageTitle';
+import { mapUrl } from '../lib/sites';
 
 const AboutPage = () => {
     const navigate = useNavigate();
     const { locations } = useLocations();
+    usePageTitle('About');
+    const mappedCount = locations.filter(loc => loc.coordinates).length;
 
     const handleExplore = () => {
         const mapped = locations.filter(loc => loc.coordinates);
-        if (mapped.length > 0) {
-            const randomLocation = mapped[Math.floor(Math.random() * mapped.length)];
-            navigate('/map', {
-                state: { selectedLocation: randomLocation }
-            });
-        } else {
-            navigate('/map');
-        }
+        navigate(mapUrl({ site: mapped[Math.floor(Math.random() * mapped.length)]?.id }));
     };
 
     return (
@@ -25,7 +22,7 @@ const AboutPage = () => {
             <div className="fixed inset-0 z-0">
                 <img
                     src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?q=80&w=3840&auto=format&fit=crop"
-                    alt="Mountain Background"
+                    alt=""
                     className="w-full h-full object-cover"
                     style={{ imageRendering: '-webkit-optimize-contrast' }}
                 />
@@ -61,22 +58,28 @@ const AboutPage = () => {
                 <div className="space-y-16">
                     <section className="space-y-8 glass-overlay-dark rounded-3xl p-8 md:p-12">
                         <p className="text-2xl md:text-3xl font-light text-gray-200 leading-relaxed">
-                            The Himalayas is an interactive exploration platform designed to showcase the beauty,
-                            scale, and geography of the world's highest mountain range.
+                            The Himalayas is a digital atlas of historical sites of the Khasa Malla kingdom
+                            (12th to 14th century) across western Nepal, India and Tibet.
                         </p>
                         <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
-                            Born from a love for cartography and alpinism, this project aims to provide a digital
-                            sanctuary for those who dream of the high peaks. We combine modern web technologies
-                            with curated geographical data to create an immersive experience that feels as premium
-                            as the landscapes it represents.
+                            It records {locations.length} sites: pillars, steles, devals, stupas, temples, fountains
+                            and inscriptions. {mappedCount} have recorded coordinates and appear on the map. The
+                            others are listed with the information available, and can be found through search and
+                            the <Link to="/browse" className="underline hover:text-white">browse page</Link>.
+                        </p>
+                        <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+                            Each record keeps its field notes and names the source it draws on. Records carry the
+                            date of the site visit where there was one. The monuments themselves are not
+                            individually dated in the dataset, so the atlas does not present a timeline.
                         </p>
                     </section>
 
                     {/* Social Links */}
                     <section className="glass-overlay-dark rounded-3xl p-8 md:p-12">
-                        <h3 className="text-xl font-bold mb-6 text-white">Connect</h3>
+                        <h2 className="text-xl font-bold mb-6 text-white">Data and code</h2>
                         <p className="text-gray-300 mb-6">
-                            Explore the source code, contribute to the project, or share your own Himalayan experiences.
+                            The dataset is open to download from the <Link to="/data" className="underline hover:text-white">data page</Link>,
+                            and the source code is on GitHub.
                         </p>
                         <div className="flex flex-wrap gap-4">
                             <a

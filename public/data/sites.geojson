@@ -1,0 +1,3471 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "id": "site-1",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.1",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": null,
+    "site_type": "Stele",
+    "documentation": "Alongside the Kritikhamba there were 7 other pillars of different sizes spread out throughout a gated enclosure. Measurements from the base: Pillar 1 - 30x109 / Pillar 2 - 28x131 / Pillar 3 - 22x73 / Pillar 4 - 30x119 / Pillar 5 - 29x65 / Pillar 6 - 26x67 / Pillar 7 - 27x124 / Kritikhamba - 50x266",
+    "description": "The lineage of the kings of Yatse is drawn from the Dullu inscription. This stele (kīrtistambha) roughly 2.5 metres tall gives a dynastic list matching Tibetan chronicles. At the top is a Buddhist symbol and Om mani padme hum.",
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Samuel Grimes / Giuseppe Tucci / Surya Mani Adhikary",
+    "site_categories": [
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-2",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.156806,
+     29.271694
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.2",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Michagaon",
+    "coordinates": "29°16'18.1\"N 82°09'24.5\"E",
+    "site_type": "Stupas / Stele",
+    "documentation": "Michāgāũ Stupas / Stele — A total of 14 stupas spread out the complex. Stele measurements are 41x182x10.",
+    "description": "13 chörtens dating from 1482 to 1501 CE.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Stupa",
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-3",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.3",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Birendranagar",
+    "coordinates": null,
+    "site_type": "Vihara",
+    "documentation": "Series of scattered remains around the vihara with some at the museum.",
+    "description": "Kakre Vihar - oldest temple in Surkhet, rediscovered in 20th century. Built possibly in 13th century by Ashoka Challa. 200+ pillar stones found along pilgrimage route from India to Surkhet.",
+    "visit_date": "2025-01-25",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Sambid Bilas Pant / T.B Harward",
+    "site_categories": [
+     "Monastery / Vihara"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-4",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.4",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Bhairavsthan / Uttaraganga",
+    "coordinates": null,
+    "site_type": "Pillars",
+    "documentation": "Two pillars at Uttarganga. One tilting and venerated by locals. Second pillar split and rejoined with a rod. Horse capital at Jaleshwor temple.",
+    "description": "Four pillar stones - markers of ancient route to the south.",
+    "visit_date": "2025-01-26",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "T.B Harward",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-5",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.5",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Ramrikanda",
+    "coordinates": null,
+    "site_type": "Pillar",
+    "documentation": null,
+    "description": "Impressive pillar stone nearly 2m high with seven lines of text. Yogi Naraharinath deciphered date as Sake 1037.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "T.B Harward",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-6",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.6",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Phinikanda",
+    "coordinates": null,
+    "site_type": "Pillars",
+    "documentation": null,
+    "description": "Three pillar stones. First worn but upright. Second highly decorated with Lhasa image of soldier on horseback, circle, stupa, and 4.5 lines of script.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "T.B Harward",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-7",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.7",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Chaughanchaur",
+    "coordinates": null,
+    "site_type": "Mounds",
+    "documentation": null,
+    "description": "Inscriptions and archaeological specimens dating to 13th century. Colophon mentions Ripu Mall as ruler in 14th century. Numerous mounds with old bricks, terracotta images, sculpted lions.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "T.B Harward",
+    "site_categories": [
+     "Remains"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-8",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.8",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Mangalgadhi",
+    "coordinates": null,
+    "site_type": "Fort",
+    "documentation": "Found pillar with faint inscriptions mentioning Ananda Malla. Shiva temple completed 30 years ago.",
+    "description": "Fort site controls movements to/from Dullu/Dailekh and India. Strategically important. One line inscription mentions Ananda Malla - possibly 15th century AD.",
+    "visit_date": "2025-01-26",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "T.B Harward",
+    "site_categories": [
+     "Fort / Palace"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-9",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.9",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Province Museum",
+    "coordinates": null,
+    "site_type": "Pillar",
+    "documentation": "Saw terracotta chaitya, lions as temple guardians, Buddha reliefs, Gandharan-looking head.",
+    "description": "4-sided pillar stone with symbolic representation of Buddha / Maitreya / Tara / Lokeshwor.",
+    "visit_date": "2025-01-25",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "T.B Harward",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-10",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.608254,
+     28.851791
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.10",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Patharnauli (Dullu)",
+    "coordinates": "28.8517907, 81.6082541",
+    "site_type": "Water Receptacle",
+    "documentation": "Rectangular enclosure with stupa-like top. Epigraph on lintel in good condition. Structure next to current road.",
+    "description": "Water receptacle made by chief-minister Devavarmii in 1334. Prthvimalla mentioned as great religious king. Colossal cistern built with cyclopean stone blocks.",
+    "visit_date": "2025-01-29",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary / Giuseppe Tucci",
+    "site_categories": [
+     "Other"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-11",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.11",
+    "country": "India",
+    "district": "Bihar",
+    "location": "Bodh Gaya",
+    "coordinates": null,
+    "site_type": "Copperplate Inscription",
+    "documentation": null,
+    "description": "Ashok Challa issued inscriptions dated 1255 and 1278. Refers to himself as Khasha-Rajadhiraja (emperor of the Khashas).",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Wikipedia",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-12",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.12",
+    "country": "India",
+    "district": "Uttarakhand",
+    "location": "Kumaon (Gopheshwar)",
+    "coordinates": null,
+    "site_type": "Baleshwar Temple Inscription",
+    "documentation": null,
+    "description": "Confirmation of deed of Krachalla on reverse of copper plate grant. Inscribed Sake era 1145 (1223 AD). Krachalla invaded and subjugated Kumaon in 1223.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-13",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.13",
+    "country": "India",
+    "district": "Uttarakhand",
+    "location": "Garhwal (Uttarkashi)",
+    "coordinates": null,
+    "site_type": "Vishwanath Temple Inscription",
+    "documentation": null,
+    "description": "Ashoka Challa conquered Garhwal as far as Uttarkashi, evidenced by inscription in Barahat Vishwanath temple.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-14",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.14",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Padukasthan (Dullu)",
+    "coordinates": null,
+    "site_type": "Temple Complex / Vir Pillars",
+    "documentation": "Collection of shivalingas, god reliefs, Buddha relief in bhumisparsha mudra with Krachalla inscription. 4 warrior figures on stone pillars.",
+    "description": "Stone pillar inscription from Asokachalla - first recorded use of Nepali language. One of 3 centers where Agni was worshipped due to eternal flame.",
+    "visit_date": "2025-01-29",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Temple",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-15",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.15",
+    "country": "Nepal",
+    "district": "Bajhang",
+    "location": "Danduru Village",
+    "coordinates": null,
+    "site_type": "Copper Plate Inscription",
+    "documentation": null,
+    "description": "Land grant charter of Abhayamalla recording opponents shot dead by arrows.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-16",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.16",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Seridhuska",
+    "coordinates": null,
+    "site_type": "Kanakapatra (Gold Plate)",
+    "documentation": null,
+    "description": "Land grant charter under Prthvimalla - opponents shot dead by arrows.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-17",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.17",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Magistrate Office",
+    "coordinates": null,
+    "site_type": "Copper Plate Inscription",
+    "documentation": null,
+    "description": "Land grant issued by Prithvimalla from Dullu.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-18",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.18",
+    "country": "Nepal",
+    "district": "Kalikot",
+    "location": "Rainkasanghu",
+    "coordinates": null,
+    "site_type": "Stone Inscription",
+    "documentation": null,
+    "description": "Malayavarma became ruler of Karnali after Abhayamalla. Inscription states he is Raja. Mentions queen Ratnamala.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-19",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.19",
+    "country": "Nepal",
+    "district": "Achham",
+    "location": "Jayagarh",
+    "coordinates": null,
+    "site_type": "Inscription",
+    "documentation": null,
+    "description": "Inscription by Yasovarma - Prithvimallas chief minister known as Mahamandalesvara.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-20",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.20",
+    "country": "Nepal",
+    "district": "Achham",
+    "location": "Kuchi (Kalikasthan)",
+    "coordinates": null,
+    "site_type": "Inscription on Reservoir",
+    "documentation": null,
+    "description": "Inscription by Devavarma on lintel of small reservoir bearing name of Prithivimalla. Lekhaka Istidasa also mentioned.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-21",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.21",
+    "country": "Nepal",
+    "district": "Achham",
+    "location": "Ghodasain",
+    "coordinates": null,
+    "site_type": "Inscription",
+    "documentation": null,
+    "description": "Inscription reading Sri Taradevischiram jayatu - reference to Taradevi, prominent woman in Khasa court.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-22",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.22",
+    "country": "Nepal",
+    "district": "Achham",
+    "location": "Binayak",
+    "coordinates": null,
+    "site_type": "Temple",
+    "documentation": null,
+    "description": "Vinayak Panchadeval built by Aksayamalla. Shikhara style temple with inscription on lintel.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-23",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.23",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Nabhistan",
+    "coordinates": null,
+    "site_type": "Temple (with eternal flame)",
+    "documentation": null,
+    "description": "Nivasthana - one of 3 centers where Agni was worshipped due to eternal flame powered by underground natural gas.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-24",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.24",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Shreesthan",
+    "coordinates": null,
+    "site_type": "Temple (with eternal flame)",
+    "documentation": null,
+    "description": "Sirasthina - one of 3 centers where Agni was worshipped due to eternal flame.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-25",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.25",
+    "country": "China",
+    "district": "Tibet",
+    "location": "Shiagtse",
+    "coordinates": null,
+    "site_type": "Monastery",
+    "documentation": null,
+    "description": "Ripumalla copied Abhisamayalankara in 1313 from Surkhet. First use of Vikram Sambat dating. Shalu monastery of Tibet.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Monastery / Vihara"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-26",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.26",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Sinja",
+    "coordinates": null,
+    "site_type": "Stone Inscription",
+    "documentation": null,
+    "description": "Inscription documenting king Ripumalla copied Laghuratnatraya inspired by meditation of Lokanatha.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-27",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.27",
+    "country": "Nepal",
+    "district": "N/A",
+    "location": "N/A",
+    "coordinates": null,
+    "site_type": "Copper Plate Inscription",
+    "documentation": null,
+    "description": "Land grant (Birta) from Abhayamalla to a Brahmana.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-28",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.28",
+    "country": "Nepal",
+    "district": "N/A",
+    "location": "N/A",
+    "coordinates": null,
+    "site_type": "Copper Plate Inscription",
+    "documentation": null,
+    "description": "Land grant (Birta) from Abhayamalla to a Brahmana.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-29",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.29",
+    "country": "China",
+    "district": "Tibet",
+    "location": "Taghwai / Taiga Monastery",
+    "coordinates": null,
+    "site_type": "Copper Plate Inscription",
+    "documentation": null,
+    "description": "Bilingual land grant (Tibetan/proto-Nepali) from 1321 AD documenting patron-saint relationship between Adityamalla and monastery lamas.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-30",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.30",
+    "country": "China",
+    "district": "Tibet",
+    "location": "Taghwai / Taiga Monastery",
+    "coordinates": null,
+    "site_type": "Copper Plate Inscription",
+    "documentation": null,
+    "description": "Land grant from 1328 AD documenting patron-saint relationship between Punyamalla and monastery lamas.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-31",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.31",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Birendranagar",
+    "coordinates": null,
+    "site_type": "Stone Inscription",
+    "documentation": null,
+    "description": "Stone inscription kept on wall of Mahankala temple near Kankrevihar. Left by Asa sahu and Rueradevi dated 1292.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-32",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.135167,
+     29.2575
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.32",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Seridhuska / Shridhuska",
+    "coordinates": "29°15'27.0\"N 82°08'06.6\"E",
+    "site_type": "Stupa",
+    "documentation": "Śrīḍhuskā Stūpa — Stone structure with square base. Stupa destroyed and remade about a year ago. Inscription still legible.",
+    "description": "Stupa with om mani padme hum in Ranjana script. Square plan with stepped garbha.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Stupa"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-33",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.33",
+    "country": "Nepal",
+    "district": "Achham",
+    "location": "Bhandarigaun (Mastamandau)",
+    "coordinates": null,
+    "site_type": "Pillar",
+    "documentation": null,
+    "description": "Buddha figure in meditative posture with standing Tara on roadside pillar.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-34",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.34",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Birendranagar",
+    "coordinates": null,
+    "site_type": "Carved Stone Block",
+    "documentation": null,
+    "description": "Figure of celestial nymph carved on stone block from Kankrevihar ruins. Flying posture with necklace, bangles, aksamala.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Sculpture"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-35",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.35",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Lamathada (Sinja)",
+    "coordinates": null,
+    "site_type": "Stone Sculptures",
+    "documentation": null,
+    "description": "Three life-sized stone lion sculptures on roadside of royal palace area. Large eyes and open mouths.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Sculpture"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-36",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.36",
+    "country": "Nepal",
+    "district": "Kaski",
+    "location": "Kaskikot",
+    "coordinates": null,
+    "site_type": "Potential Fort Ruins",
+    "documentation": null,
+    "description": "Kaskrkot place now in ruins on ridge overlooking Pokhara valley. Domains of Khasa reached here.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Giuseppe Tucci",
+    "site_categories": [
+     "Fort / Palace"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-37",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.37",
+    "country": "Nepal",
+    "district": "Kalikot",
+    "location": "Gela",
+    "coordinates": null,
+    "site_type": "Seat of Power",
+    "documentation": null,
+    "description": "Adityamallas son Pratapamalla left no heir so Punyamalla (Pala descendant who married Adityamallas daughter) became king.",
+    "visit_date": null,
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Other"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-38",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.38",
+    "country": "Nepal",
+    "district": "Surkhet",
+    "location": "Latikoili",
+    "coordinates": null,
+    "site_type": "Hindu Temple",
+    "documentation": "Shiva temple made of stone with 16th century inscription written by Ram Krishna from Benares. Names of Pratap and Mana Shahi of Raskoti lineage inscribed.",
+    "description": "Shiva temple with inscription dating to 16th century.",
+    "visit_date": "2025-01-25",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-39",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.39",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": null,
+    "site_type": "Palace Ruins",
+    "documentation": "Remains of Dullu Palace - seat of the Bam(?) kings. Only foundation walls remain. Turning into dumping site.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Fort / Palace"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-40",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.607117,
+     28.864865
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.40",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (near Malpot Office)",
+    "coordinates": "28.8648651, 81.6071172",
+    "site_type": "Deval",
+    "documentation": "Two devals side-by-side. Inside has become a trash dump. Small god figure on lintel of 2nd Deval.",
+    "description": "Patingini Deval",
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-41",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.606838,
+     28.864779
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.41",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (near Malpot Office)",
+    "coordinates": "28.8647793, 81.6068376",
+    "site_type": "Temple",
+    "documentation": "Bijaya Bhagwati Mandir next to old palace. Contains epigraph claiming temple is ishta devta of Khasa Malla and Pala kings.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-42",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.608778,
+     28.866258
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.42",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": "28.8662583, 81.6087778",
+    "site_type": "Pillar",
+    "documentation": "Pillar with normal design on capital. On way to Baleshwor. Measurement: 30cm x 170cm.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Found while walking",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-43",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.608994,
+     28.866232
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.43",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": "28.8662316, 81.6089944",
+    "site_type": "Pillar",
+    "documentation": "Flat pillar on other side of classical Khasa Pillar.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Found while walking",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-44",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.609161,
+     28.867575
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.44",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": "28.8675746, 81.6091607",
+    "site_type": "Pillars",
+    "documentation": "3 pillars of different sizes inside army camp - design consistent with Khasa Malla pillars. Access denied.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Found while walking",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-45",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.608814,
+     28.869176
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.45",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": "28.8691756, 81.6088140",
+    "site_type": "Pillars",
+    "documentation": "Two pillars - one has stupa similar to kirtikhamba. Has inscription. Taller: 37x101, shorter: 24x73. Local claims from 1323.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Found while walking",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-46",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.46",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": null,
+    "site_type": "Resthouse / Museum",
+    "documentation": "Building built during reign of Rajendra Bir Bikram Shah Dev. Newari style windows.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Other"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-47",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.60876,
+     28.873352
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.47",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu",
+    "coordinates": "28.8733521, 81.6087604",
+    "site_type": "Broken Sculpture",
+    "documentation": "Opposite museum - small Hanuman temple with broken lion remains, possibly from Dullu Palace or Khasa Empire.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Found while walking",
+    "site_categories": [
+     "Sculpture"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-48",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.608909,
+     28.878101
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.48",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Baleshwor Temple)",
+    "coordinates": "28.8781013, 81.6089089",
+    "site_type": "Temple / Epigraph",
+    "documentation": "Inscription at right of temple in style of Kritikhamba. Seems to begin with om mani padme hum. 55x85.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple",
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-49",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.49",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Dhuleshwor Temple)",
+    "coordinates": null,
+    "site_type": "Temple / Sculpture",
+    "documentation": "Shiva Temple built in Kathmandu pagoda style during Shah era. Buddha sculpture behind being actively worshipped.",
+    "description": null,
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple",
+     "Sculpture"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-50",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.617861,
+     28.893882
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.50",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Lamji)",
+    "coordinates": "28.8938823, 81.6178611",
+    "site_type": "Deval (Panchadeval)",
+    "documentation": "Lamji Panchadeval - set of 5 devals with one in middle surrounded by 4 others.",
+    "description": "Govinda Acharya built these temples, contemporary of Jitārimala.",
+    "visit_date": "2025-01-27",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "Prayag Raj Sharma / DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-51",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.629007,
+     28.910285
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.51",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Dadimadi)",
+    "coordinates": "28.9102846, 81.6290067",
+    "site_type": "Pillar",
+    "documentation": "One pillar with stupa in middle and circular lotuses. Inscription in proto-Nepali barely legible. 42x90.",
+    "description": null,
+    "visit_date": "2025-01-29",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-52",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.628729,
+     28.912414
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.52",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Dadimadi)",
+    "coordinates": "28.9124138, 81.6287294",
+    "site_type": "Pillars",
+    "documentation": "12 pillars (1 fallen) - most follow Khasa Malla typology. Various measurements recorded.",
+    "description": null,
+    "visit_date": "2025-01-29",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-53",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.624862,
+     28.837059
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.53",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Satkhamba)",
+    "coordinates": "28.8370589, 81.6248624",
+    "site_type": "Pillars",
+    "documentation": "Satkhamba - 7 pillars in good condition. 4 pointed tops, 2 circular. Pillars 4 and 5 have visible inscriptions.",
+    "description": null,
+    "visit_date": "2025-01-28",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-54",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.630829,
+     28.830976
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.54",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Bela Baazar)",
+    "coordinates": "28.8309762, 81.6308289",
+    "site_type": "Pillars",
+    "documentation": "Two pillars in Khasa typology - capital has spear tip. Pillar 1: 30x224. Pillar 2: 30x220 with triangle base and 4-pointed knots.",
+    "description": null,
+    "visit_date": "2025-01-28",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-55",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.631123,
+     28.830299
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.55",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Pushakot)",
+    "coordinates": "28.8302995, 81.6311226",
+    "site_type": "Pillars",
+    "documentation": "4 pillars on hilltop. 3 display Khasa Malla typology, one smaller and bent.",
+    "description": null,
+    "visit_date": "2025-01-28",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-56",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.631488,
+     28.825284
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.56",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dullu (Pushakot)",
+    "coordinates": "28.8252841, 81.6314884",
+    "site_type": "Pillars",
+    "documentation": "Two pillars near main bazaar. Pillar 1 has person carved on back.",
+    "description": null,
+    "visit_date": "2025-01-28",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-57",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.709562,
+     28.828702
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.57",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Duikhamba)",
+    "coordinates": "28.8287016, 81.7095618",
+    "site_type": "Pillars",
+    "documentation": "Two steles - taller resembles Kritikhamba. Pillar 1: 56x222x19, Pillar 2: 50x139x17. Positions changed 4 years ago.",
+    "description": null,
+    "visit_date": "2025-01-30",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-58",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.699995,
+     28.835402
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.58",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Kuikana)",
+    "coordinates": "28.8354024, 81.6999954",
+    "site_type": "Deval (Panchadeval)",
+    "documentation": "5 devals in Raskoti layout. Large deval has bricks removed/amalaka on ground.",
+    "description": null,
+    "visit_date": "2025-01-30",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-59",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.59",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar",
+    "coordinates": null,
+    "site_type": "Fort",
+    "documentation": "Fort from Rasikot kings era, later used by Gorkhalis. Canon from unification period.",
+    "description": null,
+    "visit_date": "2025-01-30",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Fort / Palace"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-60",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.708184,
+     28.837922
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.60",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar",
+    "coordinates": "28.8379217, 81.7081840",
+    "site_type": "Temple / Stone Inscription",
+    "documentation": "Narayan Temple - two-storied Kathmandu style. Stone tablet inscription in Nepali. Temple: 33x66x8.",
+    "description": null,
+    "visit_date": "2025-01-30",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Temple",
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-61",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.71041,
+     28.842097
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.61",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Charkhamba)",
+    "coordinates": "28.8420972, 81.7104101",
+    "site_type": "Pillars",
+    "documentation": "4 pillars - 3 normal Khasa typology with triangles/spirals. Shorter one has circular bulb top. Locals say rearranged.",
+    "description": null,
+    "visit_date": "2025-01-30",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-62",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.708745,
+     28.855844
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.62",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Jharkot)",
+    "coordinates": "28.8558440, 81.7087448",
+    "site_type": "Deval / Fountain",
+    "documentation": "Single deval in Khasa Malla style - bottom painted white. Fountain with two taps below.",
+    "description": null,
+    "visit_date": "2025-01-31",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval",
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-63",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.714803,
+     28.856392
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.63",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Jharkot)",
+    "coordinates": "28.8563925, 81.7148025",
+    "site_type": "Pillars",
+    "documentation": "5 pillars of different sizes. One sunk into ground. Wall built around them.",
+    "description": null,
+    "visit_date": "2025-01-31",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-64",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.716336,
+     28.858029
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.64",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Dharakhola)",
+    "coordinates": "28.8580293, 81.7163358",
+    "site_type": "Pillars",
+    "documentation": "Modern fountain with 3 Khasa pillars. Two original, one center added later. Concrete poured over most.",
+    "description": null,
+    "visit_date": "2025-01-31",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-65",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.717963,
+     28.858928
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.65",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Dharakhola)",
+    "coordinates": "28.8589279, 81.7179635",
+    "site_type": "Deval",
+    "documentation": "Top-half broken, bottom remains. Middle of field with overgrowth. Similar architecture to other devals.",
+    "description": null,
+    "visit_date": "2025-01-31",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-66",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.721992,
+     28.860484
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.66",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Bhurtī)",
+    "coordinates": "28.8604838, 81.7219922",
+    "site_type": "Deval (Panchadeval)",
+    "documentation": "Typical Raskoti layout. Area turned into fields. Most devals half broken. Tree growing into them.",
+    "description": null,
+    "visit_date": "2025-01-31",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-67",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.723333,
+     28.86175
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.67",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Bhurtī)",
+    "coordinates": "28.8617500, 81.7233333",
+    "site_type": "Temple Complex",
+    "documentation": "22 devals of all sizes. Clusters of 2, 7, and 9 devals. Two connected by pavilion.",
+    "description": null,
+    "visit_date": "2025-01-31",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-68",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.723361,
+     28.862111
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.68",
+    "country": "Nepal",
+    "district": "Dailekh",
+    "location": "Dailekh Baazar (Bhurtī)",
+    "coordinates": "28.8621112, 81.7233611",
+    "site_type": "Fountain",
+    "documentation": "Two taps, one functional. Flower motif. Water tank in front, possibly over older receptacle.",
+    "description": null,
+    "visit_date": "2025-01-31",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-69",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.60281,
+     29.145246
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.69",
+    "country": "Nepal",
+    "district": "Kalikot",
+    "location": "Manma",
+    "coordinates": "29.1452464, 81.6028099",
+    "site_type": "Stele / Pillar",
+    "documentation": "Commemorative pillar with warrior on horse with sword. Lotus motifs. Some blue paint by locals. 40x195x15.",
+    "description": null,
+    "visit_date": "2025-02-03",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-70",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.603389,
+     29.143778
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.70",
+    "country": "Nepal",
+    "district": "Kalikot",
+    "location": "Manma",
+    "coordinates": "29.1437779, 81.6033889",
+    "site_type": "Fountain",
+    "documentation": "Raskoti or Khasa plan. Sunk into ground with massive stones. Motifs on sides. Right spout broken, left fitted with pipe.",
+    "description": null,
+    "visit_date": "2025-02-03",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-71",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.602222,
+     29.142917
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.71",
+    "country": "Nepal",
+    "district": "Kalikot",
+    "location": "Manma",
+    "coordinates": "29.1429167, 81.6022222",
+    "site_type": "Deval (Panchadeval)",
+    "documentation": "Most detailed deval seen. Typical Raskoti layout. Niches with indigenous gods. Animal/human motifs on pillars.",
+    "description": null,
+    "visit_date": "2025-02-03",
+    "phase": 1,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-72",
+   "geometry": null,
+   "properties": {
+    "entry_no": "N.D.D.72",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Khalanga (Chandannath Temple)",
+    "coordinates": null,
+    "site_type": "Temple",
+    "documentation": "New temple with golden dome roof and wooden masts. Two stone inscriptions. Named for sage who drained Jumla lake.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-73",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.204667,
+     29.274694
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.73",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Dansangu Pillar",
+    "coordinates": "29.2746943, 82.2046668",
+    "site_type": "Pillar",
+    "documentation": "Stele with faint devanagiri. Swastika on top register. 44x105x13.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-74",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.204832,
+     29.274437
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.74",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Dansangu",
+    "coordinates": "29.2744369, 82.2048321",
+    "site_type": "Temple / Pillar",
+    "documentation": "Shiva Mandir - circular temple with two stone inscriptions. Left: 50x87x7, Right: 52x70x9.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Temple",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-75",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.220389,
+     29.268889
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.75",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bigare",
+    "coordinates": "29.2688889, 82.2203889",
+    "site_type": "Stupa / Fountain",
+    "documentation": "Fountain with animal/human motifs and Kathmandu-style tap. 3 stupas, one with inscription.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stupa",
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-76",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.227806,
+     29.271361
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.76",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Khala",
+    "coordinates": "29°16'16.9\"N 82°13'40.1\"E",
+    "site_type": "Stupa / Fountain",
+    "documentation": "Dry fountain in classic layout. One stupa remains - two destroyed for road expansion.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stupa",
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-77",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.249472,
+     29.264111
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.77",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Ukhadi",
+    "coordinates": "29°15'50.8\"N 82°14'58.1\"E",
+    "site_type": "Deval / Fountain / Pillars",
+    "documentation": "Single deval with fountain below. Structurally intact. Two deity figures with inscriptions below.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval",
+     "Fountain",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-78",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.255028,
+     29.255111
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.78",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Garjyankot",
+    "coordinates": "29°15'18.4\"N 82°15'18.1\"E",
+    "site_type": "Stupa",
+    "documentation": "Two stupas side-by-side. Locals say fountain once existed here.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stupa"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-79",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.31475,
+     29.213389
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.79",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Guthichaur",
+    "coordinates": "29°12'48.2\"N 82°18'53.1\"E",
+    "site_type": "Deval / Fountain",
+    "documentation": "Fountain still has running water. Deval destroyed during road construction.",
+    "description": "Goha (Guthichaur) was seat of Pala Kingdom. Stone temple documented by Tucci.",
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary / Tucci / Prayag Raj Sharma / DANAM",
+    "site_categories": [
+     "Deval",
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-80",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.192083,
+     29.287361
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.80",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bhandaribada",
+    "coordinates": "29°17'14.5\"N 82°11'31.5\"E",
+    "site_type": "Stupa",
+    "documentation": "Two stupas - one with intact dome. Motifs similar to fountains. One has sanctum for Buddhist deity.",
+    "description": null,
+    "visit_date": "2025-02-05",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stupa"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-81",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.158056,
+     29.268
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.81",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Michagaon",
+    "coordinates": "29°16'04.8\"N 82°09'29.0\"E",
+    "site_type": "Pillar",
+    "documentation": "Pillar with flower motif. Top pattern like other pillars. Writing not legible. 37x122x9.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-82",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.151556,
+     29.261056
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.82",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Khalachaur",
+    "coordinates": "29°15'39.8\"N 82°09'05.6\"E",
+    "site_type": "Temple",
+    "documentation": "Shiva temple with modern materials. Interesting dome possibly imitating Chandannath.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-83",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.136694,
+     29.254778
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.83",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Umgad",
+    "coordinates": "29°15'17.2\"N 82°08'12.1\"E",
+    "site_type": "Pillars",
+    "documentation": "8 Khas era pillars. Others destroyed/repurposed as fencing. Pillars 2 and 8 well preserved.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-84",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.131417,
+     29.254417
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.84",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Seridhuska",
+    "coordinates": "29°15'15.9\"N 82°07'53.1\"E",
+    "site_type": "Pavilion",
+    "documentation": "Bayalkāṭhiyā Pavilion on raised platform. All stone with hypostyle roof. Stele eroded with bullet holes. 55x185x8.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Other"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-85",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.083167,
+     29.24025
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.85",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Dhaulapani",
+    "coordinates": "29°14'24.9\"N 82°04'59.4\"E",
+    "site_type": "Fountain",
+    "documentation": "Fountain destroyed - locals took stones for homes. No trace remains.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-86",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.071722,
+     29.239417
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.86",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Tatopani",
+    "coordinates": "29°14'21.9\"N 82°04'18.2\"E",
+    "site_type": "Temple",
+    "documentation": "Babira Masta Temple - modern tiered pagoda/Kathmandu style.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-87",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.071417,
+     29.238361
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.87",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Tatopani",
+    "coordinates": "29°14'18.1\"N 82°04'17.1\"E",
+    "site_type": "Temple",
+    "documentation": "Babira Masta Temple (2) - smaller branch temple.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-88",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.066528,
+     29.237194
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.88",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Tatopani",
+    "coordinates": "29°14'13.9\"N 82°03'59.5\"E",
+    "site_type": "Stele",
+    "documentation": "Stele with stupa in middle, circular motifs (chakras?). Writing not legible. 48x200x7.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-89",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.065417,
+     29.237417
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.89",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Tatopani",
+    "coordinates": "29°14'14.7\"N 82°03'55.5\"E",
+    "site_type": "Deval",
+    "documentation": "Half deval remains with humanoid figure at entrance. Local legend about protective stones caused destruction.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-90",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.064972,
+     29.231583
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.90",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Sundargau",
+    "coordinates": "29°13'53.7\"N 82°03'53.9\"E",
+    "site_type": "Temple",
+    "documentation": "Mani Malika Mandir - active masta temple with wooden carved struts and stone/clay sculptures.",
+    "description": null,
+    "visit_date": "2025-02-06",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-91",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.981917,
+     29.312083
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.91",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Lihi",
+    "coordinates": "29°18'43.5\"N 81°58'54.9\"E",
+    "site_type": "Stupa / Pillar",
+    "documentation": "Half stupa - destroyed during Maoist insurgency. Stele eroded. 45x103x8.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stupa",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-92",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.982444,
+     29.325167
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.92",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Narakot",
+    "coordinates": "29°19'30.6\"N 81°58'56.8\"E",
+    "site_type": "Pillars",
+    "documentation": "4 pillars - 2 standing, 2 fallen. Stupa and triangle motifs.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": null,
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-93",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.969583,
+     29.356306
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.93",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bistabada",
+    "coordinates": "29°21'22.7\"N 81°58'10.5\"E",
+    "site_type": "Stele",
+    "documentation": "Stele with beaded outline and dharmachakra motif. 42x124x10.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-94",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.969639,
+     29.356444
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.94",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bistabada",
+    "coordinates": "29°21'23.2\"N 81°58'10.7\"E",
+    "site_type": "Deval",
+    "documentation": "Curved deval design - no front stones, no amalaka.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-95",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.969694,
+     29.356556
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.95",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bistabada",
+    "coordinates": "29°21'23.6\"N 81°58'10.9\"E",
+    "site_type": "Museum",
+    "documentation": "Museum dedicated to the Khasa.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Other"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-96",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.969694,
+     29.356611
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.96",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bistabada",
+    "coordinates": "29°21'23.8\"N 81°58'10.9\"E",
+    "site_type": "Stele",
+    "documentation": "Half broken stele with triangular/stupa motif.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-97",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.970111,
+     29.357111
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.97",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bistabada",
+    "coordinates": "29°21'25.6\"N 81°58'12.4\"E",
+    "site_type": "Deval",
+    "documentation": "3 devals of different sizes. Middle largest. Two with amalakas and stone slabs pointing to each other.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-98",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.970194,
+     29.357222
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.98",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bistabada",
+    "coordinates": "29°21'26.0\"N 81°58'12.7\"E",
+    "site_type": "Stele",
+    "documentation": "Dharmachakra motif on top, Devnagiri writing below. 40x165x10.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-99",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.967972,
+     29.357444
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.99",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Bistabada",
+    "coordinates": "29°21'26.8\"N 81°58'04.7\"E",
+    "site_type": "Fountain",
+    "documentation": "Defunct fountain in typical layout. New tap installed above.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-100",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.971639,
+     29.365139
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.100",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Dhapa",
+    "coordinates": "29°21'54.5\"N 81°58'17.9\"E",
+    "site_type": "Temple",
+    "documentation": "Bairam Mandir - modern with wooden poles resembling Khasa stone pillars. Old temple remains present.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-101",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.973194,
+     29.376444
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.101",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Dhapa",
+    "coordinates": "29°22'35.2\"N 81°58'23.5\"E",
+    "site_type": "Fountain / Stele",
+    "documentation": "Jacha Dhārā - functional fountain. Lintel has 3 figures including Buddha. Stele inside may be 10th century Tibetan inscription.",
+    "description": "Potentially oldest writing in Karnali, predating proto-Nepali at Padukasthan.",
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Fountain",
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-102",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.978389,
+     29.381056
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.102",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Thapribada",
+    "coordinates": "29°22'51.8\"N 81°58'42.2\"E",
+    "site_type": "Deval",
+    "documentation": "Two devals facing each other. Left larger, both partially buried.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-103",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.978556,
+     29.380889
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.103",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Thapribada",
+    "coordinates": "29°22'51.2\"N 81°58'42.8\"E",
+    "site_type": "Fountain",
+    "documentation": "Classical layout with two fountain heads. Motifs on side. Within metal fence.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-104",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.978639,
+     29.38075
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.104",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Thapribada",
+    "coordinates": "29°22'50.7\"N 81°58'43.1\"E",
+    "site_type": "Temple",
+    "documentation": "Hindu Temple - modern, brick and white paint.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-105",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.978667,
+     29.383722
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.105",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Thapribada",
+    "coordinates": "29°23'01.4\"N 81°58'43.2\"E",
+    "site_type": "Pillars",
+    "documentation": "5 pillars of varying condition. Various stupa and triangle motifs.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-106",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.004861,
+     29.403694
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.106",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Ludku",
+    "coordinates": "29°24'13.3\"N 82°00'17.5\"E",
+    "site_type": "Pillar",
+    "documentation": "Stele submerged in canal. Measurements not possible.",
+    "description": null,
+    "visit_date": "2025-02-07",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-107",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.005361,
+     29.404111
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.107",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Ludku",
+    "coordinates": "29°24'14.8\"N 82°00'19.3\"E",
+    "site_type": "Pillar",
+    "documentation": "Top part of pillar. Sun/moon motifs, warrior on horse, triangular stupa.",
+    "description": null,
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-108",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.006083,
+     29.404389
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.108",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Ludku",
+    "coordinates": "29°24'15.8\"N 82°00'21.9\"E",
+    "site_type": "Pillar",
+    "documentation": "Broken pillar on ground. 39x95x10.",
+    "description": null,
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-109",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.008639,
+     29.404556
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.109",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Ludku",
+    "coordinates": "29°24'16.4\"N 82°00'31.1\"E",
+    "site_type": "Temple",
+    "documentation": "Rasipatan Temple - small hut built where deval stood.",
+    "description": null,
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-110",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.020111,
+     29.411028
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.110",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Hatsinja",
+    "coordinates": "29°24'39.7\"N 82°01'12.4\"E",
+    "site_type": "Pillars",
+    "documentation": "Two pillars. Taller: 32x145x11 with flower motif. Shorter: 31x95x10 with prominent stupa motif.",
+    "description": null,
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-111",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.0245,
+     29.409222
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.111",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Kanakasundari",
+    "coordinates": "29°24'33.2\"N 82°01'28.2\"E",
+    "site_type": "Temple / Pillars / Remains",
+    "documentation": "Temple with repurposed kritikhamba as door. Lions from Saubada site. Pillars with devanagiri.",
+    "description": "Remains of Khasa Palace in main administrative capital Sinja.",
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "Surya Mani Adhikary",
+    "site_categories": [
+     "Temple",
+     "Pillar",
+     "Remains"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-112",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.022556,
+     29.408472
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.112",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Saubada",
+    "coordinates": "29°24'30.5\"N 82°01'21.2\"E",
+    "site_type": "Remains",
+    "documentation": "Ruins of older structure - possibly deval. Amalaka converted to shivalinga. Locals say these are Khasa palace ruins.",
+    "description": null,
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Remains"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-113",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.022833,
+     29.408083
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.113",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Saubada",
+    "coordinates": "29°24'29.1\"N 82°01'22.2\"E",
+    "site_type": "Remains",
+    "documentation": "Large stone blocks from Khasa palace. Well-preserved lion on platform. Three headless smaller lions.",
+    "description": null,
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Remains"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-114",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.024611,
+     29.403861
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.114",
+    "country": "Nepal",
+    "district": "Jumla",
+    "location": "Sera",
+    "coordinates": "29°24'13.9\"N 82°01'28.6\"E",
+    "site_type": "Stone Inscription",
+    "documentation": "Sera Stone Inscription of Ripu Malla. Tibetan om mani padme hum on top, devnagiri below. Still legible.",
+    "description": "Documents Ripumalla copying Laghuratnatraya inspired by Lokanatha.",
+    "visit_date": "2025-02-08",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-115",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.047556,
+     29.525556
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.115",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Murma",
+    "coordinates": "29°31'32.0\"N 82°02'51.2\"E",
+    "site_type": "Pillar",
+    "documentation": "Kham Gaite Pillar - slanted with sun/moon motif and flower motif. 38x164x8.",
+    "description": null,
+    "visit_date": "2025-02-09",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-116",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.047472,
+     29.526861
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.116",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Murma",
+    "coordinates": "29°31'36.7\"N 82°02'50.9\"E",
+    "site_type": "Temple",
+    "documentation": "Mahadev Mandir - wooden temple 10-15 years old. Only entrance door is old.",
+    "description": null,
+    "visit_date": "2025-02-09",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-117",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.075194,
+     29.537194
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.117",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Rara Tal",
+    "coordinates": "29°32'13.9\"N 82°04'30.7\"E",
+    "site_type": "Pillars",
+    "documentation": "Two steles - tall 36x173x9, short 36x74x7. Sun/moon motifs. Location moved due to landslide.",
+    "description": null,
+    "visit_date": "2025-02-10",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-118",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.093889,
+     29.545139
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.118",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Rara Tal",
+    "coordinates": "29°32'42.5\"N 82°05'38.0\"E",
+    "site_type": "Deval / Fountain",
+    "documentation": "Classical fountain with one intact tap. Small deval-like structure above. Yellow wooden humanoid figures.",
+    "description": null,
+    "visit_date": "2025-02-10",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval",
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-119",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.098944,
+     29.544
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.119",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Rara Tal",
+    "coordinates": "29°32'38.4\"N 82°05'56.2\"E",
+    "site_type": "Steles / Pillar",
+    "documentation": "3 steles. Sun/moon motifs, vishvavajra, beaded framing. Devnagari inscriptions barely legible.",
+    "description": null,
+    "visit_date": "2025-02-10",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-120",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.157278,
+     29.539944
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.120",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Bham Bada",
+    "coordinates": "29°32'23.8\"N 82°09'26.2\"E",
+    "site_type": "Deval / Fountain",
+    "documentation": "Top half of deval visible, rest buried. Fountain buried by landslide.",
+    "description": null,
+    "visit_date": "2025-02-10",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval",
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-121",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.163139,
+     29.558806
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.121",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Ruga",
+    "coordinates": "29°33'31.7\"N 82°09'47.3\"E",
+    "site_type": "Temple",
+    "documentation": "Rugā Maṣṭā Temple - 20th century stone/wood/tin. Sun with face/mustache resembling old Nepali flag.",
+    "description": null,
+    "visit_date": "2025-02-10",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-122",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.171667,
+     29.552111
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.122",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Ghata",
+    "coordinates": "29°33'07.6\"N 82°10'18.0\"E",
+    "site_type": "Stele / Pillars",
+    "documentation": "First stele in good condition with beaded framing, sun/moon/visvavajra. 5 more eroded steles on incline.",
+    "description": null,
+    "visit_date": "2025-02-10",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-123",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.156972,
+     29.547556
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.123",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Ghamgadhi",
+    "coordinates": "29°32'51.2\"N 82°09'25.1\"E",
+    "site_type": "Temple / Pillar",
+    "documentation": "Kālikā Mālikā - new temple with old parts scattered. Pillar 30x107x15. White painted sculpture.",
+    "description": null,
+    "visit_date": "2025-02-10",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Temple",
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-124",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.156333,
+     29.539583
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.124",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Bham Bada",
+    "coordinates": "29°32'22.5\"N 82°09'22.8\"E",
+    "site_type": "Stele",
+    "documentation": "Old Kolikholā Pillar moved to secretarys house. Worshipped as Shiva. Bas relief stupa. 49x100x~8.",
+    "description": null,
+    "visit_date": "2025-02-11",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Stele"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-125",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.157278,
+     29.539944
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.125",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Bham Bada",
+    "coordinates": "29°32'23.8\"N 82°09'26.2\"E",
+    "site_type": "Deval / Fountain",
+    "documentation": "Top half of deval visible. Fountain buried by landslide.",
+    "description": null,
+    "visit_date": "2025-02-11",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Deval",
+     "Fountain"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-126",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.162361,
+     29.531306
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.126",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Kos",
+    "coordinates": "29°31'52.7\"N 82°09'44.5\"E",
+    "site_type": "Pillar",
+    "documentation": "Pillar broken in two. Beaded motif, sun/moon, triangle stupa. Locals took other pillars to houses.",
+    "description": null,
+    "visit_date": "2025-02-11",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Pillar"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "id": "site-127",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.162361,
+     29.531306
+    ]
+   },
+   "properties": {
+    "entry_no": "N.D.D.127",
+    "country": "Nepal",
+    "district": "Mugu",
+    "location": "Kos",
+    "coordinates": "29°31'52.7\"N 82°09'44.5\"E",
+    "site_type": "Stone Inscription",
+    "documentation": "Small tablet with inscription mentioning Bikram Samvat. Found while digging house foundation. 25x46x3.",
+    "description": null,
+    "visit_date": "2025-02-11",
+    "phase": null,
+    "language": null,
+    "translation": null,
+    "source": "DANAM Entry",
+    "site_categories": [
+     "Inscription"
+    ]
+   }
+  }
+ ]
+}

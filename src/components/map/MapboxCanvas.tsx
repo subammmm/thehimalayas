@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { HistoricalSite, SiteType } from '../../types';
+import { markerPositions } from '../../lib/sites';
 
 // Type alias for backward compatibility
 type Location = HistoricalSite;
@@ -10,12 +11,7 @@ type LocationType = SiteType | string;
 // Get token from environment
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
-// Set token immediately
-if (MAPBOX_TOKEN) {
-    mapboxgl.accessToken = MAPBOX_TOKEN;
-} else {
-    console.error('✗ MAPBOX TOKEN MISSING! Check .env file');
-}
+if (MAPBOX_TOKEN) mapboxgl.accessToken = MAPBOX_TOKEN;
 
 interface MapboxCanvasProps {
     locations: Location[];
@@ -52,6 +48,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
     const map = useRef<mapboxgl.Map | null>(null);
     const markers = useRef<mapboxgl.Marker[]>([]);
     const [isMapLoaded, setIsMapLoaded] = useState(false);
+    const [notice, setNotice] = useState(MAPBOX_TOKEN ? '' : 'No Mapbox access token is configured (VITE_MAPBOX_TOKEN).');
 
     // Initialize map
     useEffect(() => {
@@ -66,11 +63,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             return;
         }
 
-        if (!MAPBOX_TOKEN || !mapboxgl.accessToken) {
-            const msg = 'Missing Mapbox token - check .env file has VITE_MAPBOX_TOKEN';
-            console.error('❌', msg);
-            return;
-        }
+        if (!MAPBOX_TOKEN) return; // the notice below explains
 
 
 
@@ -78,8 +71,10 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             map.current = new mapboxgl.Map({
                 container: mapContainer.current,
                 style: 'mapbox://styles/mapbox/satellite-streets-v12',
-                center: [84.1240, 28.3949],
-                zoom: 6.5,
+                // Extent of the mapped sites (Dailekh to Mugu). The old fixed view was centred on
+                // central Nepal, which left every marker off-screen on a phone.
+                bounds: [[81.55, 28.78], [82.40, 29.60]],
+                fitBoundsOptions: { padding: 60 },
                 pitch: 45, // Less aggressive pitch for initial load
                 antialias: true
             });
@@ -88,7 +83,9 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
             // Wait for map load
+            let hasLoaded = false;
             map.current.on('load', () => {
+                hasLoaded = true;
 
                 try {
                     if (!map.current) return;
@@ -152,7 +149,11 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             // Handle errors
             map.current.on('error', (e) => {
                 console.error('❌ Mapbox error event:', e);
-                console.error('Map error: ' + (e.error?.message || 'Unknown error'));
+                // Before the first load, 401 or 403 means the token was refused
+                // (malformed, revoked or restricted to another URL)
+                if (!hasLoaded && [401, 403].includes((e.error as { status?: number } | undefined)?.status ?? 0)) {
+                    setNotice('The Mapbox access token was rejected (VITE_MAPBOX_TOKEN).');
+                }
             });
 
         } catch (err) {
@@ -257,19 +258,27 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
         markers.current = [];
 
         // Add new markers (only for locations with valid coordinates)
+        const positions = markerPositions(locations);
         locations
-            .filter(loc => loc.coordinates !== null)
             .forEach(location => {
-                if (!location.coordinates) return; // Type guard
+                const coords = positions.get(location.id);
+                if (!coords) return; // no coordinates recorded
 
                 const color = getColorByType(location.type);
 
                 // Create marker container (Mapbox positions this)
-                const container = document.createElement('div');
+                // A real button, so markers can be reached and activated from the keyboard
+                const container = document.createElement('button');
+                container.type = 'button';
                 container.className = 'marker-container';
+                container.setAttribute('aria-label', `${location.name}, ${location.type}, ${location.entry_no}`);
                 container.style.cssText = `
                     width: 20px;
                     height: 20px;
+                    padding: 0;
+                    border: 0;
+                    border-radius: 50%;
+                    background: none;
                     cursor: pointer;
                 `;
 
@@ -300,8 +309,6 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                     container.style.zIndex = 'auto';
                 });
 
-                // Create marker using the container (coordinates guaranteed non-null here)
-                const coords = location.coordinates;
                 const marker = new mapboxgl.Marker({
                     element: container,
                     anchor: 'center'
@@ -338,6 +345,14 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
                 className="absolute inset-0 w-full h-full"
                 style={{ minHeight: '100dvh' }}
             />
+            {notice && (
+                <div role="alert" className="absolute inset-0 flex items-start justify-center bg-gray-100 px-6 pt-36">
+                    <div className="max-w-sm text-center">
+                        <p className="font-semibold text-gray-900 mb-2">The base map could not be loaded</p>
+                        <p className="text-sm text-gray-600">{notice} Search, filters and the site list still work.</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

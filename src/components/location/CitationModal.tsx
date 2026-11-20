@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Copy, Download, BookOpen } from 'lucide-react';
 import { useState } from 'react';
 import type { Location } from '../../types';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 interface CitationModalProps {
     location: Location;
@@ -11,14 +12,15 @@ interface CitationModalProps {
 
 export const CitationModal = ({ location, isOpen, onClose }: CitationModalProps) => {
     const [copied, setCopied] = useState<'apa' | 'bibtex' | null>(null);
+    useEscapeKey(onClose, isOpen);
 
     const today = new Date();
     const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
     const citations = {
-        apa: `The Himalayas Project. (${today.getFullYear()}). ${location.name} - ${location.region} Region. Retrieved ${dateStr}, from ${window.location.href}`,
+        apa: `The Himalayas Project. (${today.getFullYear()}). ${location.name} (${location.entry_no}), ${location.region}. Retrieved ${dateStr}, from ${window.location.href}`,
         bibtex: `@misc{himalayas_${location.id},
-  title = {${location.name}: ${location.region} Region},
+  title = {${location.name} (${location.entry_no}), ${location.region}},
   author = {{The Himalayas Project}},
   year = {${today.getFullYear()}},
   url = {${window.location.href}},
@@ -57,14 +59,17 @@ export const CitationModal = ({ location, isOpen, onClose }: CitationModalProps)
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl p-8 z-[1510] w-[90vw] max-w-2xl shadow-2xl"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Cite this site"
+                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl p-5 md:p-8 z-[1510] w-[90vw] max-w-2xl max-h-[90dvh] overflow-y-auto shadow-2xl"
                     >
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-2xl font-bold flex items-center gap-2">
                                 <BookOpen className="w-6 h-6 text-amber-500" />
-                                Cite This Location
+                                Cite This Site
                             </h2>
-                            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                            <button onClick={onClose} aria-label="Close" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
@@ -108,7 +113,7 @@ export const CitationModal = ({ location, isOpen, onClose }: CitationModalProps)
                             <div className="flex justify-between items-center">
                                 <div>
                                     <h3 className="font-bold text-gray-900">Export Raw Data</h3>
-                                    <p className="text-sm text-gray-500">Download the full JSON dataset for this location.</p>
+                                    <p className="text-sm text-gray-500">Download this site's record as JSON.</p>
                                 </div>
                                 <button
                                     onClick={handleDownloadJson}
