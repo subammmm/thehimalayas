@@ -1,0 +1,136 @@
+{
+ "name": "khasa-malla-historical-sites",
+ "title": "Khasa Malla historical sites",
+ "description": "Records of Khasa Malla (12th to 14th century) historical sites across western Nepal, India and Tibet: pillars, steles, devals, temples and inscriptions, transcribed from the project's field documentation. 127 records, 87 with coordinates. Licence: to be confirmed by the author. Coordinate datum: WGS 84 (assumed; not stated in the documentation).",
+ "homepage": "https://thehimalayas.vercel.app/data",
+ "contributors": [
+  {
+   "title": "The Himalayas Project",
+   "role": "author"
+  }
+ ],
+ "resources": [
+  {
+   "name": "sites-csv",
+   "path": "sites.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "schema": {
+    "fields": [
+     {
+      "name": "id",
+      "type": "string",
+      "description": "Identifier used in this atlas and its URLs, for example site-12."
+     },
+     {
+      "name": "entry_no",
+      "type": "string",
+      "description": "Entry number in the project documentation, for example N.D.D.12."
+     },
+     {
+      "name": "country",
+      "type": "string",
+      "description": "Present-day country."
+     },
+     {
+      "name": "district",
+      "type": "string",
+      "description": "District or region. \"N/A\" where the record gives none."
+     },
+     {
+      "name": "location",
+      "type": "string",
+      "description": "Place name as recorded."
+     },
+     {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Coordinates as recorded, in decimal degrees or degrees, minutes and seconds. Empty where none were recorded."
+     },
+     {
+      "name": "site_type",
+      "type": "string",
+      "description": "Type of site or object as recorded."
+     },
+     {
+      "name": "documentation",
+      "type": "string",
+      "description": "Field notes: condition, measurements and observations."
+     },
+     {
+      "name": "description",
+      "type": "string",
+      "description": "Historical or descriptive note."
+     },
+     {
+      "name": "visit_date",
+      "type": "date",
+      "description": "Date of the site visit (YYYY-MM-DD). This is not the date of the monument."
+     },
+     {
+      "name": "phase",
+      "type": "integer",
+      "description": "Research phase number."
+     },
+     {
+      "name": "language",
+      "type": "string",
+      "description": "Language of an inscription. Empty for every record at present."
+     },
+     {
+      "name": "translation",
+      "type": "string",
+      "description": "Translation of an inscription. Empty for every record at present."
+     },
+     {
+      "name": "source",
+      "type": "string",
+      "description": "The source the record draws on, as given in the documentation."
+     },
+     {
+      "name": "site_categories",
+      "type": "string",
+      "description": "Normalised categories derived from site_type for filtering, so that \"Pillar\" and \"Pillars\" group together. A site can have several. A list in JSON and GeoJSON; separated by \"; \" in the CSV."
+     },
+     {
+      "name": "latitude",
+      "type": "number",
+      "description": "Decimal degrees parsed from coordinates and rounded to six places. Empty where there are no coordinates. In GeoJSON, latitude and longitude form the point geometry, in [longitude, latitude] order."
+     },
+     {
+      "name": "longitude",
+      "type": "number",
+      "description": "See latitude."
+     },
+     {
+      "name": "possibly_related",
+      "type": "string",
+      "description": "Entry numbers of records that may describe the same site or object. An editorial cross-reference from a short list in scripts/build-sites-json.py (POSSIBLY_RELATED), not a statement in the documentation; no records are merged. A list in JSON and GeoJSON; separated by \"; \" in the CSV."
+     },
+     {
+      "name": "images",
+      "type": "string",
+      "description": "Photographs of the site. Empty for every record at present: no photographs have been published. To add one, put the file in public/images/sites/ and add an entry to IMAGES in scripts/build-sites-json.py, keyed by entry_no, with src, alt, credit and licence; then run `npm run data`. A list of objects in JSON and GeoJSON; the src values separated by \"; \" in the CSV."
+     }
+    ],
+    "primaryKey": "id",
+    "missingValues": [
+     ""
+    ]
+   }
+  },
+  {
+   "name": "sites-geojson",
+   "path": "sites.geojson",
+   "format": "geojson",
+   "mediatype": "application/geo+json"
+  },
+  {
+   "name": "sites-json",
+   "path": "sites.json",
+   "format": "json",
+   "mediatype": "application/json"
+  }
+ ]
+}
