@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { usePageTitle } from './hooks/usePageTitle';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -21,14 +22,17 @@ const PageLoader = () => (
   </div>
 );
 
-const NotFound = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
-    <div className="text-center">
-      <h1 className="text-2xl font-bold text-white mb-2">Page not found</h1>
-      <Link to="/" className="text-amber-400 hover:underline">Return home</Link>
+const NotFound = () => {
+  usePageTitle('Page not found');
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold text-white mb-2">Page not found</h1>
+        <Link to="/" className="text-amber-400 hover:underline">Return home</Link>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 function App() {
   return (

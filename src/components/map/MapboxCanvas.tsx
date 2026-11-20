@@ -83,7 +83,9 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
             // Wait for map load
+            let hasLoaded = false;
             map.current.on('load', () => {
+                hasLoaded = true;
 
                 try {
                     if (!map.current) return;
@@ -147,9 +149,9 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, sho
             // Handle errors
             map.current.on('error', (e) => {
                 console.error('❌ Mapbox error event:', e);
-                // Before the style has loaded, 401 or 403 means the token was refused
+                // Before the first load, 401 or 403 means the token was refused
                 // (malformed, revoked or restricted to another URL)
-                if (!map.current?.isStyleLoaded() && [401, 403].includes((e.error as { status?: number } | undefined)?.status ?? 0)) {
+                if (!hasLoaded && [401, 403].includes((e.error as { status?: number } | undefined)?.status ?? 0)) {
                     setNotice('The Mapbox access token was rejected (VITE_MAPBOX_TOKEN).');
                 }
             });
