@@ -56,8 +56,8 @@ const Home = () => {
                         }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=3840&auto=format&fit=crop"
-                            alt="The Himalayas"
+                            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1920&auto=format&fit=crop"
+                            alt=""
                             className="w-full h-full object-cover scale-110"
                             style={{ imageRendering: '-webkit-optimize-contrast' }}
                         />
