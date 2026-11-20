@@ -1,21 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import * as Cesium from 'cesium';
 import type { HistoricalSite, SiteType } from '../../types';
+import { markerPositions } from '../../lib/sites';
 
 // Type alias for backward compatibility
 type Location = HistoricalSite;
 type LocationType = SiteType;
 
-// Use Cesium Ion's default public access token (works for everyone)
-// For production, get your own free token at: https://ion.cesium.com/
 const CESIUM_TOKEN = import.meta.env.VITE_CESIUM_TOKEN;
 
-if (CESIUM_TOKEN) {
-    Cesium.Ion.defaultAccessToken = CESIUM_TOKEN;
-} else {
-    // Use Cesium's example token (public, works for testing)
-    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5N2UyMjcwOS00MDY1LTQxYjEtYjZjMy00YTU0ZTg1YWUzMjYiLCJpZCI6ODAzMDYsImlhdCI6MTY0Mjc0ODI2MX0.dkwAL1CcljUV7NA7fDbhXXnmyZQU_c-G5zRx8PtEcxE';
-}
+if (CESIUM_TOKEN) Cesium.Ion.defaultAccessToken = CESIUM_TOKEN;
 
 interface CesiumCanvasProps {
     locations: Location[];
@@ -52,24 +46,25 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
     const containerRef = useRef<HTMLDivElement>(null);
     const viewerRef = useRef<Cesium.Viewer | null>(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState(CESIUM_TOKEN ? '' : 'No Cesium ion access token is configured (VITE_CESIUM_TOKEN), so terrain and imagery cannot be loaded.');
 
     // Initialize Cesium Viewer
     useEffect(() => {
-        if (!containerRef.current || viewerRef.current) return;
+        if (!CESIUM_TOKEN || !containerRef.current || viewerRef.current) return;
 
         const initCesium = async () => {
             try {
-                // Revert to strict Cesium Ion usage
-                if (!Cesium.Ion.defaultAccessToken && !import.meta.env.VITE_CESIUM_TOKEN) {
-                    console.warn('⚠️ No Cesium Token found. Map may not load correctly.');
-                }
+                const terrain = Cesium.Terrain.fromWorldTerrain({
+                    requestWaterMask: true,
+                    requestVertexNormals: true
+                });
+                // A rejected token otherwise leaves a black globe with no explanation (ion answers 401)
+                terrain.errorEvent.addEventListener(() => {
+                    setError('Cesium terrain could not be loaded. Check the access token (VITE_CESIUM_TOKEN) and the network connection.');
+                });
 
                 const viewer = new Cesium.Viewer(containerRef.current as HTMLElement, {
-                    terrain: Cesium.Terrain.fromWorldTerrain({
-                        requestWaterMask: true,
-                        requestVertexNormals: true
-                    }),
+                    terrain,
                     baseLayerPicker: false,
                     geocoder: false,
                     homeButton: false,
@@ -166,19 +161,16 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
         if (!viewerRef.current || !isLoaded || locations.length === 0) return;
 
         const entities: Cesium.Entity[] = [];
+        // Names repeat ("Dullu" is eight different sites), so clicks are resolved by entity
+        const locationByEntity = new Map<Cesium.Entity, Location>();
+        const positions = markerPositions(locations);
 
-        // Filter locations with valid coordinates
-        const mappableLocations = locations.filter(loc => loc.coordinates !== null);
-
-        mappableLocations.forEach(location => {
-            if (!viewerRef.current || !location.coordinates) return;
+        locations.forEach(location => {
+            const coords = positions.get(location.id);
+            if (!viewerRef.current || !coords) return;
 
             const entity = viewerRef.current.entities.add({
-                position: Cesium.Cartesian3.fromDegrees(
-                    location.coordinates.lng,
-                    location.coordinates.lat,
-                    0
-                ),
+                position: Cesium.Cartesian3.fromDegrees(coords.lng, coords.lat, 0),
                 point: {
                     pixelSize: 12,
                     color: getColorByType(location.type),
@@ -209,6 +201,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
             });
 
             entities.push(entity);
+            locationByEntity.set(entity, location);
         });
 
         // Draw dynamic connection lines between filtered locations, grouped by type
@@ -262,11 +255,7 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
         handler.setInputAction((click: Cesium.ScreenSpaceEventHandler.PositionedEvent) => {
             const pickedObject = viewerRef.current?.scene.pick(click.position);
             if (Cesium.defined(pickedObject) && pickedObject.id) {
-                const clickedEntity = pickedObject.id;
-                const location = locations.find(loc =>
-                    clickedEntity.position &&
-                    loc.name === clickedEntity.label?.text?.getValue()
-                );
+                const location = locationByEntity.get(pickedObject.id);
 
                 if (location && location.coordinates && viewerRef.current) {
                     onLocationSelect(location);
@@ -312,16 +301,10 @@ export const CesiumCanvas = ({ locations, filteredLocations, onLocationSelect, f
             )}
 
             {error && (
-                <div className="absolute inset-0 flex items-center justify-center bg-red-50 z-10">
-                    <div className="text-center p-8 bg-white rounded-xl shadow-lg max-w-md mx-4">
-                        <p className="text-red-600 font-bold mb-2 text-lg">⚠️ Map Error</p>
-                        <p className="text-gray-700 text-sm mb-4 font-mono bg-gray-100 p-3 rounded">{error}</p>
-                        <button
-                            onClick={() => window.location.reload()}
-                            className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium"
-                        >
-                            Reload Page
-                        </button>
+                <div role="alert" className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10 p-6">
+                    <div className="max-w-sm text-center">
+                        <p className="font-semibold text-white mb-2">The 3D view could not be loaded</p>
+                        <p className="text-sm text-gray-300">{error}</p>
                     </div>
                 </div>
             )}
