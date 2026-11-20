@@ -8,6 +8,8 @@ const HimalayanMapPage = lazy(() => import('./pages/HimalayanMapPage'));
 const LocationDetailsPage = lazy(() => import('./pages/LocationDetailsPage'));
 const StatsDashboard = lazy(() => import('./pages/StatsDashboard'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const DataPage = lazy(() => import('./pages/DataPage'));
+const BrowsePage = lazy(() => import('./pages/BrowsePage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -39,6 +41,8 @@ function App() {
             <Route path="/locations/:id" element={<LocationDetailsPage />} />
             <Route path="/atlas" element={<StatsDashboard />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/data" element={<DataPage />} />
+            <Route path="/browse" element={<BrowsePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
