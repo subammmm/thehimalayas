@@ -1,7 +1,7 @@
-import { useState, useMemo, lazy, Suspense } from 'react';
+import { useState, useMemo, useEffect, useCallback, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, List, X } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
 import { MapboxCanvas } from '../components/map/MapboxCanvas';
 import { TopSearchBar } from '../components/map/TopSearchBar';
@@ -9,6 +9,9 @@ import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
 import { LocationPopover } from '../components/location/LocationPopover';
 import { MobileBottomSheet } from '../components/location/MobileBottomSheet';
+import { mapUrl, matchesFilters } from '../lib/sites';
+import { usePageTitle } from '../hooks/usePageTitle';
+import { useEscapeKey } from '../hooks/useEscapeKey';
 import type { Location } from '../types';
 
 // Cesium is only needed for the 3D view, so fetch it on first use.
@@ -33,46 +36,40 @@ const CesiumCanvas = lazy(async () => {
 
 const HimalayanMapPage = () => {
     const navigate = useNavigate();
-    const location = useLocation();
+    const [params] = useSearchParams();
     const { locations } = useLocations();
+    usePageTitle('Map');
 
-    // Get search query from navigation state (from home page)
-    const initialSearch = location.state?.searchQuery || '';
-    const selectedFromSearch = location.state?.selectedLocation || null;
-
-    const [searchQuery, setSearchQuery] = useState(initialSearch);
+    // The view is shareable: ?q=<search>&type=<category>&district=<district>&site=<id>
+    // (type and district may repeat). Read once on load, then kept in sync below.
+    const [searchQuery, setSearchQuery] = useState(() => params.get('q') ?? '');
+    const [selectedTypes, setSelectedTypes] = useState(() => params.getAll('type'));
+    const [selectedRegions, setSelectedRegions] = useState(() => params.getAll('district'));
+    const [selectedId, setSelectedId] = useState(() => params.get('site'));
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [selectedTypes, setSelectedTypes] = useState<string[]>(location.state?.filters?.selectedTypes ?? []);
-    const [selectedRegions, setSelectedRegions] = useState<string[]>(location.state?.filters?.selectedRegions ?? []);
-    const [minElevation, setMinElevation] = useState(0);
-    // Initialize with selectedFromSearch if available, avoiding setState in useEffect
-    const [selectedLocation, setSelectedLocation] = useState<Location | null>(selectedFromSearch);
+    // Without a base map the list is the way in, so start with it open.
+    const [isListOpen, setIsListOpen] = useState(!import.meta.env.VITE_MAPBOX_TOKEN && !params.get('site'));
     const [is3DMode, setIs3DMode] = useState(false);
 
-    const filteredLocations = useMemo(() => {
-        return locations.filter(loc => {
-            const matchesSearch = loc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                loc.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                loc.type.toLowerCase().includes(searchQuery.toLowerCase());
+    useEffect(() => {
+        const next = mapUrl({ query: searchQuery, types: selectedTypes, districts: selectedRegions, site: selectedId ?? undefined });
+        const nextSearch = next.slice('/map'.length);
+        if (nextSearch !== window.location.search) navigate(next, { replace: true });
+    }, [searchQuery, selectedTypes, selectedRegions, selectedId, navigate]);
 
-            // Check if any selected type matches (partial match for combined types like "Deval / Fountain")
-            const matchesType = selectedTypes.length === 0 ||
-                selectedTypes.some(selType => loc.type.toLowerCase().includes(selType.toLowerCase()));
+    const selectedLocation = useMemo(
+        () => locations.find(loc => loc.id === selectedId) ?? null,
+        [locations, selectedId]
+    );
+    const selectLocation = useCallback((loc: Location) => setSelectedId(loc.id), []);
 
-            // Check if district matches
-            const matchesRegion = selectedRegions.length === 0 ||
-                selectedRegions.some(selRegion => loc.region.toLowerCase().includes(selRegion.toLowerCase()));
+    const filteredLocations = useMemo(
+        () => locations.filter(loc => matchesFilters(loc, { query: searchQuery, types: selectedTypes, districts: selectedRegions })),
+        [searchQuery, selectedTypes, selectedRegions, locations]
+    );
+    const mappedCount = filteredLocations.filter(loc => loc.coordinates).length;
 
-            return matchesSearch && matchesType && matchesRegion;
-        });
-    }, [searchQuery, selectedTypes, selectedRegions, locations]);
-
-    // Determine if any filters are active (excluding search)
-    const hasActiveFilters = useMemo(() => {
-        return searchQuery.length > 0 ||
-            selectedTypes.length > 0 ||
-            selectedRegions.length > 0;
-    }, [searchQuery, selectedTypes, selectedRegions]);
+    const hasActiveFilters = searchQuery.length > 0 || selectedTypes.length > 0 || selectedRegions.length > 0;
 
     const toggleType = (type: string) => {
         setSelectedTypes(prev =>
@@ -91,11 +88,19 @@ const HimalayanMapPage = () => {
     const resetFilters = () => {
         setSelectedTypes([]);
         setSelectedRegions([]);
-        setMinElevation(0);
     };
+
+    // Escape closes the topmost thing; the filter panel handles its own.
+    useEscapeKey(() => {
+        if (isListOpen) setIsListOpen(false);
+        else if (is3DMode) setIs3DMode(false);
+        else setSelectedId(null);
+    }, !isFilterOpen && (isListOpen || is3DMode || selectedId !== null));
 
     return (
         <div className="relative w-full h-[100dvh] overflow-hidden bg-white">
+            <h1 className="sr-only">Map of Khasa Malla historical sites</h1>
+
             {/* Back Button */}
             <button
                 onClick={() => navigate('/')}
@@ -109,9 +114,7 @@ const HimalayanMapPage = () => {
                 value={searchQuery}
                 onChange={setSearchQuery}
                 locations={locations}
-                onLocationSelect={(loc) => {
-                    setSelectedLocation(loc);
-                }}
+                onLocationSelect={selectLocation}
             />
 
             <FilterButton
@@ -123,30 +126,32 @@ const HimalayanMapPage = () => {
             <FilterPanel
                 isOpen={isFilterOpen}
                 onClose={() => setIsFilterOpen(false)}
+                locations={locations}
                 selectedTypes={selectedTypes}
                 toggleType={toggleType}
                 selectedRegions={selectedRegions}
                 toggleRegion={toggleRegion}
-                minElevation={minElevation}
-                setMinElevation={setMinElevation}
                 onReset={resetFilters}
                 className="top-36 right-6 z-[1200]"
             />
 
             <AnimatePresence>
                 {selectedLocation && (
-                    <>
-                        <LocationPopover
-                            location={selectedLocation}
-                            onClose={() => setSelectedLocation(null)}
-                            on3DView={() => setIs3DMode(true)}
-                        />
-                        <MobileBottomSheet
-                            location={selectedLocation}
-                            onClose={() => setSelectedLocation(null)}
-                            on3DView={() => setIs3DMode(true)}
-                        />
-                    </>
+                    <LocationPopover
+                        key="popover"
+                        location={selectedLocation}
+                        onClose={() => setSelectedId(null)}
+                        on3DView={() => setIs3DMode(true)}
+                    />
+                )}
+                {/* The sheet is 85% of the screen, so it steps aside while the 3D view is open. */}
+                {selectedLocation && !is3DMode && (
+                    <MobileBottomSheet
+                        key="sheet"
+                        location={selectedLocation}
+                        onClose={() => setSelectedId(null)}
+                        on3DView={() => setIs3DMode(true)}
+                    />
                 )}
             </AnimatePresence>
 
@@ -157,7 +162,7 @@ const HimalayanMapPage = () => {
                         <CesiumCanvas
                             locations={locations}
                             filteredLocations={filteredLocations}
-                            onLocationSelect={setSelectedLocation}
+                            onLocationSelect={selectLocation}
                             focusedLocation={selectedLocation}
                             showConnections={hasActiveFilters}
                         />
@@ -175,22 +180,65 @@ const HimalayanMapPage = () => {
             <div className="absolute inset-0 z-0">
                 <MapboxCanvas
                     locations={filteredLocations}
-                    onLocationSelect={setSelectedLocation}
+                    onLocationSelect={selectLocation}
                     focusedLocation={selectedLocation}
                     showConnections={hasActiveFilters}
                 />
             </div>
 
-            {/* Location Counter */}
-            <div className="absolute bottom-8 left-8 z-[1200] glass-overlay px-4 py-2 rounded-lg shadow-lg pointer-events-auto">
-                <span className="font-medium text-gray-800">
-                    {filteredLocations.length} {filteredLocations.length === 1 ? 'site' : 'sites'} · {filteredLocations.filter(loc => loc.coordinates).length} on map
-                </span>
-            </div>
+            {/* Site list: every filtered site, including the ones without coordinates */}
+            {isListOpen && (
+                <section
+                    aria-label="Site list"
+                    className="absolute bottom-24 left-4 right-4 md:left-8 md:right-auto md:w-80 z-[1200] glass-overlay rounded-xl shadow-lg max-h-[50dvh] flex flex-col pointer-events-auto"
+                >
+                    <div className="flex items-center justify-between px-4 py-2 border-b border-black/10">
+                        <h2 className="font-semibold text-sm text-gray-800">
+                            {filteredLocations.length} {filteredLocations.length === 1 ? 'site' : 'sites'}
+                        </h2>
+                        <button onClick={() => setIsListOpen(false)} aria-label="Close site list" className="p-1 rounded-full hover:bg-black/10">
+                            <X className="w-4 h-4 text-gray-700" />
+                        </button>
+                    </div>
+                    {filteredLocations.length === 0 ? (
+                        <p className="px-4 py-6 text-sm text-gray-600">No sites match the search and filters.</p>
+                    ) : (
+                        <ul className="overflow-y-auto py-1">
+                            {filteredLocations.map(loc => (
+                                <li key={loc.id}>
+                                    <button
+                                        onClick={() => {
+                                            // the site panel opens where the list is
+                                            setSelectedId(loc.id);
+                                            setIsListOpen(false);
+                                        }}
+                                        className="w-full text-left px-4 py-2 hover:bg-black/5"
+                                    >
+                                        <span className="block text-sm font-medium text-gray-900 truncate">{loc.name}</span>
+                                        <span className="block text-xs text-gray-600 truncate">
+                                            {loc.entry_no} · {loc.region} · {loc.type}{loc.coordinates ? '' : ' · not on map'}
+                                        </span>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </section>
+            )}
+
+            {/* Site counter, opens the list */}
+            <button
+                onClick={() => setIsListOpen(!isListOpen)}
+                aria-expanded={isListOpen}
+                className="absolute bottom-8 left-4 md:left-8 z-[1200] glass-overlay px-4 py-2 rounded-lg shadow-lg pointer-events-auto flex items-center gap-2 font-medium text-gray-800 hover:bg-white"
+            >
+                <List className="w-4 h-4" />
+                {filteredLocations.length} {filteredLocations.length === 1 ? 'site' : 'sites'} · {mappedCount} on map
+            </button>
 
             {/* Legend - Historical Site Types */}
-            <div className="absolute bottom-24 md:bottom-8 right-8 z-[1200] glass-overlay p-4 rounded-xl shadow-lg max-w-xs pointer-events-auto">
-                <h4 className="font-semibold text-sm mb-2 text-gray-800">Legend</h4>
+            <div className={`absolute bottom-24 md:bottom-8 right-8 z-[1200] glass-overlay p-4 rounded-xl shadow-lg max-w-xs pointer-events-auto ${isListOpen ? 'hidden md:block' : ''}`}>
+                <h2 className="font-semibold text-sm mb-2 text-gray-800">Legend</h2>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-amber-400 mr-2"></span>Stele</div>
                     <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-orange-500 mr-2"></span>Pillar</div>

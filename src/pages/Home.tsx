@@ -7,15 +7,16 @@ import { HeroSearch } from '../components/home/HeroSearch';
 import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
 import { useLocations } from '../hooks/useLocations';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const Home = () => {
     const { locations } = useLocations();
+    usePageTitle();
 
     // Filter State - using string types for flexibility
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
-    const [minElevation, setMinElevation] = useState(0);
 
     const toggleType = (type: string) => {
         setSelectedTypes(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]);
@@ -28,7 +29,6 @@ const Home = () => {
     const handleReset = () => {
         setSelectedTypes([]);
         setSelectedRegions([]);
-        setMinElevation(0);
     };
 
     // Derived stats
@@ -76,15 +76,12 @@ const Home = () => {
                     </Link>
                 </div>
 
-                {/* About Link - Top Right */}
-                <div className="absolute top-6 right-6 md:top-8 md:right-8 z-20 flex gap-6">
-                    <Link to="/atlas" className="text-amber-400/90 hover:text-amber-300 transition-colors text-sm font-medium tracking-wide uppercase">
-                        Atlas
-                    </Link>
-                    <Link to="/about" className="text-white/80 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase">
-                        About
-                    </Link>
-                </div>
+                <nav aria-label="Main" className="absolute top-16 left-6 right-6 md:top-8 md:left-auto md:right-8 z-20 flex gap-5 md:gap-6 text-sm font-medium tracking-wide uppercase">
+                    <Link to="/map" className="text-amber-400/90 hover:text-amber-300 transition-colors">Map</Link>
+                    {[['Browse', '/browse'], ['Atlas', '/atlas'], ['Data', '/data'], ['About', '/about']].map(([label, to]) => (
+                        <Link key={to} to={to} className="text-white/80 hover:text-white transition-colors">{label}</Link>
+                    ))}
+                </nav>
 
                 {/* Hero Content - Centered */}
                 <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 md:px-6">
@@ -99,7 +96,7 @@ const Home = () => {
                             The Himalayas
                         </h1>
                         <p className="text-lg md:text-2xl text-white/80 font-light tracking-wide">
-                            Explore Khasa Malla historical sites across the Himalayas
+                            A digital atlas of Khasa Malla historical sites, 12th to 14th century
                         </p>
                     </motion.div>
 
@@ -113,7 +110,7 @@ const Home = () => {
                         <div className="flex-1 min-w-0">
                             <HeroSearch
                                 locations={locations}
-                                filters={{ selectedTypes, selectedRegions, minElevation }}
+                                filters={{ selectedTypes, selectedRegions }}
                             />
                         </div>
 
@@ -135,12 +132,11 @@ const Home = () => {
                                         <FilterPanel
                                             isOpen={true}
                                             onClose={() => setIsFilterOpen(false)}
+                                            locations={locations}
                                             selectedTypes={selectedTypes}
                                             toggleType={toggleType}
                                             selectedRegions={selectedRegions}
                                             toggleRegion={toggleRegion}
-                                            minElevation={minElevation}
-                                            setMinElevation={setMinElevation}
                                             onReset={handleReset}
                                             className="!relative !top-0 !left-0 w-72 shadow-2xl border-white/10"
                                         />

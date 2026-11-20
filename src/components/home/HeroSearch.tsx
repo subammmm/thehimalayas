@@ -3,13 +3,13 @@ import { Search, MapPin, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import type { Location } from '../../types';
+import { mapUrl, matchesFilters } from '../../lib/sites';
 
 interface HeroSearchProps {
     locations: Location[];
     filters?: {
         selectedTypes: string[];
         selectedRegions: string[];
-        minElevation: number;
     };
 }
 
@@ -22,15 +22,9 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
     const navigate = useNavigate();
 
     // Same matching rules as the map page, so results agree with what the map will show
-    const { selectedTypes = [], selectedRegions = [] } = filters ?? {};
-    const searchResults = query.length > 0
-        ? locations.filter(loc =>
-            (loc.name?.toLowerCase().includes(query.toLowerCase()) ||
-                loc.region?.toLowerCase().includes(query.toLowerCase()) ||
-                loc.type?.toLowerCase().includes(query.toLowerCase())) &&
-            (selectedTypes.length === 0 || selectedTypes.some(t => loc.type.toLowerCase().includes(t.toLowerCase()))) &&
-            (selectedRegions.length === 0 || selectedRegions.some(r => loc.region.toLowerCase().includes(r.toLowerCase())))
-        ).slice(0, 8) // Increased to show more results
+    const { selectedTypes: types = [], selectedRegions: districts = [] } = filters ?? {};
+    const searchResults = query.trim().length > 0
+        ? locations.filter(loc => matchesFilters(loc, { query, types, districts })).slice(0, 8)
         : [];
 
     useEffect(() => {
@@ -44,13 +38,7 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
     }, []);
 
     const handleSelect = (location: Location) => {
-        navigate('/map', {
-            state: {
-                selectedLocation: location,
-                searchQuery: location.name,
-                filters // Pass current filters
-            }
-        });
+        navigate(mapUrl({ query: location.name, types, districts, site: location.id }));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -58,25 +46,12 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
         if (searchResults.length > 0) {
             handleSelect(searchResults[0]);
         } else if (query) {
-            navigate('/map', {
-                state: {
-                    searchQuery: query,
-                    filters // Pass filters
-                }
-            });
+            navigate(mapUrl({ query, types, districts }));
         } else {
-            // I'm Feeling Lucky: Random Location
-            const mapped = locations.filter(loc => loc.coordinates);
-            if (mapped.length > 0) {
-                const randomLocation = mapped[Math.floor(Math.random() * mapped.length)];
-                navigate('/map', {
-                    state: {
-                        selectedLocation: randomLocation,
-                        searchQuery: '', // Clear search
-                        filters // Pass filters
-                    }
-                });
-            }
+            // Explore: open a random mapped site that passes the current filters
+            const mapped = locations.filter(loc => loc.coordinates && matchesFilters(loc, { query: '', types, districts }));
+            const random = mapped[Math.floor(Math.random() * mapped.length)];
+            navigate(mapUrl({ types, districts, site: random?.id }));
         }
     };
 
@@ -112,6 +87,8 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
                         setShowResults(true);
                     }}
                     onBlur={() => setIsFocused(false)}
+                    onKeyDown={(e) => { if (e.key === 'Escape') setShowResults(false); }}
+                    aria-label="Search sites"
                     placeholder="Search sites..." // Shortened placeholder for mobile
                     className="
                         flex-1 bg-transparent text-white

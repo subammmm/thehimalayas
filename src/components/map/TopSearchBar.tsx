@@ -58,7 +58,9 @@ export const TopSearchBar = ({ value, onChange, locations, onLocationSelect }: T
                         onFocus={() => {
                             setShowResults(true);
                         }}
-                        placeholder="Search locations..."
+                        onKeyDown={(e) => { if (e.key === 'Escape') setShowResults(false); }}
+                        aria-label="Search sites"
+                        placeholder="Search sites..."
                         className="bg-transparent border-none outline-none flex-grow text-gray-800 placeholder-gray-500 font-medium text-base min-w-0"
                     />
                 </div>
