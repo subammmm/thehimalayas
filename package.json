@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "node --experimental-strip-types --test",
     "data": "python3 scripts/build-sites-json.py && python3 scripts/validate-data.py"
   },
   "dependencies": {

@@ -33,11 +33,71 @@ export function mapUrl({ query = '', types = [], districts = [], site }: Partial
     return search ? `/map?${search}` : '/map';
 }
 
+// Reads the state written by mapUrl back out of a query string.
+export function parseMapParams(search: string): SiteFilters & { site?: string } {
+    const params = new URLSearchParams(search);
+    return {
+        query: params.get('q') ?? '',
+        types: params.getAll('type'),
+        districts: params.getAll('district'),
+        site: params.get('site') ?? undefined,
+    };
+}
+
+const DECIMAL = /^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/;
+const DMS = /^\s*(\d+)°(\d+)'(\d+(?:\.\d+)?)"([NS])\s+(\d+)°(\d+)'(\d+(?:\.\d+)?)"([EW])\s*$/;
+
+// '28.85, 81.60' or 29°16'18.1"N 82°09'24.5"E. Same rules as parse_coordinates in
+// scripts/build-sites-json.py; only needed for Supabase rows without latitude/longitude.
+export function parseCoordinates(text: string | null): Coordinates | null {
+    const decimal = text?.match(DECIMAL);
+    if (decimal) return { lat: Number(decimal[1]), lng: Number(decimal[2]) };
+    const dms = text?.match(DMS);
+    if (!dms) return null;
+    const lat = Number(dms[1]) + Number(dms[2]) / 60 + Number(dms[3]) / 3600;
+    const lng = Number(dms[5]) + Number(dms[6]) / 60 + Number(dms[7]) / 3600;
+    return { lat: dms[4] === 'S' ? -lat : lat, lng: dms[8] === 'W' ? -lng : lng };
+}
+
 export function haversineKm(a: Coordinates, b: Coordinates): number {
     const rad = Math.PI / 180;
     const h = Math.sin((b.lat - a.lat) * rad / 2) ** 2 +
         Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin((b.lng - a.lng) * rad / 2) ** 2;
     return 2 * 6371 * Math.asin(Math.sqrt(h));
+}
+
+// The nearest mapped sites; for a site without coordinates, others in its district (km is null).
+export function nearestSites(site: HistoricalSite, sites: HistoricalSite[], count: number): { site: HistoricalSite; km: number | null }[] {
+    const origin = site.coordinates;
+    if (!origin) {
+        return sites.filter(s => s.region === site.region && s.id !== site.id).slice(0, count).map(s => ({ site: s, km: null }));
+    }
+    return sites
+        .filter(s => s.coordinates && s.id !== site.id)
+        .map(s => ({ site: s, km: haversineKm(origin, s.coordinates!) }))
+        .sort((a, b) => a.km - b.km)
+        .slice(0, count);
+}
+
+// Marker colour for a recorded site type; also used for the header of a site without a photograph.
+export function typeColor(type: string): string {
+    const t = type.toLowerCase();
+    if (t.includes('stele')) return '#fbbf24'; // amber
+    if (t.includes('pillar')) return '#f97316'; // orange
+    if (t.includes('deval')) return '#a855f7'; // purple
+    if (t.includes('stupa')) return '#84cc16'; // lime
+    if (t.includes('temple')) return '#ef4444'; // red
+    if (t.includes('fountain')) return '#06b6d4'; // cyan
+    if (t.includes('fort')) return '#92400e'; // brown
+    if (t.includes('palace')) return '#dc2626'; // crimson
+    if (t.includes('inscription')) return '#eab308'; // yellow
+    if (t.includes('monastery') || t.includes('vihara')) return '#d946ef'; // fuchsia
+    if (t.includes('remains')) return '#bc6c25'; // tan
+    if (t.includes('museum')) return '#0ea5e9'; // sky
+    if (t.includes('mounds')) return '#d97706'; // amber
+    if (t.includes('sculpture')) return '#f97316'; // coral
+    if (t.includes('pavilion')) return '#8b5cf6'; // violet
+    return '#6b7280'; // gray
 }
 
 // Where to draw each mapped site. Sites recorded at exactly the same point are spread on a

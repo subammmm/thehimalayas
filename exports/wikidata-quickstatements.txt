@@ -1,0 +1,630 @@
+CREATE
+LAST	Len	"Michagaon Stupas / Stele"
+LAST	Den	"Stupas / Stele of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.2)"
+LAST	P31	Q_REVIEW_STUPA
+LAST	P31	Q_REVIEW_STELE
+LAST	P17	Q837
+LAST	P625	@29.271694/82.156806
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-2"
+CREATE
+LAST	Len	"Patharnauli (Dullu) Water Receptacle"
+LAST	Den	"Water Receptacle of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.10)"
+LAST	P31	Q_REVIEW_OTHER
+LAST	P17	Q837
+LAST	P625	@28.851791/81.608254
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-10"
+CREATE
+LAST	Len	"Seridhuska / Shridhuska Stupa"
+LAST	Den	"Stupa of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.32)"
+LAST	P31	Q_REVIEW_STUPA
+LAST	P17	Q837
+LAST	P625	@29.2575/82.135167
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-32"
+CREATE
+LAST	Len	"Dullu (near Malpot Office) Deval"
+LAST	Den	"Deval of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.40)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@28.864865/81.607117
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-40"
+CREATE
+LAST	Len	"Dullu (near Malpot Office) Temple"
+LAST	Den	"Temple of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.41)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@28.864779/81.606838
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-41"
+CREATE
+LAST	Len	"Dullu Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.42)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.866258/81.608778
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-42"
+CREATE
+LAST	Len	"Dullu Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.43)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.866232/81.608994
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-43"
+CREATE
+LAST	Len	"Dullu Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.44)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.867575/81.609161
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-44"
+CREATE
+LAST	Len	"Dullu Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.45)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.869176/81.608814
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-45"
+CREATE
+LAST	Len	"Dullu Broken Sculpture"
+LAST	Den	"Broken Sculpture of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.47)"
+LAST	P31	Q_REVIEW_SCULPTURE
+LAST	P17	Q837
+LAST	P625	@28.873352/81.60876
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-47"
+CREATE
+LAST	Len	"Dullu (Baleshwor Temple) Temple / Epigraph"
+LAST	Den	"Temple / Epigraph of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.48)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P31	Q_REVIEW_INSCRIPTION
+LAST	P17	Q837
+LAST	P625	@28.878101/81.608909
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-48"
+CREATE
+LAST	Len	"Dullu (Lamji) Deval (Panchadeval)"
+LAST	Den	"Deval (Panchadeval) of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.50)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@28.893882/81.617861
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-50"
+CREATE
+LAST	Len	"Dullu (Dadimadi) Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.51)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.910285/81.629007
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-51"
+CREATE
+LAST	Len	"Dullu (Dadimadi) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.52)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.912414/81.628729
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-52"
+CREATE
+LAST	Len	"Dullu (Satkhamba) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.53)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.837059/81.624862
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-53"
+CREATE
+LAST	Len	"Dullu (Bela Baazar) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.54)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.830976/81.630829
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-54"
+CREATE
+LAST	Len	"Dullu (Pushakot) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.55)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.830299/81.631123
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-55"
+CREATE
+LAST	Len	"Dullu (Pushakot) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.56)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.825284/81.631488
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-56"
+CREATE
+LAST	Len	"Dailekh Baazar (Duikhamba) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.57)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.828702/81.709562
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-57"
+CREATE
+LAST	Len	"Dailekh Baazar (Kuikana) Deval (Panchadeval)"
+LAST	Den	"Deval (Panchadeval) of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.58)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@28.835402/81.699995
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-58"
+CREATE
+LAST	Len	"Dailekh Baazar Temple / Stone Inscription"
+LAST	Den	"Temple / Stone Inscription of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.60)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P31	Q_REVIEW_INSCRIPTION
+LAST	P17	Q837
+LAST	P625	@28.837922/81.708184
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-60"
+CREATE
+LAST	Len	"Dailekh Baazar (Charkhamba) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.61)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.842097/81.71041
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-61"
+CREATE
+LAST	Len	"Dailekh Baazar (Jharkot) Deval / Fountain"
+LAST	Den	"Deval / Fountain of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.62)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@28.855844/81.708745
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-62"
+CREATE
+LAST	Len	"Dailekh Baazar (Jharkot) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.63)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.856392/81.714803
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-63"
+CREATE
+LAST	Len	"Dailekh Baazar (Dharakhola) Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.64)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@28.858029/81.716336
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-64"
+CREATE
+LAST	Len	"Dailekh Baazar (Dharakhola) Deval"
+LAST	Den	"Deval of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.65)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@28.858928/81.717963
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-65"
+CREATE
+LAST	Len	"Dailekh Baazar (Bhurtī) Deval (Panchadeval)"
+LAST	Den	"Deval (Panchadeval) of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.66)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@28.860484/81.721992
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-66"
+CREATE
+LAST	Len	"Dailekh Baazar (Bhurtī) Temple Complex"
+LAST	Den	"Temple Complex of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.67)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@28.86175/81.723333
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-67"
+CREATE
+LAST	Len	"Dailekh Baazar (Bhurtī) Fountain"
+LAST	Den	"Fountain of the Khasa Malla period in Dailekh District, Nepal (atlas entry N.D.D.68)"
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@28.862111/81.723361
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-68"
+CREATE
+LAST	Len	"Manma Stele / Pillar"
+LAST	Den	"Stele / Pillar of the Khasa Malla period in Kalikot District, Nepal (atlas entry N.D.D.69)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.145246/81.60281
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-69"
+CREATE
+LAST	Len	"Manma Fountain"
+LAST	Den	"Fountain of the Khasa Malla period in Kalikot District, Nepal (atlas entry N.D.D.70)"
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.143778/81.603389
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-70"
+CREATE
+LAST	Len	"Manma Deval (Panchadeval)"
+LAST	Den	"Deval (Panchadeval) of the Khasa Malla period in Kalikot District, Nepal (atlas entry N.D.D.71)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@29.142917/81.602222
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-71"
+CREATE
+LAST	Len	"Dansangu Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.73)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.274694/82.204667
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-73"
+CREATE
+LAST	Len	"Dansangu Temple / Pillar"
+LAST	Den	"Temple / Pillar of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.74)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.274437/82.204832
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-74"
+CREATE
+LAST	Len	"Bigare Stupa / Fountain"
+LAST	Den	"Stupa / Fountain of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.75)"
+LAST	P31	Q_REVIEW_STUPA
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.268889/82.220389
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-75"
+CREATE
+LAST	Len	"Khala Stupa / Fountain"
+LAST	Den	"Stupa / Fountain of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.76)"
+LAST	P31	Q_REVIEW_STUPA
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.271361/82.227806
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-76"
+CREATE
+LAST	Len	"Ukhadi Deval / Fountain / Pillars"
+LAST	Den	"Deval / Fountain / Pillars of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.77)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.264111/82.249472
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-77"
+CREATE
+LAST	Len	"Garjyankot Stupa"
+LAST	Den	"Stupa of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.78)"
+LAST	P31	Q_REVIEW_STUPA
+LAST	P17	Q837
+LAST	P625	@29.255111/82.255028
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-78"
+CREATE
+LAST	Len	"Guthichaur Deval / Fountain"
+LAST	Den	"Deval / Fountain of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.79)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.213389/82.31475
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-79"
+CREATE
+LAST	Len	"Bhandaribada Stupa"
+LAST	Den	"Stupa of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.80)"
+LAST	P31	Q_REVIEW_STUPA
+LAST	P17	Q837
+LAST	P625	@29.287361/82.192083
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-80"
+CREATE
+LAST	Len	"Michagaon Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.81)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.268/82.158056
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-81"
+CREATE
+LAST	Len	"Khalachaur Temple"
+LAST	Den	"Temple of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.82)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.261056/82.151556
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-82"
+CREATE
+LAST	Len	"Umgad Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.83)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.254778/82.136694
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-83"
+CREATE
+LAST	Len	"Seridhuska Pavilion"
+LAST	Den	"Pavilion of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.84)"
+LAST	P31	Q_REVIEW_OTHER
+LAST	P17	Q837
+LAST	P625	@29.254417/82.131417
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-84"
+CREATE
+LAST	Len	"Dhaulapani Fountain"
+LAST	Den	"Fountain of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.85)"
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.24025/82.083167
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-85"
+CREATE
+LAST	Len	"Tatopani Temple"
+LAST	Den	"Temple of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.86)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.239417/82.071722
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-86"
+CREATE
+LAST	Len	"Tatopani Temple"
+LAST	Den	"Temple of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.87)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.238361/82.071417
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-87"
+CREATE
+LAST	Len	"Tatopani Stele"
+LAST	Den	"Stele of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.88)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P17	Q837
+LAST	P625	@29.237194/82.066528
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-88"
+CREATE
+LAST	Len	"Tatopani Deval"
+LAST	Den	"Deval of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.89)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@29.237417/82.065417
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-89"
+CREATE
+LAST	Len	"Sundargau Temple"
+LAST	Den	"Temple of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.90)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.231583/82.064972
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-90"
+CREATE
+LAST	Len	"Lihi Stupa / Pillar"
+LAST	Den	"Stupa / Pillar of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.91)"
+LAST	P31	Q_REVIEW_STUPA
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.312083/81.981917
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-91"
+CREATE
+LAST	Len	"Narakot Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.92)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.325167/81.982444
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-92"
+CREATE
+LAST	Len	"Bistabada Stele"
+LAST	Den	"Stele of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.93)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P17	Q837
+LAST	P625	@29.356306/81.969583
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-93"
+CREATE
+LAST	Len	"Bistabada Deval"
+LAST	Den	"Deval of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.94)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@29.356444/81.969639
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-94"
+CREATE
+LAST	Len	"Bistabada Museum"
+LAST	Den	"Museum of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.95)"
+LAST	P31	Q_REVIEW_OTHER
+LAST	P17	Q837
+LAST	P625	@29.356556/81.969694
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-95"
+CREATE
+LAST	Len	"Bistabada Stele"
+LAST	Den	"Stele of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.96)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P17	Q837
+LAST	P625	@29.356611/81.969694
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-96"
+CREATE
+LAST	Len	"Bistabada Deval"
+LAST	Den	"Deval of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.97)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@29.357111/81.970111
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-97"
+CREATE
+LAST	Len	"Bistabada Stele"
+LAST	Den	"Stele of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.98)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P17	Q837
+LAST	P625	@29.357222/81.970194
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-98"
+CREATE
+LAST	Len	"Bistabada Fountain"
+LAST	Den	"Fountain of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.99)"
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.357444/81.967972
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-99"
+CREATE
+LAST	Len	"Dhapa Temple"
+LAST	Den	"Temple of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.100)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.365139/81.971639
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-100"
+CREATE
+LAST	Len	"Dhapa Fountain / Stele"
+LAST	Den	"Fountain / Stele of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.101)"
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P31	Q_REVIEW_STELE
+LAST	P17	Q837
+LAST	P625	@29.376444/81.973194
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-101"
+CREATE
+LAST	Len	"Thapribada Deval"
+LAST	Den	"Deval of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.102)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P17	Q837
+LAST	P625	@29.381056/81.978389
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-102"
+CREATE
+LAST	Len	"Thapribada Fountain"
+LAST	Den	"Fountain of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.103)"
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.380889/81.978556
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-103"
+CREATE
+LAST	Len	"Thapribada Temple"
+LAST	Den	"Temple of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.104)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.38075/81.978639
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-104"
+CREATE
+LAST	Len	"Thapribada Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.105)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.383722/81.978667
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-105"
+CREATE
+LAST	Len	"Ludku Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.106)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.403694/82.004861
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-106"
+CREATE
+LAST	Len	"Ludku Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.107)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.404111/82.005361
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-107"
+CREATE
+LAST	Len	"Ludku Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.108)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.404389/82.006083
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-108"
+CREATE
+LAST	Len	"Ludku Temple"
+LAST	Den	"Temple of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.109)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.404556/82.008639
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-109"
+CREATE
+LAST	Len	"Hatsinja Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.110)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.411028/82.020111
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-110"
+CREATE
+LAST	Len	"Kanakasundari Temple / Pillars / Remains"
+LAST	Den	"Temple / Pillars / Remains of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.111)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P31	Q_REVIEW_REMAINS
+LAST	P17	Q837
+LAST	P625	@29.409222/82.0245
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-111"
+CREATE
+LAST	Len	"Saubada Remains"
+LAST	Den	"Remains of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.112)"
+LAST	P31	Q_REVIEW_REMAINS
+LAST	P17	Q837
+LAST	P625	@29.408472/82.022556
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-112"
+CREATE
+LAST	Len	"Saubada Remains"
+LAST	Den	"Remains of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.113)"
+LAST	P31	Q_REVIEW_REMAINS
+LAST	P17	Q837
+LAST	P625	@29.408083/82.022833
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-113"
+CREATE
+LAST	Len	"Sera Stone Inscription"
+LAST	Den	"Stone Inscription of the Khasa Malla period in Jumla District, Nepal (atlas entry N.D.D.114)"
+LAST	P31	Q_REVIEW_INSCRIPTION
+LAST	P17	Q837
+LAST	P625	@29.403861/82.024611
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-114"
+CREATE
+LAST	Len	"Murma Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.115)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.525556/82.047556
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-115"
+CREATE
+LAST	Len	"Murma Temple"
+LAST	Den	"Temple of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.116)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.526861/82.047472
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-116"
+CREATE
+LAST	Len	"Rara Tal Pillars"
+LAST	Den	"Pillars of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.117)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.537194/82.075194
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-117"
+CREATE
+LAST	Len	"Rara Tal Deval / Fountain"
+LAST	Den	"Deval / Fountain of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.118)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.545139/82.093889
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-118"
+CREATE
+LAST	Len	"Rara Tal Steles / Pillar"
+LAST	Den	"Steles / Pillar of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.119)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.544/82.098944
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-119"
+CREATE
+LAST	Len	"Bham Bada Deval / Fountain"
+LAST	Den	"Deval / Fountain of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.120)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.539944/82.157278
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-120"
+CREATE
+LAST	Len	"Ruga Temple"
+LAST	Den	"Temple of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.121)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P17	Q837
+LAST	P625	@29.558806/82.163139
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-121"
+CREATE
+LAST	Len	"Ghata Stele / Pillars"
+LAST	Den	"Stele / Pillars of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.122)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.552111/82.171667
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-122"
+CREATE
+LAST	Len	"Ghamgadhi Temple / Pillar"
+LAST	Den	"Temple / Pillar of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.123)"
+LAST	P31	Q_REVIEW_TEMPLE
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.547556/82.156972
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-123"
+CREATE
+LAST	Len	"Bham Bada Stele"
+LAST	Den	"Stele of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.124)"
+LAST	P31	Q_REVIEW_STELE
+LAST	P17	Q837
+LAST	P625	@29.539583/82.156333
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-124"
+CREATE
+LAST	Len	"Bham Bada Deval / Fountain"
+LAST	Den	"Deval / Fountain of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.125)"
+LAST	P31	Q_REVIEW_DEVAL
+LAST	P31	Q_REVIEW_FOUNTAIN
+LAST	P17	Q837
+LAST	P625	@29.539944/82.157278
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-125"
+CREATE
+LAST	Len	"Kos Pillar"
+LAST	Den	"Pillar of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.126)"
+LAST	P31	Q_REVIEW_PILLAR
+LAST	P17	Q837
+LAST	P625	@29.531306/82.162361
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-126"
+CREATE
+LAST	Len	"Kos Stone Inscription"
+LAST	Den	"Stone Inscription of the Khasa Malla period in Mugu District, Nepal (atlas entry N.D.D.127)"
+LAST	P31	Q_REVIEW_INSCRIPTION
+LAST	P17	Q837
+LAST	P625	@29.531306/82.162361
+LAST	P973	"https://thehimalayas.vercel.app/locations/site-127"
