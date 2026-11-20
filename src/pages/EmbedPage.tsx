@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { MapboxCanvas } from '../components/map/MapboxCanvas';
 import { useLocations } from '../hooks/useLocations';
@@ -11,9 +11,11 @@ import type { Location } from '../types';
 // parameters as /map). Links open the atlas in a new tab; the embed code is on /data.
 const EmbedPage = () => {
     usePageTitle('Map embed');
-    const filters = parseMapParams(useLocation().search);
+    const { search } = useLocation();
     const { locations } = useLocations();
-    const sites = locations.filter(site => site.coordinates && matchesFilters(site, filters));
+    // Memoised: a new array would make MapboxCanvas rebuild every marker on each selection
+    const filters = useMemo(() => parseMapParams(search), [search]);
+    const sites = useMemo(() => locations.filter(site => site.coordinates && matchesFilters(site, filters)), [locations, filters]);
     const [selected, setSelected] = useState<Location | null>(null);
 
     return (

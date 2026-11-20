@@ -22,8 +22,8 @@ const LocationDetailsPage = () => {
     const [copied, setCopied] = useState(false);
     const [coordsCopied, setCoordsCopied] = useState(false);
 
-    // Determine location: Prefer live data, fallback to passed state (instant load), then 404
-    const location: Location | undefined = state?.location || locations.find(l => l.id === id);
+    // Prefer the loaded data; the copy in history state can predate a deploy and lack newer fields
+    const location: Location | undefined = locations.find(l => l.id === id) ?? state?.location;
     usePageTitle(location ? `${location.name} (${location.entry_no})` : 'Site not found');
 
     // Moving between sites keeps this page mounted, so start each one at the top
