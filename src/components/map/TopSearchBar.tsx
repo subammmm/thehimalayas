@@ -38,7 +38,7 @@ export const TopSearchBar = ({ value, onChange, locations, onLocationSelect }: T
     };
 
     return (
-        <div ref={containerRef} className="absolute top-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
+        <div ref={containerRef} className="absolute top-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none pl-20 pr-4 md:px-4">
             <div className={`
                 pointer-events-auto w-full max-w-md 
                 bg-white/80 backdrop-blur-md 

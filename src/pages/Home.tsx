@@ -32,8 +32,8 @@ const Home = () => {
     };
 
     // Derived stats
-    const totalLocations = locations.length > 0 ? `${locations.length}+` : "100+";
-    const countries = 3;
+    const totalLocations = locations.length;
+    const countries = new Set(locations.map(loc => loc.country)).size;
 
     return (
         <div className="min-h-screen bg-black">
@@ -110,7 +110,7 @@ const Home = () => {
                         transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
                         className="w-full max-w-2xl flex items-center gap-4 relative"
                     >
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                             <HeroSearch
                                 locations={locations}
                                 filters={{ selectedTypes, selectedRegions, minElevation }}
@@ -131,7 +131,7 @@ const Home = () => {
 
                             <AnimatePresence>
                                 {isFilterOpen && (
-                                    <div className="absolute top-1/2 -translate-y-1/2 left-full ml-6 z-[2000]">
+                                    <div className="absolute top-full right-0 mt-4 z-[2000]">
                                         <FilterPanel
                                             isOpen={true}
                                             onClose={() => setIsFilterOpen(false)}
