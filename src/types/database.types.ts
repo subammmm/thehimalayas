@@ -73,26 +73,6 @@ export interface Database {
                     updated_at?: string | null;
                 };
             };
-            // Keep old locations type for reference but mark as deprecated
-            locations: {
-                Row: {
-                    id: string;
-                    name: string;
-                    type: string;
-                    region: string;
-                    latitude: number;
-                    longitude: number;
-                    elevation: number;
-                    description: string | null;
-                    images: string[];
-                    tags: string[];
-                    related_location_ids: string[];
-                    created_at: string;
-                    updated_at: string;
-                };
-                Insert: object;
-                Update: object;
-            };
         };
         Views: Record<string, never>;
         Functions: Record<string, never>;
@@ -102,6 +82,3 @@ export interface Database {
 
 // Helper type for Historical Site from database
 export type DbHistoricalSite = Database['public']['Tables']['historical_sites']['Row'];
-
-// Deprecated - use DbHistoricalSite
-export type DbLocation = Database['public']['Tables']['locations']['Row'];
