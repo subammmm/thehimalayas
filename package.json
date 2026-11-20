@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "data": "python3 scripts/build-sites-json.py && python3 scripts/validate-data.py"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",

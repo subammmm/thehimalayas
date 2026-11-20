@@ -37,7 +37,10 @@ function parseCoordinates(coordStr: string | null): Coordinates | null {
 
 // Transform database row to app HistoricalSite type with all fields
 function transformDbSite(row: DbHistoricalSite): HistoricalSite {
-    const coords = parseCoordinates(row.coordinates);
+    // The bundled dataset carries parsed decimals; rows from Supabase may only have the text.
+    const coords = row.latitude != null && row.longitude != null
+        ? { lat: row.latitude, lng: row.longitude }
+        : parseCoordinates(row.coordinates);
 
     return {
         // Core fields from database
@@ -48,6 +51,7 @@ function transformDbSite(row: DbHistoricalSite): HistoricalSite {
         location: row.location,
         coordinates: coords,
         site_type: row.site_type,
+        categories: row.site_categories ?? [row.site_type],
         documentation: row.documentation,
         description: row.description,
         visit_date: row.visit_date,
@@ -60,8 +64,7 @@ function transformDbSite(row: DbHistoricalSite): HistoricalSite {
         // Compatibility aliases for map components
         name: row.location,           // Map uses 'name' for labels
         type: row.site_type,          // Map uses 'type' for colors
-        region: row.district || 'N/A', // Map uses 'region' for grouping
-        elevation: 0                   // Historical sites don't have elevation
+        region: row.district || 'N/A' // Map uses 'region' for grouping
     };
 }
 

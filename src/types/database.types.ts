@@ -20,6 +20,8 @@ export interface Database {
                     latitude: number | null;
                     longitude: number | null;
                     site_type: string;
+                    // Derived by scripts/build-sites-json.py; absent from the database table.
+                    site_categories?: string[];
                     documentation: string | null;
                     description: string | null;
                     visit_date: string | null;
