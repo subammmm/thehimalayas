@@ -119,7 +119,7 @@ const HimalayanMapPage = () => {
             <FilterButton
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 activeCount={activeFilterCount}
-                className="top-20 right-6 z-[1200]"
+                className="top-28 right-6 z-[1200]"
             />
 
             <FilterPanel
@@ -131,7 +131,7 @@ const HimalayanMapPage = () => {
                 selectedRegions={selectedRegions}
                 toggleRegion={toggleRegion}
                 onReset={resetFilters}
-                className="top-36 right-6 z-[1200]"
+                className="top-44 right-6 z-[1200]"
             />
 
             <AnimatePresence>

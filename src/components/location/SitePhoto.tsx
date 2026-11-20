@@ -1,7 +1,7 @@
 import { Castle, Droplets, Landmark, RectangleVertical, ScrollText } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { HistoricalSite } from '../../types';
-import { typeColor } from '../../lib/sites';
+import { siteColor } from '../../lib/sites';
 
 const ICONS: Record<string, LucideIcon> = {
     Inscription: ScrollText,
@@ -26,7 +26,7 @@ export const SitePhoto = ({ site, noteClassName = 'pt-5' }: { site: HistoricalSi
             </figure>
         );
     }
-    const color = typeColor(site.type);
+    const color = siteColor(site);
     const Icon = ICONS[site.categories[0]] ?? Landmark;
     return (
         <div

@@ -71,3 +71,11 @@ body {
     print-color-adjust: exact;
   }
 }
+
+/* On a phone the map's zoom and compass buttons sat on top of the search bar; pinch and
+   two-finger rotate do the same job there. */
+@media (max-width: 767px) {
+  .mapboxgl-ctrl-top-right .mapboxgl-ctrl-group {
+    display: none;
+  }
+}

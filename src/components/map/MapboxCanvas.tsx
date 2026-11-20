@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { HistoricalSite } from '../../types';
-import { markerPositions, typeColor } from '../../lib/sites';
+import { markerPositions, siteColor } from '../../lib/sites';
 
 // Type alias for backward compatibility
 type Location = HistoricalSite;
@@ -154,7 +154,7 @@ export const MapboxCanvas = ({ locations, onLocationSelect, focusedLocation, fal
                 const coords = positions.get(location.id);
                 if (!coords) return; // no coordinates recorded
 
-                const color = typeColor(location.type);
+                const color = siteColor(location);
 
                 // Create marker container (Mapbox positions this)
                 // A real button, so markers can be reached and activated from the keyboard

@@ -79,9 +79,10 @@ export function nearestSites(site: HistoricalSite, sites: HistoricalSite[], coun
         .slice(0, count);
 }
 
-// Marker colour for a recorded site type; also used for the header of a site without a photograph.
-export function typeColor(type: string): string {
-    const t = type.toLowerCase();
+// Marker colour, from the site's first category so that a "Stupas / Stele" is a stupa, as in the
+// legend. Also used for the header of a site without a photograph.
+export function siteColor(site: HistoricalSite): string {
+    const t = (site.categories[0] ?? site.type).toLowerCase();
     if (t.includes('stele')) return '#fbbf24'; // amber
     if (t.includes('pillar')) return '#f97316'; // orange
     if (t.includes('deval')) return '#a855f7'; // purple

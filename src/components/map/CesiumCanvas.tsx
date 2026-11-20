@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import * as Cesium from 'cesium';
-import type { HistoricalSite, SiteType } from '../../types';
-import { markerPositions } from '../../lib/sites';
+import type { HistoricalSite } from '../../types';
+import { markerPositions, siteColor } from '../../lib/sites';
 
 // Type alias for backward compatibility
 type Location = HistoricalSite;
-type LocationType = SiteType;
 
 const CESIUM_TOKEN = import.meta.env.VITE_CESIUM_TOKEN;
 
@@ -16,29 +15,6 @@ interface CesiumCanvasProps {
     onLocationSelect: (location: Location) => void;
     focusedLocation: Location | null;
 }
-
-const getColorByType = (type: LocationType | string): Cesium.Color => {
-    // Normalize type for matching (handle variations)
-    const normalizedType = type.toLowerCase();
-
-    if (normalizedType.includes('stele')) return Cesium.Color.GOLD;
-    if (normalizedType.includes('pillar')) return Cesium.Color.ORANGE;
-    if (normalizedType.includes('deval')) return Cesium.Color.PURPLE;
-    if (normalizedType.includes('stupa')) return Cesium.Color.LIME;
-    if (normalizedType.includes('temple')) return Cesium.Color.RED;
-    if (normalizedType.includes('fountain')) return Cesium.Color.CYAN;
-    if (normalizedType.includes('fort')) return Cesium.Color.BROWN;
-    if (normalizedType.includes('palace')) return Cesium.Color.CRIMSON;
-    if (normalizedType.includes('inscription')) return Cesium.Color.YELLOW;
-    if (normalizedType.includes('monastery') || normalizedType.includes('vihara')) return Cesium.Color.MAGENTA;
-    if (normalizedType.includes('remains')) return Cesium.Color.ROSYBROWN;
-    if (normalizedType.includes('museum')) return Cesium.Color.DEEPSKYBLUE;
-    if (normalizedType.includes('mounds')) return Cesium.Color.SANDYBROWN;
-    if (normalizedType.includes('sculpture')) return Cesium.Color.CORAL;
-    if (normalizedType.includes('pavilion')) return Cesium.Color.MEDIUMPURPLE;
-
-    return Cesium.Color.GRAY;
-};
 
 export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: CesiumCanvasProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -171,7 +147,7 @@ export const CesiumCanvas = ({ locations, onLocationSelect, focusedLocation }: C
                 position: Cesium.Cartesian3.fromDegrees(coords.lng, coords.lat, 0),
                 point: {
                     pixelSize: 12,
-                    color: getColorByType(location.type),
+                    color: Cesium.Color.fromCssColorString(siteColor(location)), // same colours as the 2D map
                     outlineColor: Cesium.Color.WHITE,
                     outlineWidth: 2,
                     heightReference: Cesium.HeightReference.CLAMP_TO_GROUND

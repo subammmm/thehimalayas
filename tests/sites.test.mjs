@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseCoordinates, haversineKm, nearestSites, mapUrl, parseMapParams, matchesFilters, markerPositions } from '../src/lib/sites.ts';
+import { siteColor, parseCoordinates, haversineKm, nearestSites, mapUrl, parseMapParams, matchesFilters, markerPositions } from '../src/lib/sites.ts';
 
 const sites = JSON.parse(readFileSync(new URL('../public/data/sites.json', import.meta.url), 'utf8'));
 const near = (actual, expected, tolerance) => assert.ok(Math.abs(actual - expected) <= tolerance, `${actual} is not within ${tolerance} of ${expected}`);
@@ -84,4 +84,11 @@ test('markerPositions separates sites recorded at the same point and keeps singl
     assert.notDeepEqual(positions.get('a'), positions.get('b'));
     assert.ok(haversineKm(positions.get('a'), positions.get('b')) < 0.05);
     assert.equal(positions.has('d'), false);
+});
+
+test('siteColor follows the first category, as the map legend does', () => {
+    const lime = siteColor(site('a', 29, 82, { type: 'Stupa', categories: ['Stupa'] }));
+    assert.equal(siteColor(site('b', 29, 82, { type: 'Stupas / Stele', categories: ['Stupa', 'Stele'] })), lime);
+    assert.notEqual(siteColor(site('c', 29, 82, { type: 'Stele', categories: ['Stele'] })), lime);
+    assert.equal(siteColor(site('d', 29, 82, { type: 'Museum', categories: ['Other'] })), '#6b7280');
 });
