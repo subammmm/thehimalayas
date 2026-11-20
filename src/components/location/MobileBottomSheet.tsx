@@ -51,11 +51,12 @@ export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomS
                 <div className="relative h-64 w-full">
                     <img
                         src={PLACEHOLDER_IMAGE}
-                        alt={location.name}
+                        alt=""
                         className="w-full h-full object-cover"
                     />
                     <button
                         onClick={onClose}
+                        aria-label="Close"
                         className="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full backdrop-blur-md transition-colors"
                     >
                         <X className="w-5 h-5" />

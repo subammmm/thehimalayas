@@ -16,6 +16,12 @@
   }
 }
 
+/* Visible keyboard focus everywhere, including map markers */
+:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
+}
+
 body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
