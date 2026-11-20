@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# The Himalayas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive atlas of 127 Khasa Malla historical sites (87 with coordinates, shown on the map).
+Vite + React 19 + TypeScript + Tailwind. Live at https://thehimalayas.vercel.app.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Requires Node 22 (see `.nvmrc`; Vite 7 needs Node >= 20.19).
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+cp .env.example .env   # then fill in the values below
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+| Variable | Needed for |
+| --- | --- |
+| `VITE_MAPBOX_TOKEN` | The base map on `/map`. Without it the map area stays blank. |
+| `VITE_CESIUM_TOKEN` | Terrain and imagery in the 3D view. |
+| `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` | Optional. Leave unset to use the bundled data. |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Never commit `.env`. Production values live in the Vercel project settings.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Data
+
+The site data ships with the app in `src/data/sites.json`, generated from
+`scripts/khasa-malla-data-part*.sql` by:
+
+```bash
+python3 scripts/build-sites-json.py
 ```
+
+If Supabase is configured and reachable, its `historical_sites` table replaces the bundled copy
+at runtime; otherwise the bundled copy is used.
+
+## Checks
+
+```bash
+npx tsc -b
+npm run lint
+npm run build
+```
+
+## Routes
+
+- `/` home and search
+- `/map` map, filters, 3D view
+- `/atlas` statistics
+- `/locations/:id` site details (ids look like `site-12`)
+- `/about`
+
+Older setup and deployment notes are kept in `docs/archive/` for reference; they are out of date.

@@ -1,14 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import type { HistoricalSite, Coordinates } from '../types';
 import type { DbHistoricalSite } from '../types/database.types';
 import bundledSites from '../data/sites.json';
-
-// Copy of the dataset shipped with the app (built by scripts/build-sites-json.py),
-// used whenever Supabase is unreachable or empty so the map never loads blank.
-function bundledLocations(): HistoricalSite[] {
-    return (bundledSites as DbHistoricalSite[]).map(transformDbSite).filter(loc => loc.coordinates !== null);
-}
 
 // Parse coordinates string like "29.2717, 82.1568" to Coordinates object
 function parseCoordinates(coordStr: string | null): Coordinates | null {
@@ -71,57 +65,52 @@ function transformDbSite(row: DbHistoricalSite): HistoricalSite {
     };
 }
 
+// Dataset shipped with the app (built by scripts/build-sites-json.py). Rendered
+// immediately; replaced only if a configured Supabase project answers.
+const bundledLocations = (bundledSites as DbHistoricalSite[]).map(transformDbSite);
+
+// One request per page load, shared by every component using the hook.
+let remoteLocations: Promise<HistoricalSite[] | null> | undefined;
+
+function fetchRemoteLocations(): Promise<HistoricalSite[] | null> {
+    if (!supabase) return Promise.resolve(null);
+    const client = supabase;
+    remoteLocations ??= (async () => {
+        try {
+            const { data, error } = await client
+                .from('historical_sites')
+                .select('*')
+                .order('location')
+                .abortSignal(AbortSignal.timeout(8000));
+            if (error) throw error;
+            return data && data.length > 0 ? data.map(transformDbSite) : null;
+        } catch (err) {
+            console.warn('Supabase unavailable, using bundled data:', err);
+            return null;
+        }
+    })();
+    return remoteLocations;
+}
+
 interface UseLocationsResult {
+    // Every site, including those without coordinates (map views skip those).
     locations: HistoricalSite[];
     loading: boolean;
-    error: string | null;
-    refetch: () => Promise<void>;
 }
 
 export function useLocations(): UseLocationsResult {
-    const [locations, setLocations] = useState<HistoricalSite[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    const fetchLocations = useCallback(async () => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            if (!supabase) {
-                setLocations(bundledLocations());
-                return;
-            }
-            const { data, error: supabaseError } = await supabase
-                .from('historical_sites')
-                .select('*')
-                .order('location');
-
-            if (supabaseError) {
-                throw supabaseError;
-            }
-
-            if (data && data.length > 0) {
-                const transformedLocations = data.map(transformDbSite);
-                // Filter out sites without coordinates (can't display on map)
-                const mappableLocations = transformedLocations.filter(loc => loc.coordinates !== null);
-                setLocations(mappableLocations);
-                console.log(`✓ Loaded ${mappableLocations.length} mappable historical sites (${transformedLocations.length - mappableLocations.length} without coordinates)`);
-            } else {
-                console.warn('No historical sites found in Supabase, using bundled data');
-                setLocations(bundledLocations());
-            }
-        } catch (err) {
-            console.warn('Supabase unavailable, using bundled data:', err);
-            setLocations(bundledLocations());
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    const [locations, setLocations] = useState(bundledLocations);
+    const [loading, setLoading] = useState(supabase !== null);
 
     useEffect(() => {
-        fetchLocations();
-    }, [fetchLocations]);
+        let cancelled = false;
+        fetchRemoteLocations().then(remote => {
+            if (cancelled) return;
+            if (remote) setLocations(remote);
+            setLoading(false);
+        });
+        return () => { cancelled = true; };
+    }, []);
 
-    return { locations, loading, error, refetch: fetchLocations };
+    return { locations, loading };
 }

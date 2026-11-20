@@ -21,11 +21,15 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
 
+    // Same matching rules as the map page, so results agree with what the map will show
+    const { selectedTypes = [], selectedRegions = [] } = filters ?? {};
     const searchResults = query.length > 0
         ? locations.filter(loc =>
-            loc.name?.toLowerCase().includes(query.toLowerCase()) ||
-            loc.region?.toLowerCase().includes(query.toLowerCase()) ||
-            loc.type?.toLowerCase().includes(query.toLowerCase())
+            (loc.name?.toLowerCase().includes(query.toLowerCase()) ||
+                loc.region?.toLowerCase().includes(query.toLowerCase()) ||
+                loc.type?.toLowerCase().includes(query.toLowerCase())) &&
+            (selectedTypes.length === 0 || selectedTypes.some(t => loc.type.toLowerCase().includes(t.toLowerCase()))) &&
+            (selectedRegions.length === 0 || selectedRegions.some(r => loc.region.toLowerCase().includes(r.toLowerCase())))
         ).slice(0, 8) // Increased to show more results
         : [];
 
@@ -62,8 +66,9 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
             });
         } else {
             // I'm Feeling Lucky: Random Location
-            if (locations.length > 0) {
-                const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+            const mapped = locations.filter(loc => loc.coordinates);
+            if (mapped.length > 0) {
+                const randomLocation = mapped[Math.floor(Math.random() * mapped.length)];
                 navigate('/map', {
                     state: {
                         selectedLocation: randomLocation,
@@ -107,7 +112,7 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
                         setShowResults(true);
                     }}
                     onBlur={() => setIsFocused(false)}
-                    placeholder="Search peaks..." // Shortened placeholder for mobile
+                    placeholder="Search sites..." // Shortened placeholder for mobile
                     className="
                         flex-1 bg-transparent text-white
                         placeholder:text-white/40
@@ -178,17 +183,12 @@ export const HeroSearch = ({ locations = [], filters }: HeroSearchProps) => {
                                             {location.region} • {location.type}
                                         </p>
                                     </div>
-                                    {location.elevation && (
-                                        <span className="text-xs text-black/40 flex-shrink-0">
-                                            {location.elevation.toLocaleString()}m
-                                        </span>
-                                    )}
                                 </motion.button>
                             ))
                         ) : (
                             <div className="px-6 py-8 text-center text-black/60">
                                 <p className="font-medium mb-1">No locations found</p>
-                                <p className="text-sm">Try searching for 'Everest' or 'Annapurna'</p>
+                                <p className="text-sm">Try searching for 'Dullu' or 'Jumla'</p>
                             </div>
                         )}
                     </motion.div>

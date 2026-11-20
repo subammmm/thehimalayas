@@ -1,10 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
 import { MapboxCanvas } from '../components/map/MapboxCanvas';
-import { CesiumCanvas } from '../components/map/CesiumCanvas';
 import { TopSearchBar } from '../components/map/TopSearchBar';
 import { FilterButton } from '../components/map/FilterButton';
 import { FilterPanel } from '../components/map/FilterPanel';
@@ -12,10 +11,30 @@ import { LocationPopover } from '../components/location/LocationPopover';
 import { MobileBottomSheet } from '../components/location/MobileBottomSheet';
 import type { Location } from '../types';
 
+// Cesium is only needed for the 3D view, so fetch it on first use.
+// In production builds vite-plugin-cesium expects the prebuilt script as window.Cesium.
+const CesiumCanvas = lazy(async () => {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '/cesium/Widgets/widgets.css';
+    document.head.append(css);
+    if (import.meta.env.PROD) {
+        await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = '/cesium/Cesium.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.append(script);
+        });
+    }
+    const module = await import('../components/map/CesiumCanvas');
+    return { default: module.CesiumCanvas };
+});
+
 const HimalayanMapPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { locations, loading, error } = useLocations();
+    const { locations } = useLocations();
 
     // Get search query from navigation state (from home page)
     const initialSearch = location.state?.searchQuery || '';
@@ -23,8 +42,8 @@ const HimalayanMapPage = () => {
 
     const [searchQuery, setSearchQuery] = useState(initialSearch);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-    const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+    const [selectedTypes, setSelectedTypes] = useState<string[]>(location.state?.filters?.selectedTypes ?? []);
+    const [selectedRegions, setSelectedRegions] = useState<string[]>(location.state?.filters?.selectedRegions ?? []);
     const [minElevation, setMinElevation] = useState(0);
     // Initialize with selectedFromSearch if available, avoiding setState in useEffect
     const [selectedLocation, setSelectedLocation] = useState<Location | null>(selectedFromSearch);
@@ -101,23 +120,6 @@ const HimalayanMapPage = () => {
                 className="top-20 right-6 z-[1200]"
             />
 
-            {/* Status Indicators */}
-            {(loading || error) && (
-                <div className="absolute top-24 left-6 z-[900] pointer-events-none">
-                    {loading && (
-                        <div className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur rounded-full shadow-lg text-sm font-medium text-gray-700">
-                            <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                            Loading historical sites...
-                        </div>
-                    )}
-                    {error && (
-                        <div className="mt-2 flex items-center gap-2 px-4 py-2 bg-red-50/90 backdrop-blur rounded-full shadow-lg text-sm font-medium text-red-700 border border-red-200">
-                            Error loading data ({error})
-                        </div>
-                    )}
-                </div>
-            )}
-
             <FilterPanel
                 isOpen={isFilterOpen}
                 onClose={() => setIsFilterOpen(false)}
@@ -151,13 +153,15 @@ const HimalayanMapPage = () => {
             {/* 3D Mode Overlay */}
             {is3DMode && (
                 <div className="absolute inset-0 z-[1100]">
-                    <CesiumCanvas
-                        locations={locations}
-                        filteredLocations={filteredLocations}
-                        onLocationSelect={setSelectedLocation}
-                        focusedLocation={selectedLocation}
-                        showConnections={hasActiveFilters}
-                    />
+                    <Suspense fallback={<div className="absolute inset-0 bg-gray-900" />}>
+                        <CesiumCanvas
+                            locations={locations}
+                            filteredLocations={filteredLocations}
+                            onLocationSelect={setSelectedLocation}
+                            focusedLocation={selectedLocation}
+                            showConnections={hasActiveFilters}
+                        />
+                    </Suspense>
                     <button
                         onClick={() => setIs3DMode(false)}
                         className="absolute top-6 left-20 z-[1200] px-6 py-2 bg-white/90 backdrop-blur rounded-full shadow-lg font-medium text-black hover:bg-white transition-colors flex items-center gap-2 pointer-events-auto"
@@ -179,11 +183,13 @@ const HimalayanMapPage = () => {
 
             {/* Location Counter */}
             <div className="absolute bottom-8 left-8 z-[1200] glass-overlay px-4 py-2 rounded-lg shadow-lg pointer-events-auto">
-                <span className="font-medium text-gray-800">Showing {filteredLocations.length} sites</span>
+                <span className="font-medium text-gray-800">
+                    {filteredLocations.length} {filteredLocations.length === 1 ? 'site' : 'sites'} · {filteredLocations.filter(loc => loc.coordinates).length} on map
+                </span>
             </div>
 
             {/* Legend - Historical Site Types */}
-            <div className="absolute bottom-8 right-8 z-[1200] glass-overlay p-4 rounded-xl shadow-lg max-w-xs pointer-events-auto">
+            <div className="absolute bottom-24 md:bottom-8 right-8 z-[1200] glass-overlay p-4 rounded-xl shadow-lg max-w-xs pointer-events-auto">
                 <h4 className="font-semibold text-sm mb-2 text-gray-800">Legend</h4>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="flex items-center"><span className="w-3 h-3 rounded-full bg-amber-400 mr-2"></span>Stele</div>

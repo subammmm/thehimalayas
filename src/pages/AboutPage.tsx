@@ -8,8 +8,9 @@ const AboutPage = () => {
     const { locations } = useLocations();
 
     const handleExplore = () => {
-        if (locations.length > 0) {
-            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+        const mapped = locations.filter(loc => loc.coordinates);
+        if (mapped.length > 0) {
+            const randomLocation = mapped[Math.floor(Math.random() * mapped.length)];
             navigate('/map', {
                 state: { selectedLocation: randomLocation }
             });
