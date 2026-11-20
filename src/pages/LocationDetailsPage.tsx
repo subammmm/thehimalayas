@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, ArrowRight, MapPin, FileText, Calendar, Map, Share2, Check, Copy, Quote, Scroll, Building, Globe, BookOpen, Languages, Clock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, MapPin, FileText, Calendar, Map, Share2, Check, Copy, Quote, Scroll, Building, Globe, BookOpen, Languages, Clock, Printer } from 'lucide-react';
 import { useLocations } from '../hooks/useLocations';
 import { CitationModal } from '../components/location/CitationModal';
+import { SitePhoto } from '../components/location/SitePhoto';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { haversineKm, mapUrl } from '../lib/sites';
+import { mapUrl, nearestSites } from '../lib/sites';
+import { datumLabel, siteCitation } from '../lib/citation';
+import project from '../data/project.json';
 import type { Location } from '../types';
-
-// Default placeholder image for historical sites
-const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1600';
 
 const LocationDetailsPage = () => {
     const { id } = useParams();
@@ -39,17 +39,8 @@ const LocationDetailsPage = () => {
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
     // The five nearest mapped sites; for a site without coordinates, others in its district
-    const origin = location?.coordinates;
-    const related: { site: Location; km: number | null }[] = !location ? [] : origin
-        ? locations
-            .filter(l => l.coordinates && l.id !== location.id)
-            .map(site => ({ site, km: haversineKm(origin, site.coordinates!) }))
-            .sort((a, b) => a.km - b.km)
-            .slice(0, 5)
-        : locations
-            .filter(l => l.region === location.region && l.id !== location.id)
-            .slice(0, 5)
-            .map(site => ({ site, km: null }));
+    const related = location ? nearestSites(location, locations, 5) : [];
+    const possiblyRelated = locations.filter(l => location?.possibly_related.includes(l.entry_no));
 
     // Loading skeleton
     if (loading && !location) {
@@ -137,7 +128,7 @@ const LocationDetailsPage = () => {
             <CitationModal location={location} isOpen={showCitation} onClose={() => setShowCitation(false)} />
 
             {/* Navigation Bar */}
-            <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center pointer-events-none">
+            <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center pointer-events-none print:hidden">
                 <button
                     onClick={() => navigate(-1)}
                     aria-label="Back"
@@ -155,6 +146,14 @@ const LocationDetailsPage = () => {
                         <Quote className="w-5 h-5" />
                     </button>
                     <button
+                        onClick={() => window.print()}
+                        className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-colors flex items-center justify-center gap-2"
+                        title="Print or save as PDF"
+                        aria-label="Print or save as PDF"
+                    >
+                        <Printer className="w-5 h-5" />
+                    </button>
+                    <button
                         onClick={handleShare}
                         className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-colors flex items-center justify-center gap-2"
                         title="Share this site"
@@ -166,13 +165,9 @@ const LocationDetailsPage = () => {
             </nav>
 
             {/* Hero Section */}
-            <div className="relative h-[60vh] w-full overflow-hidden bg-black">
+            <div className={`relative w-full overflow-hidden bg-black print:hidden ${location.images.length > 0 ? 'h-[60vh]' : 'h-[45vh] min-h-[340px]'}`}>
                 <motion.div style={{ y, opacity }} className="absolute inset-0 h-full w-full">
-                    <img
-                        src={PLACEHOLDER_IMAGE}
-                        alt=""
-                        className="w-full h-full object-cover opacity-80"
-                    />
+                    <SitePhoto site={location} noteClassName="pt-24" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-90" />
                 </motion.div>
 
@@ -218,12 +213,34 @@ const LocationDetailsPage = () => {
                 </div>
             </div>
 
+            {/* Heading for the printed record; on screen the hero above carries it */}
+            <header className="hidden print:block px-6 pt-6">
+                <p className="text-sm text-gray-600">{project.siteName}: {project.datasetTitle}</p>
+                <h1 className="text-3xl font-bold text-black">{location.name}</h1>
+                <p className="text-gray-800">{location.entry_no} · {location.type} · {location.region}, {location.country}</p>
+            </header>
+
             {/* Content Section */}
-            <div className="relative z-30 bg-white -mt-6 rounded-t-3xl min-h-screen px-6 py-12 md:px-16">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="relative z-30 bg-white -mt-6 rounded-t-3xl min-h-screen px-6 py-12 md:px-16 print:mt-0 print:min-h-0 print:py-6">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 print:block print:space-y-8">
 
                     {/* Main Content */}
                     <div className="lg:col-span-2 space-y-10">
+
+                        {possiblyRelated.length > 0 && (
+                            <p className="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-4 text-gray-700">
+                                Possibly related to{' '}
+                                {possiblyRelated.map((other, i) => (
+                                    <span key={other.id}>
+                                        {i > 0 && ', '}
+                                        <Link to={`/locations/${other.id}`} className="font-medium text-blue-700 hover:underline">
+                                            {other.entry_no} ({other.name}, {other.type})
+                                        </Link>
+                                    </span>
+                                ))}
+                                : the two records share a place name and coordinates. Both are kept as recorded.
+                            </p>
+                        )}
 
                         {/* Description */}
                         {location.description && (
@@ -294,7 +311,7 @@ const LocationDetailsPage = () => {
                     </div>
 
                     {/* Previous / next site, in dataset order */}
-                    <nav aria-label="Previous and next site" className="lg:col-span-3 lg:order-last flex justify-between gap-4 border-t border-gray-200 pt-6">
+                    <nav aria-label="Previous and next site" className="lg:col-span-3 lg:order-last flex justify-between gap-4 border-t border-gray-200 pt-6 print:hidden">
                         {previous ? (
                             <Link to={`/locations/${previous.id}`} className="flex items-center gap-2 text-gray-700 hover:text-black min-w-0">
                                 <ArrowLeft className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
@@ -318,7 +335,7 @@ const LocationDetailsPage = () => {
                     {/* Sidebar */}
                     <div className="lg:col-span-1 space-y-6">
                         {/* Quick Facts Card */}
-                        <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200 sticky top-6">
+                        <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
                             <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                                 <Globe className="w-5 h-5 text-gray-600" />
                                 Site Information
@@ -342,11 +359,12 @@ const LocationDetailsPage = () => {
                                 </div>
                                 {location.coordinates ? (
                                     <div className="py-2 border-b border-gray-200">
-                                        <div className="flex justify-between items-center">
+                                        <div className="flex justify-between items-center gap-3">
                                             <span className="text-gray-500 text-sm">Coordinates</span>
-                                            <span className="font-mono text-gray-900 text-xs">{coordsText}</span>
+                                            <span className="font-mono text-gray-900 text-xs text-right">{coordsText}</span>
                                         </div>
-                                        <div className="flex flex-wrap justify-end gap-x-4 gap-y-1 mt-2 text-xs font-medium">
+                                        <p className="text-right text-xs text-gray-500 mt-1">{datumLabel}</p>
+                                        <div className="flex flex-wrap justify-end gap-x-4 gap-y-1 mt-2 text-xs font-medium print:hidden">
                                             <button onClick={handleCopyCoords} className="flex items-center gap-1 text-blue-700 hover:underline">
                                                 {coordsCopied ? <Check className="w-3 h-3" aria-hidden="true" /> : <Copy className="w-3 h-3" aria-hidden="true" />}
                                                 <span aria-live="polite">{coordsCopied ? 'Copied' : 'Copy coordinates'}</span>
@@ -395,7 +413,7 @@ const LocationDetailsPage = () => {
                         {/* View on Map Button */}
                         <Link
                             to={mapUrl({ site: location.id })}
-                            className="block bg-black text-white p-6 rounded-2xl relative overflow-hidden group"
+                            className="block bg-black text-white p-6 rounded-2xl relative overflow-hidden group print:hidden"
                         >
                             <div className="relative z-10">
                                 <Map className="w-8 h-8 mb-3 text-amber-500" />
@@ -407,12 +425,11 @@ const LocationDetailsPage = () => {
                                     Launch Map
                                 </span>
                             </div>
-                            <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800')] bg-cover bg-center group-hover:scale-110 transition-transform duration-700" />
                         </Link>
 
                         {/* Nearby sites, or the rest of the district when this site has no coordinates */}
                         {related.length > 0 && (
-                            <div>
+                            <div className="print:hidden">
                                 <h3 className="font-bold text-gray-900 mb-4">
                                     {location.coordinates ? 'Sites nearby' : `Other sites in ${location.region}`}
                                 </h3>
@@ -442,6 +459,12 @@ const LocationDetailsPage = () => {
                             </div>
                         )}
                     </div>
+
+                    <footer className="hidden print:block border-t border-gray-300 pt-4 text-sm text-gray-800">
+                        <p className="font-bold">Cite as</p>
+                        <p>{siteCitation(location)}</p>
+                        <p className="mt-2">Licence: {project.licence}.</p>
+                    </footer>
                 </div>
             </div>
         </div>

@@ -3,6 +3,8 @@ import { X, Copy, Download, BookOpen } from 'lucide-react';
 import { useState } from 'react';
 import type { Location } from '../../types';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
+import { datumLabel, siteBibtex, siteCitation } from '../../lib/citation';
+import project from '../../data/project.json';
 
 interface CitationModalProps {
     location: Location;
@@ -14,19 +16,7 @@ export const CitationModal = ({ location, isOpen, onClose }: CitationModalProps)
     const [copied, setCopied] = useState<'apa' | 'bibtex' | null>(null);
     useEscapeKey(onClose, isOpen);
 
-    const today = new Date();
-    const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-    const citations = {
-        apa: `The Himalayas Project. (${today.getFullYear()}). ${location.name} (${location.entry_no}), ${location.region}. Retrieved ${dateStr}, from ${window.location.href}`,
-        bibtex: `@misc{himalayas_${location.id},
-  title = {${location.name} (${location.entry_no}), ${location.region}},
-  author = {{The Himalayas Project}},
-  year = {${today.getFullYear()}},
-  url = {${window.location.href}},
-  note = {Accessed: ${dateStr}}
-}`
-    };
+    const citations = { apa: siteCitation(location), bibtex: siteBibtex(location) };
 
     const handleCopy = async (type: 'apa' | 'bibtex') => {
         await navigator.clipboard.writeText(citations[type]);
@@ -106,6 +96,10 @@ export const CitationModal = ({ location, isOpen, onClose }: CitationModalProps)
                                     {citations.bibtex}
                                 </pre>
                             </div>
+
+                            <p className="text-sm text-gray-600">
+                                Licence: {project.licence}. Coordinates: {datumLabel}.
+                            </p>
 
                             <hr />
 

@@ -4,9 +4,7 @@ import type { PanInfo } from 'framer-motion';
 import { X, MapPin, Building } from 'lucide-react';
 import type { Location } from '../../types';
 import { useNavigate } from 'react-router-dom';
-
-// Default placeholder image for historical sites
-const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=400';
+import { SitePhoto } from './SitePhoto';
 
 interface MobileBottomSheetProps {
     location: Location | null;
@@ -49,11 +47,7 @@ export const MobileBottomSheet = ({ location, onClose, on3DView }: MobileBottomS
             {/* Content */}
             <div className="flex-grow overflow-y-auto p-0 pb-10">
                 <div className="relative h-64 w-full">
-                    <img
-                        src={PLACEHOLDER_IMAGE}
-                        alt=""
-                        className="w-full h-full object-cover"
-                    />
+                    <SitePhoto site={location} />
                     <button
                         onClick={onClose}
                         aria-label="Close"
