@@ -1,8 +1,13 @@
 // Script to insert Khasa Malla data into Supabase
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://frpjuymnrdrtmnwnnigx.supabase.co';
-const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZycGp1eW1ucmRydG1ud25uaWd4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NTcyNjM5OSwiZXhwIjoyMDgxMzAyMzk5fQ.xdWAHsn67ZIebvJl4d6oo2iRV_tZf1SXPLaKpw3m65E';
+// Never hardcode these: the service key bypasses all row-level security.
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!supabaseUrl || !supabaseServiceKey) {
+    console.error('Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY before running this script.');
+    process.exit(1);
+}
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 

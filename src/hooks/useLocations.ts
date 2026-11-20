@@ -2,6 +2,13 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import type { HistoricalSite, Coordinates } from '../types';
 import type { DbHistoricalSite } from '../types/database.types';
+import bundledSites from '../data/sites.json';
+
+// Copy of the dataset shipped with the app (built by scripts/build-sites-json.py),
+// used whenever Supabase is unreachable or empty so the map never loads blank.
+function bundledLocations(): HistoricalSite[] {
+    return (bundledSites as DbHistoricalSite[]).map(transformDbSite).filter(loc => loc.coordinates !== null);
+}
 
 // Parse coordinates string like "29.2717, 82.1568" to Coordinates object
 function parseCoordinates(coordStr: string | null): Coordinates | null {
@@ -81,6 +88,10 @@ export function useLocations(): UseLocationsResult {
         setError(null);
 
         try {
+            if (!supabase) {
+                setLocations(bundledLocations());
+                return;
+            }
             const { data, error: supabaseError } = await supabase
                 .from('historical_sites')
                 .select('*')
@@ -97,13 +108,12 @@ export function useLocations(): UseLocationsResult {
                 setLocations(mappableLocations);
                 console.log(`✓ Loaded ${mappableLocations.length} mappable historical sites (${transformedLocations.length - mappableLocations.length} without coordinates)`);
             } else {
-                console.warn('No historical sites found in Supabase');
-                setLocations([]);
+                console.warn('No historical sites found in Supabase, using bundled data');
+                setLocations(bundledLocations());
             }
         } catch (err) {
-            console.error('Error fetching historical sites:', err);
-            setError(err instanceof Error ? err.message : 'Failed to fetch historical sites');
-            setLocations([]);
+            console.warn('Supabase unavailable, using bundled data:', err);
+            setLocations(bundledLocations());
         } finally {
             setLoading(false);
         }

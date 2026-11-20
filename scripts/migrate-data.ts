@@ -21,8 +21,8 @@ try {
     console.log("Could not load .env file, checking process.env");
 }
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://frpjuymnrdrtmnwnnigx.supabase.co';
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZycGp1eW1ucmRydG1ud25uaWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MjYzOTksImV4cCI6MjA4MTMwMjM5OX0.lhi4lT1YNDTJMRQWb0R429vrXvvL5obbrw88nHx-xCA';
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
     console.error('Missing Supabase credentials in .env file');
